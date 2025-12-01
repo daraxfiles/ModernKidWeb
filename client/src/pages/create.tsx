@@ -180,6 +180,63 @@ const AchievementBadge = ({ unlocked, title, icon: Icon }: { unlocked: boolean; 
   </motion.div>
 );
 
+// Source verification checklist items for each step
+const verificationChecksByStep: Record<number, { id: string; label: string; tip: string }[]> = {
+  1: [
+    { id: "check-source", label: "I checked who created this information", tip: "Look for author names, organization, or credentials" },
+    { id: "check-date", label: "I verified the information is recent/current", tip: "Old info may be outdated or no longer true" },
+    { id: "check-multiple", label: "I found the same info from multiple sources", tip: "If only one source says it, be extra careful" },
+    { id: "check-bias", label: "I considered if the source might be biased", tip: "Everyone has a perspective - what's theirs?" },
+    { id: "check-evidence", label: "I looked for evidence/data to support claims", tip: "Good info has facts, not just opinions" },
+  ],
+  2: [
+    { id: "script-facts", label: "All facts in my script are verified", tip: "Double-check statistics and quotes" },
+    { id: "script-sources", label: "I can name my sources if asked", tip: "Keep track of where info comes from" },
+    { id: "script-balanced", label: "I'm presenting information fairly", tip: "Show different sides when relevant" },
+    { id: "script-original", label: "I'm using my own words, not copying", tip: "Summarize in your voice" },
+  ],
+  3: [
+    { id: "team-research", label: "My team discussed our research sources", tip: "Share what you found with teammates" },
+    { id: "team-factcheck", label: "We assigned someone to fact-check", tip: "Have a team member double-check facts" },
+    { id: "team-sources", label: "We listed all our sources together", tip: "Keep a shared list of references" },
+  ],
+  4: [
+    { id: "produce-accurate", label: "My visuals accurately represent the topic", tip: "Images should match what you're saying" },
+    { id: "produce-permission", label: "I have permission for images/clips I use", tip: "Use royalty-free or your own media" },
+    { id: "produce-quotes", label: "Any quotes or statistics are shown correctly", tip: "Don't misquote or change numbers" },
+    { id: "produce-labels", label: "I'm clearly labeling opinions vs. facts", tip: "Make it clear what's your view vs. proven facts" },
+  ],
+  5: [
+    { id: "edit-misleading", label: "My edits don't make info misleading", tip: "Don't cut clips in ways that change meaning" },
+    { id: "edit-context", label: "I'm keeping things in context", tip: "Show the full picture, not just parts" },
+    { id: "edit-sources", label: "I added source citations where needed", tip: "Give credit for facts and quotes" },
+    { id: "edit-captions", label: "Text/captions are accurate and clear", tip: "Make sure on-screen text is correct" },
+  ],
+  6: [
+    { id: "review-accuracy", label: "I asked a peer to check my facts", tip: "Fresh eyes can catch mistakes" },
+    { id: "review-claims", label: "All major claims have supporting evidence", tip: "Can you prove what you're saying?" },
+    { id: "review-fair", label: "The project represents the topic fairly", tip: "Would experts agree with your presentation?" },
+    { id: "review-sources", label: "My sources are listed and accessible", tip: "Others should be able to verify your info" },
+  ],
+  7: [
+    { id: "share-final", label: "I did a final fact-check before sharing", tip: "Last chance to catch any errors!" },
+    { id: "share-credits", label: "All sources and credits are included", tip: "Acknowledge where info came from" },
+    { id: "share-honest", label: "My project honestly represents my findings", tip: "Be proud of accurate work" },
+    { id: "share-correction", label: "I'm ready to correct errors if found later", tip: "Good creators fix mistakes openly" },
+  ],
+};
+
+// Step-specific context for the verification section
+const stepVerificationContext: Record<number, { title: string; description: string }> = {
+  1: { title: "Research Verification", description: "Before choosing your topic, make sure you can find reliable information about it." },
+  2: { title: "Script Fact-Check", description: "Verify every fact and claim before including it in your script." },
+  3: { title: "Team Source Review", description: "Work together to ensure your research is solid." },
+  4: { title: "Production Accuracy", description: "Make sure your visuals and recordings are truthful." },
+  5: { title: "Editing Integrity", description: "Keep your edits honest and maintain context." },
+  6: { title: "Final Verification", description: "Get feedback on the accuracy of your project." },
+  7: { title: "Sharing Responsibly", description: "Confirm everything is accurate before going public." },
+};
+
 export default function Create() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSaved, setIsSaved] = useState(false);
@@ -237,6 +294,26 @@ export default function Create() {
   const [newMemberRole, setNewMemberRole] = useState("");
   const [newTask, setNewTask] = useState("");
   const [selectedTypeAnimation, setSelectedTypeAnimation] = useState<string | null>(null);
+
+  // Source verification checklist state - tracks checks for each step
+  const [sourceVerification, setSourceVerification] = useState<Record<number, Record<string, boolean>>>({
+    1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {}, 7: {}
+  });
+
+  const toggleVerificationCheck = (step: number, checkId: string) => {
+    setSourceVerification(prev => ({
+      ...prev,
+      [step]: {
+        ...prev[step],
+        [checkId]: !prev[step]?.[checkId]
+      }
+    }));
+  };
+
+  const getVerificationProgress = (step: number, totalChecks: number) => {
+    const completed = Object.values(sourceVerification[step] || {}).filter(Boolean).length;
+    return { completed, total: totalChecks, percentage: totalChecks > 0 ? (completed / totalChecks) * 100 : 0 };
+  };
 
   const completedSteps = new Set<number>();
   if (project.projectType && project.topic && project.audience && project.purpose) completedSteps.add(1);
@@ -656,6 +733,81 @@ export default function Create() {
                           ))}
                         </div>
                       </div>
+
+                      <div className="pt-4 border-t">
+                        <div className="flex items-center justify-between mb-3">
+                          <h5 className="font-semibold flex items-center gap-2">
+                            <UserCheck className="h-4 w-4 text-primary" />
+                            Source Verification Checklist
+                          </h5>
+                          <Badge 
+                            variant={getVerificationProgress(1, verificationChecksByStep[1].length).percentage === 100 ? "default" : "secondary"}
+                            className="gap-1"
+                          >
+                            <Shield className="h-3 w-3" />
+                            {getVerificationProgress(1, verificationChecksByStep[1].length).completed}/{verificationChecksByStep[1].length} verified
+                          </Badge>
+                        </div>
+                        <p className="text-sm text-muted-foreground mb-3">
+                          Check each box as you verify your sources. This helps ensure your project is based on accurate information.
+                        </p>
+                        <div className="space-y-2">
+                          {verificationChecksByStep[1].map((check) => (
+                            <motion.div
+                              key={check.id}
+                              whileTap={{ scale: 0.98 }}
+                              className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                                sourceVerification[1]?.[check.id]
+                                  ? "bg-chart-5/10 border border-chart-5/20"
+                                  : "bg-secondary/30 hover-elevate"
+                              }`}
+                              onClick={() => toggleVerificationCheck(1, check.id)}
+                              data-testid={`verify-check-1-${check.id}`}
+                            >
+                              <Checkbox
+                                checked={sourceVerification[1]?.[check.id] || false}
+                                onCheckedChange={() => toggleVerificationCheck(1, check.id)}
+                                className="mt-0.5"
+                                data-testid={`checkbox-verify-1-${check.id}`}
+                              />
+                              <div className="flex-1 min-w-0">
+                                <p className={`font-medium text-sm ${sourceVerification[1]?.[check.id] ? "text-chart-5" : ""}`}>
+                                  {check.label}
+                                </p>
+                                <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                                  <HelpCircle className="h-3 w-3 shrink-0" />
+                                  {check.tip}
+                                </p>
+                              </div>
+                              {sourceVerification[1]?.[check.id] && (
+                                <motion.div
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  className="shrink-0"
+                                >
+                                  <CheckCircle className="h-5 w-5 text-chart-5" />
+                                </motion.div>
+                              )}
+                            </motion.div>
+                          ))}
+                        </div>
+                        {getVerificationProgress(1, verificationChecksByStep[1].length).percentage === 100 && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                          >
+                            <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                              <Shield className="h-5 w-5" />
+                              All sources verified!
+                              <Sparkles className="h-4 w-4" />
+                            </div>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Great job checking your facts before starting!
+                            </p>
+                          </motion.div>
+                        )}
+                      </div>
                     </CardContent>
                   </Card>
                 </CollapsibleContent>
@@ -816,6 +968,76 @@ In summary..."
                 </CollapsibleContent>
               </Card>
             </Collapsible>
+
+            <Card className="border-accent/20">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-accent" />
+                    {stepVerificationContext[2].title}
+                  </div>
+                  <Badge 
+                    variant={getVerificationProgress(2, verificationChecksByStep[2].length).percentage === 100 ? "default" : "secondary"}
+                    className="gap-1"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {getVerificationProgress(2, verificationChecksByStep[2].length).completed}/{verificationChecksByStep[2].length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">{stepVerificationContext[2].description}</p>
+                <div className="space-y-2">
+                  {verificationChecksByStep[2].map((check) => (
+                    <motion.div
+                      key={check.id}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        sourceVerification[2]?.[check.id]
+                          ? "bg-chart-5/10 border border-chart-5/20"
+                          : "bg-secondary/30 hover-elevate"
+                      }`}
+                      onClick={() => toggleVerificationCheck(2, check.id)}
+                      data-testid={`verify-check-2-${check.id}`}
+                    >
+                      <Checkbox
+                        checked={sourceVerification[2]?.[check.id] || false}
+                        onCheckedChange={() => toggleVerificationCheck(2, check.id)}
+                        className="mt-0.5"
+                        data-testid={`checkbox-verify-2-${check.id}`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm ${sourceVerification[2]?.[check.id] ? "text-chart-5" : ""}`}>
+                          {check.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                          <HelpCircle className="h-3 w-3 shrink-0" />
+                          {check.tip}
+                        </p>
+                      </div>
+                      {sourceVerification[2]?.[check.id] && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="shrink-0">
+                          <CheckCircle className="h-5 w-5 text-chart-5" />
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {getVerificationProgress(2, verificationChecksByStep[2].length).percentage === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                      <Shield className="h-5 w-5" />
+                      Script fact-checked!
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
           </motion.div>
         );
 
@@ -1005,6 +1227,76 @@ In summary..."
                 </ul>
               </CardContent>
             </Card>
+
+            <Card className="border-chart-3/20">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-chart-3" />
+                    {stepVerificationContext[3].title}
+                  </div>
+                  <Badge 
+                    variant={getVerificationProgress(3, verificationChecksByStep[3].length).percentage === 100 ? "default" : "secondary"}
+                    className="gap-1"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {getVerificationProgress(3, verificationChecksByStep[3].length).completed}/{verificationChecksByStep[3].length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">{stepVerificationContext[3].description}</p>
+                <div className="space-y-2">
+                  {verificationChecksByStep[3].map((check) => (
+                    <motion.div
+                      key={check.id}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        sourceVerification[3]?.[check.id]
+                          ? "bg-chart-5/10 border border-chart-5/20"
+                          : "bg-secondary/30 hover-elevate"
+                      }`}
+                      onClick={() => toggleVerificationCheck(3, check.id)}
+                      data-testid={`verify-check-3-${check.id}`}
+                    >
+                      <Checkbox
+                        checked={sourceVerification[3]?.[check.id] || false}
+                        onCheckedChange={() => toggleVerificationCheck(3, check.id)}
+                        className="mt-0.5"
+                        data-testid={`checkbox-verify-3-${check.id}`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm ${sourceVerification[3]?.[check.id] ? "text-chart-5" : ""}`}>
+                          {check.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                          <HelpCircle className="h-3 w-3 shrink-0" />
+                          {check.tip}
+                        </p>
+                      </div>
+                      {sourceVerification[3]?.[check.id] && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="shrink-0">
+                          <CheckCircle className="h-5 w-5 text-chart-5" />
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {getVerificationProgress(3, verificationChecksByStep[3].length).percentage === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                      <Shield className="h-5 w-5" />
+                      Team sources reviewed!
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
           </motion.div>
         );
 
@@ -1110,6 +1402,76 @@ In summary..."
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="border-chart-4/20">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-chart-4" />
+                    {stepVerificationContext[4].title}
+                  </div>
+                  <Badge 
+                    variant={getVerificationProgress(4, verificationChecksByStep[4].length).percentage === 100 ? "default" : "secondary"}
+                    className="gap-1"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {getVerificationProgress(4, verificationChecksByStep[4].length).completed}/{verificationChecksByStep[4].length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">{stepVerificationContext[4].description}</p>
+                <div className="space-y-2">
+                  {verificationChecksByStep[4].map((check) => (
+                    <motion.div
+                      key={check.id}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        sourceVerification[4]?.[check.id]
+                          ? "bg-chart-5/10 border border-chart-5/20"
+                          : "bg-secondary/30 hover-elevate"
+                      }`}
+                      onClick={() => toggleVerificationCheck(4, check.id)}
+                      data-testid={`verify-check-4-${check.id}`}
+                    >
+                      <Checkbox
+                        checked={sourceVerification[4]?.[check.id] || false}
+                        onCheckedChange={() => toggleVerificationCheck(4, check.id)}
+                        className="mt-0.5"
+                        data-testid={`checkbox-verify-4-${check.id}`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm ${sourceVerification[4]?.[check.id] ? "text-chart-5" : ""}`}>
+                          {check.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                          <HelpCircle className="h-3 w-3 shrink-0" />
+                          {check.tip}
+                        </p>
+                      </div>
+                      {sourceVerification[4]?.[check.id] && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="shrink-0">
+                          <CheckCircle className="h-5 w-5 text-chart-5" />
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {getVerificationProgress(4, verificationChecksByStep[4].length).percentage === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                      <Shield className="h-5 w-5" />
+                      Production verified!
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
           </motion.div>
         );
 
@@ -1205,6 +1567,76 @@ In summary..."
               />
               <CharacterCounter current={project.editingNotes?.length || 0} max={500} label="chars" />
             </div>
+
+            <Card className="border-chart-5/20">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-chart-5" />
+                    {stepVerificationContext[5].title}
+                  </div>
+                  <Badge 
+                    variant={getVerificationProgress(5, verificationChecksByStep[5].length).percentage === 100 ? "default" : "secondary"}
+                    className="gap-1"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {getVerificationProgress(5, verificationChecksByStep[5].length).completed}/{verificationChecksByStep[5].length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">{stepVerificationContext[5].description}</p>
+                <div className="space-y-2">
+                  {verificationChecksByStep[5].map((check) => (
+                    <motion.div
+                      key={check.id}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        sourceVerification[5]?.[check.id]
+                          ? "bg-chart-5/10 border border-chart-5/20"
+                          : "bg-secondary/30 hover-elevate"
+                      }`}
+                      onClick={() => toggleVerificationCheck(5, check.id)}
+                      data-testid={`verify-check-5-${check.id}`}
+                    >
+                      <Checkbox
+                        checked={sourceVerification[5]?.[check.id] || false}
+                        onCheckedChange={() => toggleVerificationCheck(5, check.id)}
+                        className="mt-0.5"
+                        data-testid={`checkbox-verify-5-${check.id}`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm ${sourceVerification[5]?.[check.id] ? "text-chart-5" : ""}`}>
+                          {check.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                          <HelpCircle className="h-3 w-3 shrink-0" />
+                          {check.tip}
+                        </p>
+                      </div>
+                      {sourceVerification[5]?.[check.id] && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="shrink-0">
+                          <CheckCircle className="h-5 w-5 text-chart-5" />
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {getVerificationProgress(5, verificationChecksByStep[5].length).percentage === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                      <Shield className="h-5 w-5" />
+                      Editing verified!
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
           </motion.div>
         );
 
@@ -1344,6 +1776,76 @@ In summary..."
                 </div>
               </CardContent>
             </Card>
+
+            <Card className="border-primary/20">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-primary" />
+                    {stepVerificationContext[6].title}
+                  </div>
+                  <Badge 
+                    variant={getVerificationProgress(6, verificationChecksByStep[6].length).percentage === 100 ? "default" : "secondary"}
+                    className="gap-1"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {getVerificationProgress(6, verificationChecksByStep[6].length).completed}/{verificationChecksByStep[6].length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">{stepVerificationContext[6].description}</p>
+                <div className="space-y-2">
+                  {verificationChecksByStep[6].map((check) => (
+                    <motion.div
+                      key={check.id}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        sourceVerification[6]?.[check.id]
+                          ? "bg-chart-5/10 border border-chart-5/20"
+                          : "bg-secondary/30 hover-elevate"
+                      }`}
+                      onClick={() => toggleVerificationCheck(6, check.id)}
+                      data-testid={`verify-check-6-${check.id}`}
+                    >
+                      <Checkbox
+                        checked={sourceVerification[6]?.[check.id] || false}
+                        onCheckedChange={() => toggleVerificationCheck(6, check.id)}
+                        className="mt-0.5"
+                        data-testid={`checkbox-verify-6-${check.id}`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm ${sourceVerification[6]?.[check.id] ? "text-chart-5" : ""}`}>
+                          {check.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                          <HelpCircle className="h-3 w-3 shrink-0" />
+                          {check.tip}
+                        </p>
+                      </div>
+                      {sourceVerification[6]?.[check.id] && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="shrink-0">
+                          <CheckCircle className="h-5 w-5 text-chart-5" />
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {getVerificationProgress(6, verificationChecksByStep[6].length).percentage === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                      <Shield className="h-5 w-5" />
+                      Final review complete!
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
           </motion.div>
         );
 
@@ -1474,6 +1976,76 @@ In summary..."
                 )}
               </Button>
             </motion.div>
+
+            <Card className="border-accent/20">
+              <CardHeader>
+                <CardTitle className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Shield className="h-5 w-5 text-accent" />
+                    {stepVerificationContext[7].title}
+                  </div>
+                  <Badge 
+                    variant={getVerificationProgress(7, verificationChecksByStep[7].length).percentage === 100 ? "default" : "secondary"}
+                    className="gap-1"
+                  >
+                    <CheckCircle className="h-3 w-3" />
+                    {getVerificationProgress(7, verificationChecksByStep[7].length).completed}/{verificationChecksByStep[7].length}
+                  </Badge>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">{stepVerificationContext[7].description}</p>
+                <div className="space-y-2">
+                  {verificationChecksByStep[7].map((check) => (
+                    <motion.div
+                      key={check.id}
+                      whileTap={{ scale: 0.98 }}
+                      className={`flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-all ${
+                        sourceVerification[7]?.[check.id]
+                          ? "bg-chart-5/10 border border-chart-5/20"
+                          : "bg-secondary/30 hover-elevate"
+                      }`}
+                      onClick={() => toggleVerificationCheck(7, check.id)}
+                      data-testid={`verify-check-7-${check.id}`}
+                    >
+                      <Checkbox
+                        checked={sourceVerification[7]?.[check.id] || false}
+                        onCheckedChange={() => toggleVerificationCheck(7, check.id)}
+                        className="mt-0.5"
+                        data-testid={`checkbox-verify-7-${check.id}`}
+                      />
+                      <div className="flex-1 min-w-0">
+                        <p className={`font-medium text-sm ${sourceVerification[7]?.[check.id] ? "text-chart-5" : ""}`}>
+                          {check.label}
+                        </p>
+                        <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
+                          <HelpCircle className="h-3 w-3 shrink-0" />
+                          {check.tip}
+                        </p>
+                      </div>
+                      {sourceVerification[7]?.[check.id] && (
+                        <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} className="shrink-0">
+                          <CheckCircle className="h-5 w-5 text-chart-5" />
+                        </motion.div>
+                      )}
+                    </motion.div>
+                  ))}
+                </div>
+                {getVerificationProgress(7, verificationChecksByStep[7].length).percentage === 100 && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mt-4 p-3 rounded-lg bg-chart-5/10 border border-chart-5/20 text-center"
+                  >
+                    <div className="flex items-center justify-center gap-2 text-chart-5 font-medium">
+                      <Shield className="h-5 w-5" />
+                      Ready to share responsibly!
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </motion.div>
+                )}
+              </CardContent>
+            </Card>
           </motion.div>
         );
 
