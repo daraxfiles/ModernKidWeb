@@ -69,19 +69,24 @@ export function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Contact</h4>
-            <p className="text-sm text-muted-foreground mb-3">
-              Have questions about the program? Use our contact form to reach out.
-            </p>
-            <Link href="/faq#contact" className="text-sm text-primary hover:underline">
-              Contact Us
-            </Link>
+            <h4 className="font-semibold mb-4">Get Started</h4>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/create" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Start Your Project
+                </Link>
+              </li>
+              <li>
+                <Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Get Help
+                </Link>
+              </li>
+            </ul>
           </div>
         </div>
 
         <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>Clemson University - Department of Education and Human Development</p>
-          <p className="mt-1">Glenview Middle School, Anderson</p>
+          <p>Creative Media Production Bootcamp</p>
         </div>
       </div>
     </footer>
