@@ -331,7 +331,7 @@ export const faqs = [
   },
   {
     question: "Where is the camp held?",
-    answer: "The camp takes place at Glenview Middle School in Anderson."
+    answer: "The camp takes place at a local middle school. Contact us for specific location details."
   },
   {
     question: "Who runs this program?",

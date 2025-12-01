@@ -286,8 +286,8 @@ export default function FAQ() {
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="font-medium">Glenview Middle School</p>
-                    <p className="text-muted-foreground">Anderson, SC</p>
+                    <p className="font-medium">Local Middle School</p>
+                    <p className="text-muted-foreground">Contact us for details</p>
                     <p className="text-sm text-muted-foreground mt-2">
                       Sessions are held afterschool, twice per week for approximately 1 hour each.
                     </p>

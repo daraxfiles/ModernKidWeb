@@ -279,7 +279,7 @@ export default function About() {
                     <div>
                       <p className="font-medium">Location</p>
                       <p className="text-sm text-muted-foreground">
-                        Glenview Middle School, Anderson
+                        Local Middle School
                       </p>
                     </div>
                   </div>

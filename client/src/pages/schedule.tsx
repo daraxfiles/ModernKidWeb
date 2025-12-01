@@ -185,7 +185,7 @@ export default function Schedule() {
                     Sessions meet <strong>twice per week</strong> for approximately{" "}
                     <strong>1 hour each</strong>. The bootcamp runs for{" "}
                     <strong>6 weeks</strong>, totaling 12 sessions. All sessions take
-                    place afterschool at Glenview Middle School, Anderson.
+                    place afterschool.
                   </p>
                 </div>
               </div>
