@@ -15,10 +15,8 @@ import {
   ArrowRight,
   CheckCircle,
   Play,
-  Mail,
-  Phone,
 } from "lucide-react";
-import { researchers, dailySchedule } from "@shared/schema";
+import { dailySchedule } from "@shared/schema";
 
 export default function Home() {
   const weekGroups = dailySchedule.reduce((acc, day) => {
@@ -266,56 +264,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4">Meet the Researchers</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Clemson University faculty leading this research study
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-            {researchers.map((researcher, i) => (
-              <Card key={i} className="hover-elevate" data-testid={`card-researcher-${i}`}>
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                      <GraduationCap className="h-8 w-8 text-primary" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-lg">{researcher.name}</h3>
-                      <p className="text-sm text-primary">{researcher.title}</p>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {researcher.department}
-                      </p>
-                      <div className="mt-3 space-y-1">
-                        <a
-                          href={`mailto:${researcher.email}`}
-                          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                          <Mail className="h-4 w-4" />
-                          {researcher.email}
-                        </a>
-                        <a
-                          href={`tel:${researcher.phone}`}
-                          className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                        >
-                          <Phone className="h-4 w-4" />
-                          {researcher.phone}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <p className="text-center text-sm text-muted-foreground mt-6">
-            Research assistants: Dani, Dara, Joba, Tolu, and Cinamon
-          </p>
         </div>
       </section>
 

@@ -109,7 +109,4 @@ This starts both the Express backend and Vite frontend on port 5000.
 ## Research Context
 This is a Clemson University research study examining how creative media production helps middle schoolers identify and address misinformation. The bootcamp runs for 6 weeks (12 sessions, ~1 hour each) at Glenview Middle School, Anderson.
 
-Research Team:
-- Dr. Danielle Herro (dherro@clemson.edu)
-- 'dara Abimbade (oabimba@clemson.edu)
-- Research assistants: Dani, Dara, Joba, Tolu, Cinamon
+Organized by the Department of Education and Human Development at Clemson University.

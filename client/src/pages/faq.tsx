@@ -29,7 +29,7 @@ import {
   Loader2,
   AlertCircle,
 } from "lucide-react";
-import { faqs, researchers } from "@shared/schema";
+import { faqs } from "@shared/schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { insertContactSchema, type InsertContact } from "@shared/schema";
@@ -264,41 +264,17 @@ export default function FAQ() {
               </Card>
 
               <div className="space-y-6">
-                <Card data-testid="card-researchers">
+                <Card data-testid="card-program">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
                       <GraduationCap className="h-5 w-5 text-primary" />
-                      Research Team
+                      About This Program
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    {researchers.map((researcher, i) => (
-                      <div key={i} className="space-y-2">
-                        <div>
-                          <h4 className="font-semibold">{researcher.name}</h4>
-                          <p className="text-sm text-primary">{researcher.title}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {researcher.department}
-                          </p>
-                        </div>
-                        <div className="space-y-1">
-                          <a
-                            href={`mailto:${researcher.email}`}
-                            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            <Mail className="h-4 w-4" />
-                            {researcher.email}
-                          </a>
-                          <a
-                            href={`tel:${researcher.phone}`}
-                            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-                          >
-                            <Phone className="h-4 w-4" />
-                            {researcher.phone}
-                          </a>
-                        </div>
-                      </div>
-                    ))}
+                  <CardContent>
+                    <p className="text-muted-foreground">
+                      This program is run by the Department of Education and Human Development at Clemson University. It's designed to help middle schoolers develop media literacy skills and learn to create compelling content.
+                    </p>
                   </CardContent>
                 </Card>
 

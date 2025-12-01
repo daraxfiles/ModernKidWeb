@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { GraduationCap, Mail, Phone } from "lucide-react";
+import { GraduationCap } from "lucide-react";
 
 export function Footer() {
   return (
@@ -70,23 +70,12 @@ export function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4">Contact</h4>
-            <ul className="space-y-3 text-sm">
-              <li className="flex items-start gap-2">
-                <Mail className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <div>
-                  <p className="text-muted-foreground">Dr. Danielle Herro</p>
-                  <a href="mailto:dherro@clemson.edu" className="text-primary hover:underline">
-                    dherro@clemson.edu
-                  </a>
-                </div>
-              </li>
-              <li className="flex items-start gap-2">
-                <Phone className="h-4 w-4 mt-0.5 text-muted-foreground" />
-                <a href="tel:262-337-0205" className="text-muted-foreground hover:text-foreground transition-colors">
-                  262-337-0205
-                </a>
-              </li>
-            </ul>
+            <p className="text-sm text-muted-foreground mb-3">
+              Have questions about the program? Use our contact form to reach out.
+            </p>
+            <Link href="/faq#contact" className="text-sm text-primary hover:underline">
+              Contact Us
+            </Link>
           </div>
         </div>
 

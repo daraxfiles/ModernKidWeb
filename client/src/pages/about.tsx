@@ -22,10 +22,7 @@ import {
   ArrowRight,
   CheckCircle,
   BookOpen,
-  Mail,
-  Phone,
 } from "lucide-react";
-import { researchers } from "@shared/schema";
 
 export default function About() {
   return (
@@ -287,29 +284,10 @@ export default function About() {
                     </div>
                   </div>
                   <div className="border-t pt-4">
-                    <p className="text-sm font-medium mb-3">Research Team</p>
-                    {researchers.map((r, i) => (
-                      <div key={i} className="mb-3 last:mb-0">
-                        <p className="text-sm font-medium">{r.name}</p>
-                        <p className="text-xs text-muted-foreground">{r.title}</p>
-                        <div className="mt-1 space-y-0.5">
-                          <a
-                            href={`mailto:${r.email}`}
-                            className="flex items-center gap-1.5 text-xs text-primary hover:underline"
-                          >
-                            <Mail className="h-3 w-3" />
-                            {r.email}
-                          </a>
-                          <a
-                            href={`tel:${r.phone}`}
-                            className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground"
-                          >
-                            <Phone className="h-3 w-3" />
-                            {r.phone}
-                          </a>
-                        </div>
-                      </div>
-                    ))}
+                    <p className="text-sm font-medium mb-2">Organized by</p>
+                    <p className="text-sm text-muted-foreground">
+                      Department of Education and Human Development, Clemson University
+                    </p>
                   </div>
                 </CardContent>
               </Card>

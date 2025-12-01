@@ -334,33 +334,12 @@ export const faqs = [
     answer: "The camp takes place at Glenview Middle School in Anderson."
   },
   {
-    question: "Who are the researchers?",
-    answer: "The research team includes Dr. Danielle Herro and 'dara Abimbade from Clemson University, along with research assistants Dani, Dara, Joba, Tolu, and Cinamon."
+    question: "Who runs this program?",
+    answer: "This program is run by the Department of Education and Human Development at Clemson University."
   }
 ] as const;
 
 export type FAQ = typeof faqs[number];
-
-export const researchers = [
-  {
-    name: "Dr. Danielle Herro",
-    title: "Professor / Digital Media and Learning",
-    department: "Department of Education and Human Development",
-    university: "Clemson University",
-    email: "dherro@clemson.edu",
-    phone: "262-337-0205"
-  },
-  {
-    name: "'dara Abimbade",
-    title: "Ph.D. Candidate",
-    department: "Department of Education and Human Development",
-    university: "Clemson University",
-    email: "oabimba@clemson.edu",
-    phone: "864-349-9989"
-  }
-] as const;
-
-export type Researcher = typeof researchers[number];
 
 export const users = {} as any;
 export const insertUserSchema = {} as any;
