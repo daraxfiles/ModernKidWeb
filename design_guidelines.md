@@ -44,7 +44,7 @@
 ## Component Library
 
 ### Navigation
-- Sticky header with logo (Clemson University branding), horizontal nav links
+- Sticky header with logo, horizontal nav links
 - Prominent "Register" CTA button (top-right)
 - Mobile: Hamburger menu with slide-out drawer
 - Include "Participant Info" and "Contact Researchers" links
@@ -53,7 +53,7 @@
 - **Large hero image**: Students collaborating on media project in classroom/lab setting (authentic, diverse middle schoolers)
 - Overlaid heading + 2-sentence description with blurred-background buttons
 - Dual CTAs: "Learn About the Study" and "View Daily Schedule"
-- Stats bar below hero: "12 Days | Grades 6-8 | Clemson Research"
+- Stats bar below hero: "12 Days | Grades 6-8 | Media Literacy"
 
 ### Daily Schedule Component
 - Accordion-style expandable days (Day 1 through Day 12)
@@ -101,7 +101,7 @@
 ### About the Bootcamp
 - Two-column split: Left (program details), Right (key facts sidebar with study duration, location, researcher info)
 - Accordion for "What Students Gain" and "What Parents Should Know"
-- Clemson University branding prominent
+- Program branding prominent
 
 ### Learning Modules (Weeks Breakdown)
 - Week cards arranged horizontally, each showing focus area and key activities

@@ -31,7 +31,7 @@ export default function About() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-4">
-              Clemson University Research Study
+              Media Literacy Program
             </Badge>
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
               About the Creative Media Bootcamp
@@ -46,7 +46,7 @@ export default function About() {
               <section>
                 <h2 className="text-2xl font-bold mb-4">What Is This Study?</h2>
                 <p className="text-muted-foreground mb-4">
-                  Researchers at Clemson University are looking for 15-20 middle schoolers aged 12-15 years (grades 6-8) to participate in a study examining how creative media production might assist students in determining ways to use credible information.
+                  We're looking for 15-20 middle schoolers aged 12-15 years (grades 6-8) to participate in an exciting program examining how creative media production can help students learn to use credible information.
                 </p>
                 <p className="text-muted-foreground">
                   This afterschool camp encourages adolescents to collaboratively design and produce media about issues they care about - to help make their voices heard and solve immediate local and societal problems. We are also interested in learning how they address misinformation they encounter during their media creation.
@@ -213,7 +213,7 @@ export default function About() {
                       <ul className="space-y-3 ml-7">
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-4 w-4 text-accent mt-0.5 shrink-0" />
-                          <span>This is a Clemson University research study with IRB approval</span>
+                          <span>This is an approved educational research program</span>
                         </li>
                         <li className="flex items-start gap-2">
                           <CheckCircle className="h-4 w-4 text-accent mt-0.5 shrink-0" />
@@ -286,7 +286,7 @@ export default function About() {
                   <div className="border-t pt-4">
                     <p className="text-sm font-medium mb-2">Organized by</p>
                     <p className="text-sm text-muted-foreground">
-                      Department of Education and Human Development, Clemson University
+                      Department of Education and Human Development
                     </p>
                   </div>
                 </CardContent>

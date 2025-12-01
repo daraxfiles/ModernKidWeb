@@ -32,7 +32,7 @@ export default function Home() {
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
             <Badge variant="secondary" className="mb-4" data-testid="badge-research">
-              Clemson University Research Study
+              Media Literacy Program
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
               Creative Media Production{" "}

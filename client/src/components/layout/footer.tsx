@@ -17,7 +17,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
-              A Clemson University research study promoting creative media production and media literacy for middle schoolers.
+              A program promoting creative media production and media literacy for middle schoolers.
             </p>
           </div>
 

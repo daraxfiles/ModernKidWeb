@@ -323,7 +323,7 @@ export const faqs = [
   },
   {
     question: "Is this a research study?",
-    answer: "Yes! This is a Clemson University research study examining how creative media production helps students identify and address misinformation."
+    answer: "Yes! This is an educational program examining how creative media production helps students identify and address misinformation."
   },
   {
     question: "What grades can participate?",
@@ -335,7 +335,7 @@ export const faqs = [
   },
   {
     question: "Who runs this program?",
-    answer: "This program is run by the Department of Education and Human Development at Clemson University."
+    answer: "This program is run by the Department of Education and Human Development."
   }
 ] as const;
 

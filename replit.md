@@ -1,7 +1,7 @@
 # Creative Media Production Bootcamp
 
 ## Overview
-A web application for Clemson University's Creative Media Production Bootcamp research study. This 12-day program teaches middle schoolers (grades 6-8, ages 12-15) about media literacy, misinformation detection, and creative media production.
+A web application for a Creative Media Production Bootcamp. This 12-day program teaches middle schoolers (grades 6-8, ages 12-15) about media literacy, misinformation detection, and creative media production.
 
 ## Project Structure
 
@@ -107,6 +107,6 @@ This starts both the Express backend and Vite frontend on port 5000.
 - Zod for validation
 
 ## Research Context
-This is a Clemson University research study examining how creative media production helps middle schoolers identify and address misinformation. The bootcamp runs for 6 weeks (12 sessions, ~1 hour each) at Glenview Middle School, Anderson.
+This is an educational program examining how creative media production helps middle schoolers identify and address misinformation. The bootcamp runs for 6 weeks (12 sessions, ~1 hour each).
 
-Organized by the Department of Education and Human Development at Clemson University.
+Organized by the Department of Education and Human Development.

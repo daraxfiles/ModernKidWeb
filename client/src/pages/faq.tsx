@@ -273,7 +273,7 @@ export default function FAQ() {
                   </CardHeader>
                   <CardContent>
                     <p className="text-muted-foreground">
-                      This program is run by the Department of Education and Human Development at Clemson University. It's designed to help middle schoolers develop media literacy skills and learn to create compelling content.
+                      This program is designed to help middle schoolers develop media literacy skills and learn to create compelling content.
                     </p>
                   </CardContent>
                 </Card>
