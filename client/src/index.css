@@ -175,6 +175,130 @@
   }
 }
 
+/* Decorative patterns and backgrounds */
+.bg-grid-pattern {
+  background-image: 
+    linear-gradient(to right, hsl(var(--primary) / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--primary) / 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-dots-pattern {
+  background-image: radial-gradient(circle, hsl(var(--primary) / 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Colorful gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Animated gradient border */
+.gradient-border {
+  position: relative;
+  background: hsl(var(--card));
+  border-radius: var(--radius);
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: calc(var(--radius) + 2px);
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--chart-3)), hsl(var(--chart-4)));
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* Colorful card accent tops */
+.card-accent-primary {
+  border-top: 3px solid hsl(var(--primary));
+}
+
+.card-accent-accent {
+  border-top: 3px solid hsl(var(--accent));
+}
+
+.card-accent-yellow {
+  border-top: 3px solid hsl(var(--chart-3));
+}
+
+.card-accent-pink {
+  border-top: 3px solid hsl(var(--chart-4));
+}
+
+.card-accent-green {
+  border-top: 3px solid hsl(var(--chart-5));
+}
+
+/* Rainbow gradient line */
+.rainbow-line {
+  height: 4px;
+  background: linear-gradient(90deg, 
+    hsl(var(--primary)) 0%, 
+    hsl(var(--accent)) 25%, 
+    hsl(var(--chart-3)) 50%, 
+    hsl(var(--chart-4)) 75%, 
+    hsl(var(--chart-5)) 100%
+  );
+  border-radius: 2px;
+}
+
+/* Reduced motion support - disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-delayed,
+  .animate-subtle-pulse {
+    animation: none !important;
+  }
+}
+
+/* Gradient backgrounds for sections */
+.section-gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.05) 0%, hsl(var(--accent) / 0.05) 100%);
+}
+
+.section-gradient-warm {
+  background: linear-gradient(135deg, hsl(var(--chart-3) / 0.08) 0%, hsl(var(--chart-4) / 0.08) 100%);
+}
+
+.dark .section-gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.1) 0%, hsl(var(--accent) / 0.1) 100%);
+}
+
+.dark .section-gradient-warm {
+  background: linear-gradient(135deg, hsl(var(--chart-3) / 0.15) 0%, hsl(var(--chart-4) / 0.15) 100%);
+}
+
+/* Icon container with gradient background */
+.icon-container-primary {
+  background: linear-gradient(135deg, hsl(var(--primary) / 0.15) 0%, hsl(var(--primary) / 0.25) 100%);
+}
+
+.icon-container-accent {
+  background: linear-gradient(135deg, hsl(var(--accent) / 0.15) 0%, hsl(var(--accent) / 0.25) 100%);
+}
+
+.icon-container-yellow {
+  background: linear-gradient(135deg, hsl(var(--chart-3) / 0.15) 0%, hsl(var(--chart-3) / 0.25) 100%);
+}
+
+.icon-container-pink {
+  background: linear-gradient(135deg, hsl(var(--chart-4) / 0.15) 0%, hsl(var(--chart-4) / 0.25) 100%);
+}
+
+.icon-container-green {
+  background: linear-gradient(135deg, hsl(var(--chart-5) / 0.15) 0%, hsl(var(--chart-5) / 0.25) 100%);
+}
+
 /**
  * Using the elevate system.
  * Automatic contrast adjustment.

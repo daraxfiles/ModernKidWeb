@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, GraduationCap } from "lucide-react";
+import { Menu, X, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetDescription } from "@/components/ui/sheet";
@@ -23,14 +23,15 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-chart-3" />
       <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-            <GraduationCap className="h-5 w-5 text-primary-foreground" />
+        <Link href="/" className="flex items-center gap-2 group">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-md group-hover:shadow-lg transition-shadow">
+            <Sparkles className="h-5 w-5 text-white" />
           </div>
           <div className="hidden sm:block">
-            <span className="font-semibold text-foreground">Creative Media</span>
-            <span className="ml-1 text-muted-foreground">Bootcamp</span>
+            <span className="font-bold text-foreground">Creative Media</span>
+            <span className="ml-1 text-primary font-medium">Bootcamp</span>
           </div>
         </Link>
 
@@ -82,7 +83,7 @@ export function Header() {
                 <div className="border-t my-4" />
                 <Link href="/faq#contact" onClick={() => setOpen(false)}>
                   <Button className="w-full" data-testid="button-mobile-contact">
-                    Contact Researchers
+                    Contact Us
                   </Button>
                 </Link>
               </nav>

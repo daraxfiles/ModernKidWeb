@@ -1,19 +1,20 @@
 import { Link } from "wouter";
-import { GraduationCap } from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export function Footer() {
   return (
     <footer className="border-t bg-card">
+      <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-chart-3" />
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-                <GraduationCap className="h-5 w-5 text-primary-foreground" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-md">
+                <Sparkles className="h-5 w-5 text-white" />
               </div>
               <div>
-                <span className="font-semibold">Creative Media</span>
-                <span className="ml-1 text-muted-foreground">Bootcamp</span>
+                <span className="font-bold">Creative Media</span>
+                <span className="ml-1 text-primary font-medium">Bootcamp</span>
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
@@ -26,7 +27,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About the Study
+                  About the Program
                 </Link>
               </li>
               <li>
