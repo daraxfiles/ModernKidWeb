@@ -81,7 +81,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 section-gradient-primary">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-4">
@@ -231,7 +231,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 md:py-24 section-gradient-warm">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <Badge variant="outline" className="mb-4">
