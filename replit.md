@@ -1,7 +1,7 @@
 # Creative Media Production Bootcamp
 
 ## Overview
-A web application for a Creative Media Production Bootcamp. This 12-day program teaches middle schoolers (grades 6-8, ages 12-15) about media literacy, misinformation detection, and creative media production.
+A web application for a Creative Media Production Bootcamp. This 6-week program (12 sessions, 2x per week) teaches middle schoolers (grades 6-8, ages 12-15) about media literacy, misinformation detection, and creative media production.
 
 ## Project Structure
 
@@ -16,7 +16,7 @@ A web application for a Creative Media Production Bootcamp. This 12-day program 
 │   │   ├── pages/            # Page components
 │   │   │   ├── home.tsx      # Homepage with hero section
 │   │   │   ├── about.tsx     # About the bootcamp
-│   │   │   ├── schedule.tsx  # 12-day daily schedule
+│   │   │   ├── schedule.tsx  # 6-week program schedule
 │   │   │   ├── modules.tsx   # Learning modules by week
 │   │   │   ├── create.tsx    # 7-step project creation wizard
 │   │   │   ├── resources.tsx # Tools, games, videos
@@ -36,9 +36,9 @@ A web application for a Creative Media Production Bootcamp. This 12-day program 
 ## Key Features
 
 ### Pages
-1. **Home** - Hero section, key outcomes, media formats, 12-day journey overview, researchers
+1. **Home** - Hero section, key outcomes, media formats, 6-week journey overview, researchers
 2. **About** - Study details, goals, program structure, student/parent info
-3. **Schedule** - Accordion-style breakdown of all 12 days with activities
+3. **Schedule** - Accordion-style breakdown of all 12 sessions with activities
 4. **Modules** - Weekly learning modules with topics, games, and skills
 5. **Create** - Interactive 7-step project creation wizard:
    - Conceptualize (project type, topic, audience, purpose)
@@ -62,7 +62,7 @@ A web application for a Creative Media Production Bootcamp. This 12-day program 
 ## Data Models (shared/schema.ts)
 
 ### Static Data
-- `dailySchedule` - All 12 days with activities, themes, skills
+- `dailySchedule` - All 12 sessions with activities, themes, skills
 - `mediaTools` - Categorized tools for media creation
 - `faqs` - Frequently asked questions
 - `researchers` - Research team contact info

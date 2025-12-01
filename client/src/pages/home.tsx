@@ -66,7 +66,7 @@ export default function Home() {
             <div className="flex flex-wrap justify-center gap-3 mt-12">
               <Badge variant="secondary" className="gap-2">
                 <Calendar className="h-3.5 w-3.5 text-primary" />
-                12 Days
+                6 Weeks
               </Badge>
               <Badge variant="secondary" className="gap-2">
                 <GraduationCap className="h-3.5 w-3.5 text-accent" />
@@ -238,7 +238,7 @@ export default function Home() {
               <Calendar className="h-3.5 w-3.5 mr-1" />
               Program Timeline
             </Badge>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Your 12-Day Journey</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Your 6-Week Journey</h2>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
               A structured progression from learning to creating
             </p>

@@ -53,7 +53,7 @@
 - **Large hero image**: Students collaborating on media project in classroom/lab setting (authentic, diverse middle schoolers)
 - Overlaid heading + 2-sentence description with blurred-background buttons
 - Dual CTAs: "Learn About the Study" and "View Daily Schedule"
-- Stats bar below hero: "12 Days | Grades 6-8 | Media Literacy"
+- Stats bar below hero: "6 Weeks | Grades 6-8 | Media Literacy"
 
 ### Daily Schedule Component
 - Accordion-style expandable days (Day 1 through Day 12)
@@ -94,7 +94,7 @@
 ### Homepage
 - Hero section (as described above)
 - "What You'll Learn" grid: 3 columns featuring Media Literacy, Misinformation Detection, Creative Production with icons
-- "12-Day Journey" timeline visualization with week groupings
+- "6-Week Journey" timeline visualization with week groupings
 - "Meet the Researchers" section with photos, names, contact info
 - "Ready to Join?" CTA section with registration details
 
@@ -154,6 +154,6 @@
 
 - **Week badges**: Colorful pill-shaped badges categorizing activities by week theme
 - **Skill tags**: Small rounded tags showing skills practiced (e.g., "Collaboration", "Fact-Checking")
-- **Timeline visualization**: Connected dots/nodes showing 12-day progression
+- **Timeline visualization**: Connected dots/nodes showing 6-week progression with 12 sessions
 - **Game cards**: Playful card designs with distinct styling for interactive games
 - **Student voice callouts**: Pull quotes or example reflections in highlighted boxes

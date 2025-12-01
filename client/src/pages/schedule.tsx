@@ -47,7 +47,7 @@ export default function Schedule() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <Badge variant="secondary" className="mb-4">
-              12-Day Program
+              6-Week Program
             </Badge>
             <h1 className="text-3xl md:text-4xl font-bold mb-4">
               Daily Schedule

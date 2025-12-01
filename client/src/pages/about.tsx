@@ -261,7 +261,7 @@ export default function About() {
                     <div>
                       <p className="font-medium">Duration</p>
                       <p className="text-sm text-muted-foreground">
-                        12 days over 6 weeks (2x per week)
+                        6 weeks, 12 sessions (2x per week)
                       </p>
                     </div>
                   </div>
