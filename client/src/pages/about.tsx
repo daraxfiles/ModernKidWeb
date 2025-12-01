@@ -22,6 +22,16 @@ import {
   ArrowRight,
   CheckCircle,
   BookOpen,
+  Globe,
+  Search,
+  MessageCircle,
+  AlertTriangle,
+  Eye,
+  FileQuestion,
+  Smartphone,
+  TrendingUp,
+  UserCheck,
+  Link2,
 } from "lucide-react";
 
 export default function About() {
@@ -76,6 +86,97 @@ export default function About() {
                       </CardContent>
                     </Card>
                   ))}
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <Smartphone className="h-6 w-6 text-primary" />
+                  Where Middle Schoolers Get Their Information
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  Understanding how students access news and information online is crucial for teaching media literacy. Here's what research tells us about middle schoolers' media habits:
+                </p>
+                
+                <div className="grid gap-4 mb-6">
+                  <Card className="hover-elevate" data-testid="card-info-sources">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Globe className="h-5 w-5 text-primary" />
+                        Top Information Sources
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {[
+                        { icon: TrendingUp, source: "Social Media", desc: "YouTube, TikTok, Instagram, and Snapchat are primary sources for news and trends", pct: "84%" },
+                        { icon: Users, source: "Friends & Family", desc: "Peers share news through group chats and direct messages", pct: "67%" },
+                        { icon: Search, source: "Search Engines", desc: "Google and other search engines for research and quick answers", pct: "72%" },
+                        { icon: MessageCircle, source: "Messaging Apps", desc: "Discord, WhatsApp, and iMessage for sharing content", pct: "58%" },
+                        { icon: Globe, source: "News Websites", desc: "Online news sites, often accessed through social media links", pct: "31%" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30" data-testid={`info-source-${i}`}>
+                          <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                            <item.icon className="h-4 w-4 text-primary" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center justify-between">
+                              <p className="font-medium">{item.source}</p>
+                              <Badge variant="secondary">{item.pct}</Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground">{item.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </CardContent>
+                  </Card>
+
+                  <Card className="hover-elevate" data-testid="card-verify-misinfo">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <Shield className="h-5 w-5 text-accent" />
+                        How Students Check for Misinformation
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-4">
+                        Research shows that many young people struggle to identify false information. Here are common verification methods students use:
+                      </p>
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {[
+                          { icon: Search, method: "Search it up", desc: "Look for the same story on Google or other search engines" },
+                          { icon: UserCheck, method: "Ask trusted adults", desc: "Check with parents, teachers, or older siblings" },
+                          { icon: Link2, method: "Check the source", desc: "Look at who posted it and their profile" },
+                          { icon: Eye, method: "Look for evidence", desc: "See if there are photos, videos, or links to support claims" },
+                          { icon: MessageCircle, method: "Ask friends", desc: "Discuss with peers to see if they've heard the same thing" },
+                          { icon: FileQuestion, method: "Fact-check sites", desc: "Use sites like Snopes or PolitiFact (less common)" },
+                        ].map((item, i) => (
+                          <div key={i} className="flex items-start gap-2 p-2 rounded-lg border" data-testid={`verify-method-${i}`}>
+                            <item.icon className="h-4 w-4 text-accent mt-0.5 shrink-0" />
+                            <div>
+                              <p className="text-sm font-medium">{item.method}</p>
+                              <p className="text-xs text-muted-foreground">{item.desc}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="border-accent/30 bg-accent/5" data-testid="card-misinfo-warning">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <div className="h-10 w-10 rounded-lg bg-accent/20 flex items-center justify-center shrink-0">
+                          <AlertTriangle className="h-5 w-5 text-accent" />
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-accent mb-1">Why This Matters</h4>
+                          <p className="text-sm text-muted-foreground">
+                            Studies show that only 33% of middle schoolers can accurately identify sponsored content, and many struggle to distinguish satire from real news. Our bootcamp teaches critical evaluation skills that help students become more discerning consumers of media.
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </div>
               </section>
 

@@ -19,6 +19,16 @@ import {
   Gamepad2,
   BookOpen,
   Youtube,
+  Shield,
+  Search,
+  AlertTriangle,
+  CheckCircle,
+  Eye,
+  Link2,
+  Clock,
+  Users,
+  HelpCircle,
+  Lightbulb,
 } from "lucide-react";
 import { mediaTools } from "@shared/schema";
 
@@ -111,10 +121,14 @@ export default function Resources() {
           </div>
 
           <Tabs defaultValue="tools" className="w-full">
-            <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto mb-8">
+            <TabsList className="grid grid-cols-4 w-full max-w-lg mx-auto mb-8">
               <TabsTrigger value="tools" data-testid="tab-tools">
                 <FileText className="h-4 w-4 mr-2" />
                 Tools
+              </TabsTrigger>
+              <TabsTrigger value="factcheck" data-testid="tab-factcheck">
+                <Shield className="h-4 w-4 mr-2" />
+                Fact-Check
               </TabsTrigger>
               <TabsTrigger value="games" data-testid="tab-games">
                 <Gamepad2 className="h-4 w-4 mr-2" />
@@ -176,6 +190,153 @@ export default function Resources() {
                     </Card>
                   );
                 })}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="factcheck">
+              <div className="space-y-6">
+                <p className="text-muted-foreground text-center mb-6">
+                  Learn how to verify information and spot misinformation online
+                </p>
+
+                <Card data-testid="card-sift-method">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                        <Search className="h-5 w-5 text-accent" />
+                      </div>
+                      The SIFT Method
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      A simple 4-step process to evaluate information you find online
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {[
+                        { letter: "S", title: "Stop", desc: "Before sharing or believing, pause and think about what you're seeing", icon: AlertTriangle },
+                        { letter: "I", title: "Investigate the Source", desc: "Who created this? Are they credible? Check their background", icon: Eye },
+                        { letter: "F", title: "Find Better Coverage", desc: "Search for other sources reporting the same story", icon: Search },
+                        { letter: "T", title: "Trace Claims", desc: "Follow the information back to its original source", icon: Link2 },
+                      ].map((step, i) => (
+                        <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30" data-testid={`sift-step-${i}`}>
+                          <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold shrink-0">
+                            {step.letter}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold flex items-center gap-2">
+                              {step.title}
+                              <step.icon className="h-4 w-4 text-accent" />
+                            </h4>
+                            <p className="text-sm text-muted-foreground">{step.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-warning-signs">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <div className="h-10 w-10 rounded-lg bg-chart-4/10 flex items-center justify-center">
+                        <AlertTriangle className="h-5 w-5 text-chart-4" />
+                      </div>
+                      Warning Signs of Misinformation
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {[
+                        { sign: "Clickbait headlines", desc: "Extreme or shocking titles designed to get clicks" },
+                        { sign: "No author or date", desc: "Missing information about who wrote it and when" },
+                        { sign: "Emotional language", desc: "Words designed to make you angry, scared, or excited" },
+                        { sign: "No sources cited", desc: "Claims without links or references to verify" },
+                        { sign: "Too good to be true", desc: "Stories that seem unbelievable or impossible" },
+                        { sign: "Poor spelling/grammar", desc: "Lots of mistakes can indicate low-quality content" },
+                      ].map((item, i) => (
+                        <div key={i} className="flex items-start gap-2 p-3 rounded-lg border" data-testid={`warning-sign-${i}`}>
+                          <AlertTriangle className="h-4 w-4 text-chart-4 mt-0.5 shrink-0" />
+                          <div>
+                            <p className="text-sm font-medium">{item.sign}</p>
+                            <p className="text-xs text-muted-foreground">{item.desc}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card data-testid="card-fact-check-sites">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <div className="h-10 w-10 rounded-lg bg-chart-5/10 flex items-center justify-center">
+                        <CheckCircle className="h-5 w-5 text-chart-5" />
+                      </div>
+                      Fact-Checking Websites
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      Trusted sites that verify claims and debunk misinformation
+                    </p>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      {[
+                        { name: "Snopes", url: "https://www.snopes.com", desc: "One of the oldest fact-checking sites, great for viral stories and urban legends" },
+                        { name: "PolitiFact", url: "https://www.politifact.com", desc: "Focuses on political claims with a 'Truth-O-Meter' rating system" },
+                        { name: "FactCheck.org", url: "https://www.factcheck.org", desc: "Non-partisan site that monitors accuracy in U.S. politics" },
+                        { name: "AP Fact Check", url: "https://apnews.com/APFactCheck", desc: "Fact-checking by the Associated Press news organization" },
+                      ].map((site, i) => (
+                        <a
+                          key={i}
+                          href={site.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30 hover-elevate"
+                          data-testid={`factcheck-site-${i}`}
+                        >
+                          <div className="h-9 w-9 rounded-lg bg-chart-5/20 flex items-center justify-center shrink-0">
+                            <Globe className="h-4 w-4 text-chart-5" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2">
+                              <h4 className="font-semibold">{site.name}</h4>
+                              <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+                            </div>
+                            <p className="text-sm text-muted-foreground">{site.desc}</p>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-primary/30 bg-primary/5" data-testid="card-quick-tips">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
+                        <Lightbulb className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h3 className="font-bold text-lg mb-2">Quick Tips for Middle Schoolers</h3>
+                        <ul className="space-y-2">
+                          {[
+                            "Ask yourself: 'Who made this and why?' before believing or sharing",
+                            "If something makes you really angry or scared, that's a sign to slow down and check",
+                            "Check if multiple reliable sources are reporting the same thing",
+                            "Talk to a trusted adult if you're unsure about something you saw online",
+                            "Remember: It's okay to not know everything - what matters is being willing to find out",
+                          ].map((tip, i) => (
+                            <li key={i} className="flex items-start gap-2 text-sm">
+                              <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                              <span>{tip}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
             </TabsContent>
 
