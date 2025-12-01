@@ -51,6 +51,16 @@ import {
   PartyPopper,
   Flame,
   Crown,
+  Globe,
+  Search,
+  Shield,
+  AlertTriangle,
+  Eye,
+  Link2,
+  TrendingUp,
+  BookOpen,
+  UserCheck,
+  HelpCircle,
 } from "lucide-react";
 import type { ProjectType, InsertProject } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
@@ -492,6 +502,164 @@ export default function Create() {
                   ))}
                 </RadioGroup>
               </div>
+            </div>
+
+            <div className="space-y-4">
+              <Collapsible>
+                <CollapsibleTrigger asChild>
+                  <Card className="cursor-pointer hover-elevate" data-testid="card-research-sources">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                            <Globe className="h-5 w-5 text-primary" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold">Where to Research Your Topic</h4>
+                            <p className="text-sm text-muted-foreground">Find reliable sources for your project</p>
+                          </div>
+                        </div>
+                        <ChevronDown className="h-5 w-5 text-muted-foreground transition-transform" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Card className="mt-2 border-primary/20">
+                    <CardContent className="p-4 space-y-4">
+                      <p className="text-sm text-muted-foreground">
+                        When researching your topic, here's where most students look for information online:
+                      </p>
+                      <div className="grid gap-3">
+                        {[
+                          { icon: TrendingUp, source: "Social Media", desc: "YouTube, TikTok, Instagram - good for trends but verify claims", tip: "Check who posted it and if they're an expert", pct: "84%" },
+                          { icon: Search, source: "Search Engines", desc: "Google, Bing - great starting point for research", tip: "Look past the first result; compare multiple sources", pct: "72%" },
+                          { icon: Users, source: "Friends & Family", desc: "Peers share info through chats and messages", tip: "Even trusted people can share wrong info - always verify", pct: "67%" },
+                          { icon: BookOpen, source: "Educational Sites", desc: "Wikipedia, Khan Academy, news sites for kids", tip: "Best for background info and understanding topics", pct: "45%" },
+                          { icon: Globe, source: "Official Sources", desc: "Government sites (.gov), organizations, experts", tip: "Most reliable for facts and statistics", pct: "31%" },
+                        ].map((item, i) => (
+                          <div key={i} className="flex items-start gap-3 p-3 rounded-lg bg-secondary/30" data-testid={`research-source-${i}`}>
+                            <div className="h-9 w-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                              <item.icon className="h-4 w-4 text-primary" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 flex-wrap">
+                                <p className="font-medium">{item.source}</p>
+                                <Badge variant="secondary" className="text-xs">{item.pct} use this</Badge>
+                              </div>
+                              <p className="text-sm text-muted-foreground">{item.desc}</p>
+                              <p className="text-xs text-primary mt-1 flex items-center gap-1">
+                                <Lightbulb className="h-3 w-3" />
+                                {item.tip}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CollapsibleContent>
+              </Collapsible>
+
+              <Collapsible>
+                <CollapsibleTrigger asChild>
+                  <Card className="cursor-pointer hover-elevate" data-testid="card-verify-info">
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
+                            <Shield className="h-5 w-5 text-accent" />
+                          </div>
+                          <div>
+                            <h4 className="font-semibold">How to Check for Misinformation</h4>
+                            <p className="text-sm text-muted-foreground">Make sure your info is accurate before using it</p>
+                          </div>
+                        </div>
+                        <ChevronDown className="h-5 w-5 text-muted-foreground transition-transform" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <Card className="mt-2 border-accent/20">
+                    <CardContent className="p-4 space-y-4">
+                      <div className="p-3 rounded-lg bg-accent/10 border border-accent/20">
+                        <h5 className="font-semibold text-accent flex items-center gap-2 mb-2">
+                          <Search className="h-4 w-4" />
+                          The SIFT Method - 4 Quick Steps
+                        </h5>
+                        <div className="grid sm:grid-cols-2 gap-2">
+                          {[
+                            { letter: "S", title: "Stop", desc: "Pause before believing or sharing" },
+                            { letter: "I", title: "Investigate", desc: "Check who made this content" },
+                            { letter: "F", title: "Find", desc: "Look for other sources reporting it" },
+                            { letter: "T", title: "Trace", desc: "Find the original source" },
+                          ].map((step, i) => (
+                            <div key={i} className="flex items-center gap-2 p-2 rounded bg-background" data-testid={`sift-step-create-${i}`}>
+                              <div className="h-7 w-7 rounded-full bg-accent flex items-center justify-center text-accent-foreground text-sm font-bold shrink-0">
+                                {step.letter}
+                              </div>
+                              <div className="min-w-0">
+                                <p className="text-sm font-medium">{step.title}</p>
+                                <p className="text-xs text-muted-foreground truncate">{step.desc}</p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h5 className="font-medium mb-2 flex items-center gap-2">
+                          <AlertTriangle className="h-4 w-4 text-chart-4" />
+                          Warning Signs to Watch For
+                        </h5>
+                        <div className="grid sm:grid-cols-2 gap-2">
+                          {[
+                            "Clickbait or shocking headlines",
+                            "No author name or date",
+                            "Makes you feel very angry or scared",
+                            "No sources or links to verify",
+                            "Spelling and grammar mistakes",
+                            "Sounds too good to be true",
+                          ].map((sign, i) => (
+                            <div key={i} className="flex items-center gap-2 text-sm" data-testid={`warning-sign-create-${i}`}>
+                              <AlertTriangle className="h-3.5 w-3.5 text-chart-4 shrink-0" />
+                              <span>{sign}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h5 className="font-medium mb-2 flex items-center gap-2">
+                          <CheckCircle className="h-4 w-4 text-chart-5" />
+                          Quick Fact-Check Tools
+                        </h5>
+                        <div className="flex flex-wrap gap-2">
+                          {[
+                            { name: "Snopes", url: "https://snopes.com" },
+                            { name: "PolitiFact", url: "https://politifact.com" },
+                            { name: "FactCheck.org", url: "https://factcheck.org" },
+                            { name: "Google Fact Check", url: "https://toolbox.google.com/factcheck" },
+                          ].map((site, i) => (
+                            <a
+                              key={i}
+                              href={site.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-chart-5/10 text-sm font-medium text-chart-5 hover-elevate"
+                              data-testid={`factcheck-link-${i}`}
+                            >
+                              <Globe className="h-3.5 w-3.5" />
+                              {site.name}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CollapsibleContent>
+              </Collapsible>
             </div>
 
             {project.projectType && project.topic && project.audience && project.purpose && (
