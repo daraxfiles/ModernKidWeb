@@ -29,12 +29,8 @@ export default function Home() {
   }, {} as Record<number, typeof dailySchedule>);
 
   return (
-    <div className="min-h-screen">
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-accent/5 to-background dark:from-primary/20 dark:via-accent/10 dark:to-background py-16 md:py-28">
-        <div className="absolute inset-0 bg-dots-pattern opacity-30" />
-        <div className="absolute top-20 left-10 w-20 h-20 bg-primary/20 rounded-full blur-2xl motion-reduce:hidden" />
-        <div className="absolute top-40 right-20 w-32 h-32 bg-accent/20 rounded-full blur-2xl motion-reduce:hidden" />
-        <div className="absolute bottom-20 left-1/4 w-24 h-24 bg-primary/15 rounded-full blur-2xl motion-reduce:hidden" />
+    <div className="min-h-screen bg-white dark:bg-background">
+      <section className="relative overflow-hidden bg-white dark:bg-background py-16 md:py-28">
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
             <Badge variant="secondary" className="mb-6 gap-2" data-testid="badge-research">

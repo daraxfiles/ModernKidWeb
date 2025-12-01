@@ -95,7 +95,7 @@ const videos = [
 
 export default function Resources() {
   return (
-    <div className="min-h-screen py-12 md:py-16">
+    <div className="min-h-screen py-12 md:py-16 bg-white dark:bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
