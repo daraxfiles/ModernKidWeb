@@ -1,0 +1,115 @@
+# Creative Media Production Bootcamp
+
+## Overview
+A web application for Clemson University's Creative Media Production Bootcamp research study. This 12-day program teaches middle schoolers (grades 6-8, ages 12-15) about media literacy, misinformation detection, and creative media production.
+
+## Project Structure
+
+```
+├── client/                    # Frontend React application
+│   ├── src/
+│   │   ├── components/       # Reusable UI components
+│   │   │   ├── layout/       # Header, Footer
+│   │   │   ├── theme-provider.tsx
+│   │   │   ├── theme-toggle.tsx
+│   │   │   └── ui/           # Shadcn UI components
+│   │   ├── pages/            # Page components
+│   │   │   ├── home.tsx      # Homepage with hero section
+│   │   │   ├── about.tsx     # About the bootcamp
+│   │   │   ├── schedule.tsx  # 12-day daily schedule
+│   │   │   ├── modules.tsx   # Learning modules by week
+│   │   │   ├── create.tsx    # 7-step project creation wizard
+│   │   │   ├── resources.tsx # Tools, games, videos
+│   │   │   ├── gallery.tsx   # Student project showcase
+│   │   │   └── faq.tsx       # FAQ and contact form
+│   │   ├── App.tsx           # Main app with routing
+│   │   └── index.css         # Global styles and theme
+│   └── index.html
+├── server/                    # Backend Express server
+│   ├── routes.ts             # API endpoints
+│   └── storage.ts            # In-memory storage
+├── shared/                    # Shared types and schemas
+│   └── schema.ts             # Data models, validation, static data
+└── design_guidelines.md      # Design system documentation
+```
+
+## Key Features
+
+### Pages
+1. **Home** - Hero section, key outcomes, media formats, 12-day journey overview, researchers
+2. **About** - Study details, goals, program structure, student/parent info
+3. **Schedule** - Accordion-style breakdown of all 12 days with activities
+4. **Modules** - Weekly learning modules with topics, games, and skills
+5. **Create** - Interactive 7-step project creation wizard:
+   - Conceptualize (project type, topic, audience, purpose)
+   - Story & Script (synopsis, script, storyboard)
+   - Plan & Collaborate (team members, task checklist)
+   - Produce (equipment checklist, recording tips)
+   - Edit (tools, editing checklist, notes)
+   - Review (self-reflection, peer review with star ratings)
+   - Share (project link, description, showcase submission)
+6. **Resources** - Tools (categorized), educational games, video resources
+7. **Gallery** - Student project showcase with filtering
+8. **FAQ** - Common questions, contact form, researcher info
+
+### API Endpoints
+- `POST /api/projects` - Save a project
+- `GET /api/projects` - Get all projects
+- `GET /api/projects/:id` - Get specific project
+- `POST /api/contact` - Submit contact form
+- `GET /api/showcase` - Get showcase projects
+
+## Data Models (shared/schema.ts)
+
+### Static Data
+- `dailySchedule` - All 12 days with activities, themes, skills
+- `mediaTools` - Categorized tools for media creation
+- `faqs` - Frequently asked questions
+- `researchers` - Research team contact info
+
+### Dynamic Data
+- `Project` - Student project with all wizard steps data
+- `Contact` - Contact form submissions
+- `ShowcaseProject` - Projects in the gallery
+
+## Design System
+
+### Colors (index.css)
+- Primary: Purple (262° hue) - main brand color
+- Accent: Teal (173° hue) - secondary actions
+- Chart colors for data visualization and variety
+- Full dark mode support
+
+### Typography
+- Sans: Inter - clean, modern, readable
+- Responsive sizing with proper hierarchy
+
+### Components
+- All Shadcn UI components available
+- Custom theme toggle for dark/light mode
+- Elevation system for hover/active states
+
+## Development
+
+### Running the App
+```bash
+npm run dev
+```
+This starts both the Express backend and Vite frontend on port 5000.
+
+### Key Technologies
+- React with TypeScript
+- Wouter for routing
+- TanStack Query for data fetching
+- Tailwind CSS for styling
+- Shadcn UI for components
+- Express.js backend
+- Zod for validation
+
+## Research Context
+This is a Clemson University research study examining how creative media production helps middle schoolers identify and address misinformation. The bootcamp runs for 6 weeks (12 sessions, ~1 hour each) at Glenview Middle School, Anderson.
+
+Research Team:
+- Dr. Danielle Herro (dherro@clemson.edu)
+- 'dara Abimbade (oabimba@clemson.edu)
+- Research assistants: Dani, Dara, Joba, Tolu, Cinamon
