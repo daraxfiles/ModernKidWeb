@@ -32,7 +32,11 @@ import {
   TrendingUp,
   UserCheck,
   Link2,
+  Megaphone,
 } from "lucide-react";
+
+import nikeAdImg from "@assets/dddd_1764901434643.png";
+import legoAdImg from "@assets/cccc_1764901434643.png";
 
 export default function About() {
   return (
@@ -175,6 +179,50 @@ export default function About() {
                           </p>
                         </div>
                       </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </section>
+
+              <section>
+                <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                  <Megaphone className="h-6 w-6 text-chart-3" />
+                  Analyzing Media: Advertisements
+                </h2>
+                <p className="text-muted-foreground mb-6">
+                  Students learn to deconstruct and analyze media, including advertisements. Here are examples of the types of media we explore together:
+                </p>
+                <div className="grid sm:grid-cols-2 gap-4 mb-6">
+                  <Card className="overflow-hidden hover-elevate" data-testid="card-ad-nike">
+                    <div className="aspect-[4/5] relative overflow-hidden">
+                      <img 
+                        src={nikeAdImg} 
+                        alt="Nike Air advertisement example" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="p-4">
+                      <Badge className="mb-2 bg-chart-3 text-white border-0">Classic Ad</Badge>
+                      <h4 className="font-semibold mb-1">Analyzing Messages</h4>
+                      <p className="text-sm text-muted-foreground">
+                        What message is this ad sending? Who is the target audience? What techniques are used to persuade?
+                      </p>
+                    </CardContent>
+                  </Card>
+                  <Card className="overflow-hidden hover-elevate" data-testid="card-ad-lego">
+                    <div className="aspect-[4/5] relative overflow-hidden">
+                      <img 
+                        src={legoAdImg} 
+                        alt="LEGO advertisement example" 
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <CardContent className="p-4">
+                      <Badge className="mb-2 bg-primary text-primary-foreground border-0">Brand Ad</Badge>
+                      <h4 className="font-semibold mb-1">Understanding Branding</h4>
+                      <p className="text-sm text-muted-foreground">
+                        How do brands build emotional connections? What values are being associated with the product?
+                      </p>
                     </CardContent>
                   </Card>
                 </div>

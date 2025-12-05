@@ -25,12 +25,13 @@ import {
   CheckCircle,
   Eye,
   Link2,
-  Clock,
-  Users,
-  HelpCircle,
   Lightbulb,
 } from "lucide-react";
 import { mediaTools } from "@shared/schema";
+
+import cardGameImg from "@assets/pic3_1764901434643.png";
+import fakeItDashboardImg from "@assets/pic2_1764901434643.png";
+import fakeItSimulationImg from "@assets/Picture1_1764901434643.png";
 
 const categoryIcons: Record<string, typeof FileText> = {
   "Script Writing": FileText,
@@ -341,10 +342,65 @@ export default function Resources() {
             </TabsContent>
 
             <TabsContent value="games">
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <p className="text-muted-foreground text-center mb-6">
                   Interactive games that teach you about misinformation and media literacy
                 </p>
+
+                <Card className="overflow-hidden" data-testid="card-game-screenshots">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <div className="h-10 w-10 rounded-lg bg-chart-3/10 flex items-center justify-center">
+                        <Gamepad2 className="h-5 w-5 text-chart-3" />
+                      </div>
+                      Game Screenshots
+                    </CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      See what these educational games look like in action
+                    </p>
+                  </CardHeader>
+                  <CardContent className="p-0">
+                    <div className="grid md:grid-cols-3 gap-0 border-t">
+                      <div className="relative">
+                        <img 
+                          src={cardGameImg} 
+                          alt="Misinformation card game" 
+                          className="w-full aspect-video object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <Badge className="bg-chart-3 text-white border-0 mb-1">Card Game</Badge>
+                          <p className="text-white text-sm font-medium">Learn tactics used in fake news</p>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <img 
+                          src={fakeItDashboardImg} 
+                          alt="Fake it to Make it dashboard" 
+                          className="w-full aspect-video object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <Badge className="bg-primary text-primary-foreground border-0 mb-1">Analytics</Badge>
+                          <p className="text-white text-sm font-medium">Track how misinformation spreads</p>
+                        </div>
+                      </div>
+                      <div className="relative">
+                        <img 
+                          src={fakeItSimulationImg} 
+                          alt="Fake it simulation showing reactions" 
+                          className="w-full aspect-video object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <Badge className="bg-accent text-accent-foreground border-0 mb-1">Simulation</Badge>
+                          <p className="text-white text-sm font-medium">See how people react to fake news</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
                 {games.map((game, i) => (
                   <Card key={i} className="hover-elevate" data-testid={`card-game-${i}`}>
                     <CardContent className="p-6">

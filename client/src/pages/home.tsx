@@ -10,7 +10,6 @@ import {
   Users,
   Lightbulb,
   Calendar,
-  MapPin,
   GraduationCap,
   ArrowRight,
   CheckCircle,
@@ -18,8 +17,13 @@ import {
   Sparkles,
   Star,
   Zap,
+  Camera,
 } from "lucide-react";
 import { dailySchedule } from "@shared/schema";
+
+import greenScreenImg from "@assets/cdcdc_1764901434641.png";
+import libraryFilmingImg from "@assets/cfvrfvr_1764901434623.png";
+import chromebookImg from "@assets/nbff_1764901434641.png";
 
 export default function Home() {
   const weekGroups = dailySchedule.reduce((acc, day) => {
@@ -73,6 +77,96 @@ export default function Home() {
                 Free Program
               </Badge>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-16 md:py-24 bg-secondary/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge variant="outline" className="mb-4">
+              <Camera className="h-3.5 w-3.5 mr-1" />
+              Camp in Action
+            </Badge>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">See What Students Create</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+              Real photos from our bootcamp showing students learning and creating
+            </p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Card className="overflow-hidden hover-elevate group" data-testid="card-activity-greenscreen">
+              <div className="aspect-video relative overflow-hidden">
+                <img 
+                  src={greenScreenImg} 
+                  alt="Student using green screen" 
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <Badge className="bg-primary text-primary-foreground border-0">
+                    Green Screen Studio
+                  </Badge>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-semibold mb-1">Professional Production</h3>
+                <p className="text-sm text-muted-foreground">
+                  Students learn to use green screens for creative video effects and professional-quality productions.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="overflow-hidden hover-elevate group" data-testid="card-activity-filming">
+              <div className="aspect-video relative overflow-hidden">
+                <img 
+                  src={libraryFilmingImg} 
+                  alt="Students filming in library" 
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <Badge className="bg-accent text-accent-foreground border-0">
+                    On-Location Filming
+                  </Badge>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-semibold mb-1">Hands-On Experience</h3>
+                <p className="text-sm text-muted-foreground">
+                  Students work together to plan and film their projects in real locations around the school.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="overflow-hidden hover-elevate group" data-testid="card-activity-digital">
+              <div className="aspect-video relative overflow-hidden">
+                <img 
+                  src={chromebookImg} 
+                  alt="Student working on Chromebook" 
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 right-3">
+                  <Badge className="bg-chart-3 text-white border-0">
+                    Digital Creation
+                  </Badge>
+                </div>
+              </div>
+              <CardContent className="p-4">
+                <h3 className="font-semibold mb-1">Digital Tools</h3>
+                <p className="text-sm text-muted-foreground">
+                  Learn to use computers and software to edit, design, and publish your media projects.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+          <div className="text-center mt-10">
+            <Link href="/gallery">
+              <Button variant="outline" className="gap-2" data-testid="button-view-gallery">
+                View Student Gallery
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
