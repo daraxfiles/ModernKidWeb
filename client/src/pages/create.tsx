@@ -67,13 +67,13 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 
 const steps = [
-  { id: 1, title: "Conceptualize", icon: Lightbulb, description: "Choose your project type and idea", color: "primary" },
-  { id: 2, title: "Story & Script", icon: FileText, description: "Write your story and script", color: "accent" },
-  { id: 3, title: "Plan & Collaborate", icon: Users, description: "Build your team and tasks", color: "chart-3" },
-  { id: 4, title: "Produce", icon: Video, description: "Record and create content", color: "chart-4" },
-  { id: 5, title: "Edit", icon: Scissors, description: "Polish your project", color: "chart-5" },
-  { id: 6, title: "Review", icon: MessageSquare, description: "Get feedback and reflect", color: "primary" },
-  { id: 7, title: "Share", icon: Share2, description: "Showcase your work", color: "accent" },
+  { id: 1, title: "Conceptualize", icon: Lightbulb, description: "Choose your project type and idea", example: "e.g., Video essay about cyberbullying", color: "primary" },
+  { id: 2, title: "Story & Script", icon: FileText, description: "Write your story and script", example: "e.g., Write interview questions, plan scenes", color: "accent" },
+  { id: 3, title: "Plan & Collaborate", icon: Users, description: "Build your team and tasks", example: "e.g., Assign director, camera operator roles", color: "chart-3" },
+  { id: 4, title: "Produce", icon: Video, description: "Record and create content", example: "e.g., Film interviews, record voiceover", color: "chart-4" },
+  { id: 5, title: "Edit", icon: Scissors, description: "Polish your project", example: "e.g., Add music, trim clips, add captions", color: "chart-5" },
+  { id: 6, title: "Review", icon: MessageSquare, description: "Get feedback and reflect", example: "e.g., Peer review, self-reflection checklist", color: "primary" },
+  { id: 7, title: "Share", icon: Share2, description: "Showcase your work", example: "e.g., Upload to gallery, present to class", color: "accent" },
 ];
 
 const projectTypes: { value: ProjectType; label: string; icon: typeof Video; desc: string }[] = [
@@ -2170,6 +2170,9 @@ In summary..."
                     <CardTitle>{steps[currentStep - 1].title}</CardTitle>
                     <p className="text-sm text-muted-foreground">
                       {steps[currentStep - 1].description}
+                    </p>
+                    <p className="text-xs text-primary/70 mt-1">
+                      {steps[currentStep - 1].example}
                     </p>
                   </div>
                 </div>
