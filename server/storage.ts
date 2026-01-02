@@ -1,11 +1,16 @@
 import { randomUUID } from "crypto";
-import type {
-  Project,
-  InsertProject,
-  Contact,
-  InsertContact,
-  ShowcaseProject,
-  InsertShowcaseProject,
+import { eq } from "drizzle-orm";
+import { db } from "./db";
+import {
+  projects,
+  contacts,
+  showcaseProjects,
+  type Project,
+  type InsertProject,
+  type Contact,
+  type InsertContact,
+  type ShowcaseProject,
+  type InsertShowcaseProject,
 } from "@shared/schema";
 
 export interface IStorage {
@@ -18,22 +23,94 @@ export interface IStorage {
 
   createShowcaseProject(project: InsertShowcaseProject): Promise<ShowcaseProject>;
   getShowcaseProjects(): Promise<ShowcaseProject[]>;
+  initializeSampleShowcaseProjects(): Promise<void>;
 }
 
-export class MemStorage implements IStorage {
-  private projects: Map<string, Project>;
-  private contacts: Map<string, Contact>;
-  private showcaseProjects: Map<string, ShowcaseProject>;
-
-  constructor() {
-    this.projects = new Map();
-    this.contacts = new Map();
-    this.showcaseProjects = new Map();
-
-    this.initializeSampleShowcaseProjects();
+export class DatabaseStorage implements IStorage {
+  async createProject(insertProject: InsertProject): Promise<Project> {
+    const id = randomUUID();
+    const [project] = await db
+      .insert(projects)
+      .values({
+        id,
+        projectType: insertProject.projectType,
+        topic: insertProject.topic,
+        audience: insertProject.audience,
+        purpose: insertProject.purpose,
+        synopsis: insertProject.synopsis,
+        script: insertProject.script,
+        storyboard: insertProject.storyboard,
+        teamMembers: insertProject.teamMembers,
+        tasks: insertProject.tasks,
+        editingNotes: insertProject.editingNotes,
+        reflection: insertProject.reflection,
+        peerReview: insertProject.peerReview,
+        projectLink: insertProject.projectLink,
+        projectDescription: insertProject.projectDescription,
+        currentStep: insertProject.currentStep || "conceptualize",
+      })
+      .returning();
+    return project;
   }
 
-  private initializeSampleShowcaseProjects() {
+  async getProjects(): Promise<Project[]> {
+    return await db.select().from(projects);
+  }
+
+  async getProject(id: string): Promise<Project | undefined> {
+    const [project] = await db
+      .select()
+      .from(projects)
+      .where(eq(projects.id, id));
+    return project;
+  }
+
+  async createContact(insertContact: InsertContact): Promise<Contact> {
+    const id = randomUUID();
+    const [contact] = await db
+      .insert(contacts)
+      .values({
+        id,
+        name: insertContact.name,
+        email: insertContact.email,
+        message: insertContact.message,
+        role: insertContact.role || "student",
+      })
+      .returning();
+    return contact;
+  }
+
+  async getContacts(): Promise<Contact[]> {
+    return await db.select().from(contacts);
+  }
+
+  async createShowcaseProject(insertProject: InsertShowcaseProject): Promise<ShowcaseProject> {
+    const id = randomUUID();
+    const [project] = await db
+      .insert(showcaseProjects)
+      .values({
+        id,
+        title: insertProject.title,
+        creator: insertProject.creator,
+        projectType: insertProject.projectType,
+        issueTheme: insertProject.issueTheme,
+        description: insertProject.description,
+        thumbnailUrl: insertProject.thumbnailUrl,
+        projectUrl: insertProject.projectUrl,
+        featured: false,
+      })
+      .returning();
+    return project;
+  }
+
+  async getShowcaseProjects(): Promise<ShowcaseProject[]> {
+    return await db.select().from(showcaseProjects);
+  }
+
+  async initializeSampleShowcaseProjects(): Promise<void> {
+    const existing = await this.getShowcaseProjects();
+    if (existing.length > 0) return;
+
     const sampleProjects: InsertShowcaseProject[] = [
       {
         title: "The Truth About School Lunch",
@@ -79,60 +156,21 @@ export class MemStorage implements IStorage {
       },
     ];
 
-    sampleProjects.forEach((project, index) => {
-      const id = `sample-${index + 1}`;
-      this.showcaseProjects.set(id, {
-        ...project,
-        id,
-        featured: index % 2 === 0,
+    for (let i = 0; i < sampleProjects.length; i++) {
+      const project = sampleProjects[i];
+      await db.insert(showcaseProjects).values({
+        id: `sample-${i + 1}`,
+        title: project.title,
+        creator: project.creator,
+        projectType: project.projectType,
+        issueTheme: project.issueTheme,
+        description: project.description,
+        thumbnailUrl: project.thumbnailUrl,
+        projectUrl: project.projectUrl,
+        featured: i % 2 === 0,
       });
-    });
-  }
-
-  async createProject(insertProject: InsertProject): Promise<Project> {
-    const id = randomUUID();
-    const project: Project = { ...insertProject, id };
-    this.projects.set(id, project);
-    return project;
-  }
-
-  async getProjects(): Promise<Project[]> {
-    return Array.from(this.projects.values());
-  }
-
-  async getProject(id: string): Promise<Project | undefined> {
-    return this.projects.get(id);
-  }
-
-  async createContact(insertContact: InsertContact): Promise<Contact> {
-    const id = randomUUID();
-    const contact: Contact = {
-      ...insertContact,
-      id,
-      submittedAt: new Date().toISOString(),
-    };
-    this.contacts.set(id, contact);
-    return contact;
-  }
-
-  async getContacts(): Promise<Contact[]> {
-    return Array.from(this.contacts.values());
-  }
-
-  async createShowcaseProject(insertProject: InsertShowcaseProject): Promise<ShowcaseProject> {
-    const id = randomUUID();
-    const project: ShowcaseProject = {
-      ...insertProject,
-      id,
-      featured: false,
-    };
-    this.showcaseProjects.set(id, project);
-    return project;
-  }
-
-  async getShowcaseProjects(): Promise<ShowcaseProject[]> {
-    return Array.from(this.showcaseProjects.values());
+    }
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();

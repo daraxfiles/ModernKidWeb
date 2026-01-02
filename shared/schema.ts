@@ -1,4 +1,45 @@
+import { pgTable, text, varchar, boolean, jsonb, timestamp } from "drizzle-orm/pg-core";
 import { z } from "zod";
+
+export const projects = pgTable("projects", {
+  id: varchar("id", { length: 36 }).primaryKey(),
+  projectType: text("project_type"),
+  topic: text("topic"),
+  audience: text("audience"),
+  purpose: text("purpose"),
+  synopsis: text("synopsis"),
+  script: text("script"),
+  storyboard: jsonb("storyboard"),
+  teamMembers: jsonb("team_members"),
+  tasks: jsonb("tasks"),
+  editingNotes: text("editing_notes"),
+  reflection: jsonb("reflection"),
+  peerReview: jsonb("peer_review"),
+  projectLink: text("project_link"),
+  projectDescription: text("project_description"),
+  currentStep: text("current_step").default("conceptualize").notNull(),
+});
+
+export const contacts = pgTable("contacts", {
+  id: varchar("id", { length: 36 }).primaryKey(),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  message: text("message").notNull(),
+  role: text("role").default("student").notNull(),
+  submittedAt: timestamp("submitted_at").defaultNow().notNull(),
+});
+
+export const showcaseProjects = pgTable("showcase_projects", {
+  id: varchar("id", { length: 36 }).primaryKey(),
+  title: text("title").notNull(),
+  creator: text("creator").notNull(),
+  projectType: text("project_type").notNull(),
+  issueTheme: text("issue_theme").notNull(),
+  description: text("description").notNull(),
+  thumbnailUrl: text("thumbnail_url"),
+  projectUrl: text("project_url"),
+  featured: boolean("featured").default(false).notNull(),
+});
 
 export const projectTypeEnum = z.enum([
   "video_essay",
@@ -77,19 +118,9 @@ export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type InsertShowcaseProject = z.infer<typeof insertShowcaseProjectSchema>;
 
-export interface Project extends InsertProject {
-  id: string;
-}
-
-export interface Contact extends InsertContact {
-  id: string;
-  submittedAt: string;
-}
-
-export interface ShowcaseProject extends InsertShowcaseProject {
-  id: string;
-  featured: boolean;
-}
+export type Project = typeof projects.$inferSelect;
+export type Contact = typeof contacts.$inferSelect;
+export type ShowcaseProject = typeof showcaseProjects.$inferSelect;
 
 export const dailySchedule = [
   {

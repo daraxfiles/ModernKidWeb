@@ -8,6 +8,8 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  await storage.initializeSampleShowcaseProjects();
+
   app.post("/api/projects", async (req, res) => {
     try {
       const validatedData = insertProjectSchema.parse(req.body);
