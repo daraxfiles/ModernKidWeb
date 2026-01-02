@@ -10,8 +10,6 @@ A web application for a Creative Media Production Bootcamp. This 6-week program 
 │   ├── src/
 │   │   ├── components/       # Reusable UI components
 │   │   │   ├── layout/       # Header, Footer
-│   │   │   ├── theme-provider.tsx
-│   │   │   ├── theme-toggle.tsx
 │   │   │   └── ui/           # Shadcn UI components
 │   │   ├── pages/            # Page components
 │   │   │   ├── home.tsx      # Homepage with hero section
@@ -26,8 +24,9 @@ A web application for a Creative Media Production Bootcamp. This 6-week program 
 │   │   └── index.css         # Global styles and theme
 │   └── index.html
 ├── server/                    # Backend Express server
+│   ├── db.ts                 # Database connection (Drizzle + Neon)
 │   ├── routes.ts             # API endpoints
-│   └── storage.ts            # In-memory storage
+│   └── storage.ts            # PostgreSQL storage layer
 ├── shared/                    # Shared types and schemas
 │   └── schema.ts             # Data models, validation, static data
 └── design_guidelines.md      # Design system documentation
@@ -78,7 +77,7 @@ A web application for a Creative Media Production Bootcamp. This 6-week program 
 - Primary: Purple (262° hue) - main brand color
 - Accent: Teal (173° hue) - secondary actions
 - Chart colors for data visualization and variety
-- Full dark mode support
+- Light mode only (no dark mode)
 
 ### Typography
 - Sans: Inter - clean, modern, readable
@@ -86,7 +85,6 @@ A web application for a Creative Media Production Bootcamp. This 6-week program 
 
 ### Components
 - All Shadcn UI components available
-- Custom theme toggle for dark/light mode
 - Elevation system for hover/active states
 
 ## Development
@@ -104,7 +102,17 @@ This starts both the Express backend and Vite frontend on port 5000.
 - Tailwind CSS for styling
 - Shadcn UI for components
 - Express.js backend
+- PostgreSQL database (Neon)
+- Drizzle ORM for database queries
 - Zod for validation
+
+### Database
+The app uses PostgreSQL (Neon) with Drizzle ORM. Tables:
+- `projects` - Student projects from the creation wizard
+- `contacts` - Contact form submissions
+- `showcase_projects` - Projects displayed in the gallery
+
+To push schema changes: `npm run db:push`
 
 ## Research Context
 This is an educational program examining how creative media production helps middle schoolers identify and address misinformation. The bootcamp runs for 6 weeks (12 sessions, ~1 hour each).
