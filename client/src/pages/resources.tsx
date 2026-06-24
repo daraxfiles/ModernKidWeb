@@ -1,31 +1,14 @@
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
-import {
-  FileText,
-  Layout,
-  Video,
-  Mic,
-  Image,
-  Monitor,
-  Smartphone,
-  Globe,
-  ExternalLink,
+  Play,
   Gamepad2,
-  BookOpen,
-  Youtube,
-  Shield,
   Search,
+  PenTool,
+  ExternalLink,
+  ChevronRight,
+  MonitorPlay,
+  CheckCircle2,
   AlertTriangle,
-  CheckCircle,
-  Eye,
-  Link2,
-  Lightbulb,
+  Globe,
 } from "lucide-react";
 import { mediaTools } from "@shared/schema";
 
@@ -33,465 +16,373 @@ import cardGameImg from "@assets/pic3_1764901434643.png";
 import fakeItDashboardImg from "@assets/pic2_1764901434643.png";
 import fakeItSimulationImg from "@assets/Picture1_1764901434643.png";
 
-const categoryIcons: Record<string, typeof FileText> = {
-  "Script Writing": FileText,
-  "Storyboarding": Layout,
-  "Video Editing": Video,
-  "Audio Editing": Mic,
-  "Image Design": Image,
-};
-
-const platformIcons: Record<string, typeof Monitor> = {
-  Desktop: Monitor,
-  Mobile: Smartphone,
-  Web: Globe,
-};
-
-const difficultyColors: Record<string, string> = {
-  Easy: "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400",
-  Medium: "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400",
-};
-
 const games = [
   {
     name: "Fake it to Make it",
-    description: "Create your own fake news website to understand how misinformation spreads. This game teaches you the tactics used to deceive people online.",
+    description: "Create your own fake news website to understand how misinformation spreads. Learn the tactics used to deceive people online.",
     url: "https://www.fakeittomakeitgame.com/",
-    skills: ["Misinformation awareness", "Critical thinking", "Media analysis"],
-    duration: "15-20 min",
+    tag: "SIMULATOR",
   },
   {
     name: "Lamboozled",
     description: "A fast-paced game that challenges you to identify fake information quickly. Learn to spot the signs of misleading content.",
     url: "#",
-    skills: ["Quick analysis", "Pattern recognition", "Fact-checking"],
-    duration: "10-15 min",
+    tag: "STRATEGY",
   },
   {
     name: "Bad News",
     description: "Become a fake news tycoon and learn the six tactics of misinformation: impersonation, emotion, polarization, conspiracy, discredit, and trolling.",
     url: "https://www.getbadnews.com/",
-    skills: ["Understanding propaganda", "Media literacy", "Critical analysis"],
-    duration: "15-20 min",
+    tag: "EDUCATIONAL",
   },
 ];
 
 const videos = [
-  {
-    title: "The Role of Media in Society",
-    description: "Understand how media shapes our understanding of the world and influences public opinion.",
-    topic: "Media Literacy",
-  },
-  {
-    title: "What is Misinformation?",
-    description: "Learn about different types of false information and why it spreads so easily online.",
-    topic: "Misinformation",
-  },
-  {
-    title: "How to Verify Information",
-    description: "Practical tips and strategies for fact-checking and verifying sources.",
-    topic: "Fact-Checking",
-  },
-  {
-    title: "Deconstructing Media Messages",
-    description: "Learn to break down media to understand the techniques used to persuade audiences.",
-    topic: "Media Analysis",
-  },
-  {
-    title: "Constructing Your Own Media",
-    description: "Basic principles of creating effective and responsible media content.",
-    topic: "Media Creation",
-  },
+  { title: "The Role of Media in Society", description: "Understand how media shapes our understanding of the world and influences public opinion.", topic: "Media Literacy" },
+  { title: "What is Misinformation?", description: "Learn about different types of false information and why it spreads so easily online.", topic: "Misinformation" },
+  { title: "How to Verify Information", description: "Practical tips and strategies for fact-checking and verifying sources.", topic: "Fact-Checking" },
+  { title: "Deconstructing Media Messages", description: "Learn to break down media to understand the techniques used to persuade audiences.", topic: "Media Analysis" },
+  { title: "Constructing Your Own Media", description: "Basic principles of creating effective and responsible media content.", topic: "Media Creation" },
+];
+
+const siftSteps = [
+  { letter: "S", title: "Stop", desc: "Before you share, ask yourself if you know the source and their reputation." },
+  { letter: "I", title: "Investigate", desc: "Look into the source. Are they credible on this topic?" },
+  { letter: "F", title: "Find Better Coverage", desc: "Read laterally. What do other trusted sources say?" },
+  { letter: "T", title: "Trace to Original", desc: "Find the original context of the quote, image, or claim." },
+];
+
+const redFlags = [
+  "Outrageous, highly emotional headlines designed to make you angry",
+  "Missing author names or sketchy \"about us\" pages",
+  "Grainy images that don't match the story context",
+  "Lots of ALL CAPS and exclamation points!!!",
+  "Asking you to share immediately before reading",
+  "No date, no sources, no way to verify the claim",
+];
+
+const factCheckSites = [
+  { name: "Snopes", url: "https://www.snopes.com", desc: "One of the oldest fact-checking sites, great for viral stories and urban legends" },
+  { name: "PolitiFact", url: "https://www.politifact.com", desc: "Focuses on political claims with a 'Truth-O-Meter' rating system" },
+  { name: "FactCheck.org", url: "https://www.factcheck.org", desc: "Non-partisan site that monitors accuracy in U.S. politics" },
+  { name: "AP Fact Check", url: "https://apnews.com/APFactCheck", desc: "Fact-checking by the Associated Press news organization" },
 ];
 
 export default function Resources() {
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <Badge variant="secondary" className="mb-4">
-              Tools & Resources
-            </Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              Everything You Need to Create
-            </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Discover beginner-friendly tools, games, and resources for your media projects.
-            </p>
+    <div className="min-h-screen bg-[#0b0b0e] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
+
+      {/* Hero Header */}
+      <header className="px-8 py-16 md:py-24 border-b border-white/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10">
+          <p className="text-indigo-400 font-mono tracking-widest uppercase text-sm mb-4">
+            Curated Collection
+          </p>
+          <h1 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase mb-6 leading-none">
+            Creative<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">
+              Arsenal
+            </span>
+          </h1>
+          <p className="text-lg text-white/50 max-w-xl font-light">
+            Everything you need to master media creation and navigate the digital landscape with a critical eye.
+          </p>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto">
+
+        {/* 01. TOOLS */}
+        <section className="border-b border-white/10">
+          <div className="relative h-[40vh] md:h-[55vh] overflow-hidden group">
+            <img
+              src="/tools-banner.jpg"
+              alt="Tools"
+              className="w-full h-full object-cover opacity-50 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
+              <div>
+                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">01</span>
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
+                  Tools <PenTool className="w-8 h-8 md:w-12 md:h-12 text-indigo-400" />
+                </h2>
+              </div>
+              <div className="hidden md:block text-right">
+                <p className="text-white/40 font-mono text-sm uppercase tracking-widest">Media Software · {mediaTools.length} Categories</p>
+              </div>
+            </div>
           </div>
 
-          <Tabs defaultValue="tools" className="w-full">
-            <TabsList className="grid grid-cols-4 w-full max-w-lg mx-auto mb-8">
-              <TabsTrigger value="tools" data-testid="tab-tools">
-                <FileText className="h-4 w-4 mr-2" />
-                Tools
-              </TabsTrigger>
-              <TabsTrigger value="factcheck" data-testid="tab-factcheck">
-                <Shield className="h-4 w-4 mr-2" />
-                Fact-Check
-              </TabsTrigger>
-              <TabsTrigger value="games" data-testid="tab-games">
-                <Gamepad2 className="h-4 w-4 mr-2" />
-                Games
-              </TabsTrigger>
-              <TabsTrigger value="videos" data-testid="tab-videos">
-                <Youtube className="h-4 w-4 mr-2" />
-                Videos
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="tools">
-              <div className="space-y-8">
-                {mediaTools.map((category, i) => {
-                  const Icon = categoryIcons[category.category] || FileText;
-                  return (
-                    <Card key={i} data-testid={`card-category-${i}`}>
-                      <CardHeader>
-                        <CardTitle className="flex items-center gap-2">
-                          <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <Icon className="h-5 w-5 text-primary" />
-                          </div>
-                          {category.category}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          {category.tools.map((tool, j) => (
-                            <Card key={j} className="bg-secondary/30 border-0 hover-elevate">
-                              <CardContent className="p-4">
-                                <div className="flex items-start justify-between gap-2 mb-2">
-                                  <h4 className="font-semibold">{tool.name}</h4>
-                                  <Badge
-                                    variant="secondary"
-                                    className={difficultyColors[tool.difficulty]}
-                                  >
-                                    {tool.difficulty}
-                                  </Badge>
-                                </div>
-                                <p className="text-sm text-muted-foreground mb-3">
-                                  {tool.description}
-                                </p>
-                                <div className="flex flex-wrap gap-2">
-                                  {tool.platforms.map((platform, k) => {
-                                    const PlatformIcon = platformIcons[platform] || Globe;
-                                    return (
-                                      <Badge key={k} variant="outline" className="gap-1">
-                                        <PlatformIcon className="h-3 w-3" />
-                                        {platform}
-                                      </Badge>
-                                    );
-                                  })}
-                                </div>
-                              </CardContent>
-                            </Card>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="factcheck">
-              <div className="space-y-6">
-                <p className="text-muted-foreground text-center mb-6">
-                  Learn how to verify information and spot misinformation online
-                </p>
-
-                <Card data-testid="card-sift-method">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center">
-                        <Search className="h-5 w-5 text-accent" />
-                      </div>
-                      The SIFT Method
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      A simple 4-step process to evaluate information you find online
+          {/* Tools grid from schema data */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10">
+            {/* Featured first category */}
+            {mediaTools[0] && (
+              <div className="md:col-span-8 bg-[#13131a] p-8 md:p-12 hover:bg-[#16161e] transition-colors group relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all" />
+                <div className="flex flex-col justify-between min-h-[280px]">
+                  <div className="flex justify-between items-start mb-8">
+                    <div className="bg-white/5 border border-white/10 rounded-full px-4 py-1 text-xs font-mono tracking-wider text-white/60 uppercase">
+                      {mediaTools[0].category}
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+                      {mediaTools[0].tools.map(t => t.name).join(" & ")}
+                    </h3>
+                    <p className="text-white/50 text-lg leading-relaxed font-light">
+                      {mediaTools[0].tools[0].description}
                     </p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {[
-                        { letter: "S", title: "Stop", desc: "Before sharing or believing, pause and think about what you're seeing", icon: AlertTriangle },
-                        { letter: "I", title: "Investigate the Source", desc: "Who created this? Are they credible? Check their background", icon: Eye },
-                        { letter: "F", title: "Find Better Coverage", desc: "Search for other sources reporting the same story", icon: Search },
-                        { letter: "T", title: "Trace Claims", desc: "Follow the information back to its original source", icon: Link2 },
-                      ].map((step, i) => (
-                        <div key={i} className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30" data-testid={`sift-step-${i}`}>
-                          <div className="h-10 w-10 rounded-full bg-accent flex items-center justify-center text-accent-foreground font-bold shrink-0">
-                            {step.letter}
-                          </div>
-                          <div>
-                            <h4 className="font-semibold flex items-center gap-2">
-                              {step.title}
-                              <step.icon className="h-4 w-4 text-accent" />
-                            </h4>
-                            <p className="text-sm text-muted-foreground">{step.desc}</p>
-                          </div>
-                        </div>
+                    <div className="flex gap-2 mt-6 flex-wrap">
+                      {mediaTools[0].tools[0].platforms.map((p, i) => (
+                        <span key={i} className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs font-mono text-white/50">{p}</span>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
-
-                <Card data-testid="card-warning-signs">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <div className="h-10 w-10 rounded-lg bg-chart-4/10 flex items-center justify-center">
-                        <AlertTriangle className="h-5 w-5 text-chart-4" />
-                      </div>
-                      Warning Signs of Misinformation
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      {[
-                        { sign: "Clickbait headlines", desc: "Extreme or shocking titles designed to get clicks" },
-                        { sign: "No author or date", desc: "Missing information about who wrote it and when" },
-                        { sign: "Emotional language", desc: "Words designed to make you angry, scared, or excited" },
-                        { sign: "No sources cited", desc: "Claims without links or references to verify" },
-                        { sign: "Too good to be true", desc: "Stories that seem unbelievable or impossible" },
-                        { sign: "Poor spelling/grammar", desc: "Lots of mistakes can indicate low-quality content" },
-                      ].map((item, i) => (
-                        <div key={i} className="flex items-start gap-2 p-3 rounded-lg border" data-testid={`warning-sign-${i}`}>
-                          <AlertTriangle className="h-4 w-4 text-chart-4 mt-0.5 shrink-0" />
-                          <div>
-                            <p className="text-sm font-medium">{item.sign}</p>
-                            <p className="text-xs text-muted-foreground">{item.desc}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card data-testid="card-fact-check-sites">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <div className="h-10 w-10 rounded-lg bg-chart-5/10 flex items-center justify-center">
-                        <CheckCircle className="h-5 w-5 text-chart-5" />
-                      </div>
-                      Fact-Checking Websites
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      Trusted sites that verify claims and debunk misinformation
-                    </p>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {[
-                        { name: "Snopes", url: "https://www.snopes.com", desc: "One of the oldest fact-checking sites, great for viral stories and urban legends" },
-                        { name: "PolitiFact", url: "https://www.politifact.com", desc: "Focuses on political claims with a 'Truth-O-Meter' rating system" },
-                        { name: "FactCheck.org", url: "https://www.factcheck.org", desc: "Non-partisan site that monitors accuracy in U.S. politics" },
-                        { name: "AP Fact Check", url: "https://apnews.com/APFactCheck", desc: "Fact-checking by the Associated Press news organization" },
-                      ].map((site, i) => (
-                        <a
-                          key={i}
-                          href={site.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="flex items-start gap-3 p-4 rounded-lg bg-secondary/30 hover-elevate"
-                          data-testid={`factcheck-site-${i}`}
-                        >
-                          <div className="h-9 w-9 rounded-lg bg-chart-5/20 flex items-center justify-center shrink-0">
-                            <Globe className="h-4 w-4 text-chart-5" />
-                          </div>
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2">
-                              <h4 className="font-semibold">{site.name}</h4>
-                              <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
-                            </div>
-                            <p className="text-sm text-muted-foreground">{site.desc}</p>
-                          </div>
-                        </a>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-primary/30 bg-primary/5" data-testid="card-quick-tips">
-                  <CardContent className="p-6">
-                    <div className="flex items-start gap-4">
-                      <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center shrink-0">
-                        <Lightbulb className="h-6 w-6 text-primary" />
-                      </div>
-                      <div>
-                        <h3 className="font-bold text-lg mb-2">Quick Tips for Middle Schoolers</h3>
-                        <ul className="space-y-2">
-                          {[
-                            "Ask yourself: 'Who made this and why?' before believing or sharing",
-                            "If something makes you really angry or scared, that's a sign to slow down and check",
-                            "Check if multiple reliable sources are reporting the same thing",
-                            "Talk to a trusted adult if you're unsure about something you saw online",
-                            "Remember: It's okay to not know everything - what matters is being willing to find out",
-                          ].map((tip, i) => (
-                            <li key={i} className="flex items-start gap-2 text-sm">
-                              <CheckCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                              <span>{tip}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="games">
-              <div className="space-y-6">
-                <p className="text-muted-foreground text-center mb-6">
-                  Interactive games that teach you about misinformation and media literacy
-                </p>
-
-                <Card className="overflow-hidden" data-testid="card-game-screenshots">
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <div className="h-10 w-10 rounded-lg bg-chart-3/10 flex items-center justify-center">
-                        <Gamepad2 className="h-5 w-5 text-chart-3" />
-                      </div>
-                      Game Screenshots
-                    </CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      See what these educational games look like in action
-                    </p>
-                  </CardHeader>
-                  <CardContent className="p-0">
-                    <div className="grid md:grid-cols-3 gap-0 border-t">
-                      <div className="relative">
-                        <img 
-                          src={cardGameImg} 
-                          alt="Misinformation card game" 
-                          className="w-full aspect-video object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        <div className="absolute bottom-3 left-3 right-3">
-                          <Badge className="bg-chart-3 text-white border-0 mb-1">Card Game</Badge>
-                          <p className="text-white text-sm font-medium">Learn tactics used in fake news</p>
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <img 
-                          src={fakeItDashboardImg} 
-                          alt="Fake it to Make it dashboard" 
-                          className="w-full aspect-video object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        <div className="absolute bottom-3 left-3 right-3">
-                          <Badge className="bg-primary text-primary-foreground border-0 mb-1">Analytics</Badge>
-                          <p className="text-white text-sm font-medium">Track how misinformation spreads</p>
-                        </div>
-                      </div>
-                      <div className="relative">
-                        <img 
-                          src={fakeItSimulationImg} 
-                          alt="Fake it simulation showing reactions" 
-                          className="w-full aspect-video object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                        <div className="absolute bottom-3 left-3 right-3">
-                          <Badge className="bg-accent text-accent-foreground border-0 mb-1">Simulation</Badge>
-                          <p className="text-white text-sm font-medium">See how people react to fake news</p>
-                        </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {games.map((game, i) => (
-                  <Card key={i} className="hover-elevate" data-testid={`card-game-${i}`}>
-                    <CardContent className="p-6">
-                      <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-3 mb-2">
-                            <div className="h-10 w-10 rounded-lg bg-chart-3/10 flex items-center justify-center">
-                              <Gamepad2 className="h-5 w-5 text-chart-3" />
-                            </div>
-                            <div>
-                              <h3 className="font-semibold text-lg">{game.name}</h3>
-                              <Badge variant="outline" className="text-xs">
-                                {game.duration}
-                              </Badge>
-                            </div>
-                          </div>
-                          <p className="text-muted-foreground mb-4">
-                            {game.description}
-                          </p>
-                          <div className="flex flex-wrap gap-2">
-                            {game.skills.map((skill, j) => (
-                              <Badge key={j} variant="secondary">
-                                {skill}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        {game.url !== "#" && (
-                          <a
-                            href={game.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1 text-sm text-primary hover:underline shrink-0"
-                          >
-                            Play Game
-                            <ExternalLink className="h-3.5 w-3.5" />
-                          </a>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-
-            <TabsContent value="videos">
-              <div className="space-y-4">
-                <p className="text-muted-foreground text-center mb-6">
-                  Educational videos you'll watch during the bootcamp
-                </p>
-                {videos.map((video, i) => (
-                  <Card key={i} className="hover-elevate" data-testid={`card-video-${i}`}>
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                          <Youtube className="h-6 w-6 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-start justify-between gap-2 mb-1">
-                            <h3 className="font-semibold">{video.title}</h3>
-                            <Badge variant="outline">{video.topic}</Badge>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            {video.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </TabsContent>
-          </Tabs>
-
-          <Card className="mt-8 bg-primary/5 border-primary/20" data-testid="card-tip">
-            <CardContent className="p-6">
-              <div className="flex flex-col sm:flex-row items-start gap-4">
-                <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <BookOpen className="h-6 w-6 text-primary" />
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-semibold mb-1">Pro Tip</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Don't worry if you haven't used these tools before! We'll guide you through everything during the bootcamp. Start with the "Easy" tools and work your way up as you get more comfortable.
+              </div>
+            )}
+
+            {/* Remaining categories stacked */}
+            <div className="md:col-span-4 flex flex-col gap-px bg-white/10">
+              {mediaTools.slice(1).map((category, i) => (
+                <div key={i} className="bg-[#13131a] p-8 hover:bg-[#16161e] transition-colors group flex-1">
+                  <div className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-white/60 inline-block mb-4 uppercase">
+                    {category.category}
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">
+                    {category.tools.map(t => t.name).join(", ")}
+                  </h3>
+                  <p className="text-white/50 font-light text-sm line-clamp-2">
+                    {category.tools[0].description}
                   </p>
                 </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 02. TRUTH / FACT-CHECK */}
+        <section className="border-b border-white/10">
+          <div className="relative h-[30vh] md:h-[50vh] overflow-hidden group">
+            <img
+              src="/fact-banner.jpg"
+              alt="Fact Check"
+              className="w-full h-full object-cover opacity-40 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-50 transition-all duration-1000 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
+              <div>
+                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">02</span>
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
+                  Truth <Search className="w-8 h-8 md:w-12 md:h-12 text-emerald-400" />
+                </h2>
               </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+            {/* SIFT Method */}
+            <div className="bg-[#13131a] p-8 md:p-12">
+              <h3 className="text-3xl font-bold mb-8 tracking-tight text-emerald-100">The SIFT Method</h3>
+              <div className="space-y-8">
+                {siftSteps.map((item, i) => (
+                  <div key={i} className="flex gap-6 items-start group" data-testid={`sift-step-${i}`}>
+                    <div className="text-4xl font-black text-emerald-500/20 group-hover:text-emerald-500 transition-colors w-12 text-center shrink-0">
+                      {item.letter}
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold mb-1">{item.title}</h4>
+                      <p className="text-white/50 font-light">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Red Flags */}
+            <div className="bg-[#13131a] p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
+              <div className="absolute -right-20 -bottom-20 text-[20rem] font-black text-white/[0.02] leading-none pointer-events-none tracking-tighter select-none">
+                FAKE
+              </div>
+              <h3 className="text-3xl font-bold mb-8 tracking-tight flex items-center gap-3">
+                <AlertTriangle className="text-amber-500" />
+                Red Flags
+              </h3>
+              <ul className="space-y-3">
+                {redFlags.map((flag, i) => (
+                  <li key={i} className="flex items-start gap-4 p-4 border border-white/5 rounded-lg bg-white/[0.02]" data-testid={`red-flag-${i}`}>
+                    <CheckCircle2 className="w-5 h-5 text-amber-500/50 mt-0.5 shrink-0" />
+                    <span className="text-white/70 font-light">{flag}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Fact-check sites row */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/10">
+            {factCheckSites.map((site, i) => (
+              <a
+                key={i}
+                href={site.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#13131a] p-6 hover:bg-[#16161e] transition-colors group flex flex-col justify-between min-h-[140px]"
+                data-testid={`factcheck-site-${i}`}
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <Globe className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-400 transition-colors" />
+                  <span className="text-xs font-mono text-white/30 uppercase tracking-widest group-hover:text-white/60 transition-colors">External</span>
+                </div>
+                <div>
+                  <h4 className="text-lg font-bold mb-1 flex items-center gap-2">
+                    {site.name}
+                    <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors" />
+                  </h4>
+                  <p className="text-white/40 text-sm font-light line-clamp-2">{site.desc}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+
+        {/* 03. GAMES */}
+        <section className="border-b border-white/10">
+          <div className="relative h-[30vh] md:h-[50vh] overflow-hidden group">
+            <img
+              src="/games-banner.jpg"
+              alt="Games"
+              className="w-full h-full object-cover opacity-50 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
+              <div>
+                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">03</span>
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
+                  Games <Gamepad2 className="w-8 h-8 md:w-12 md:h-12 text-pink-500" />
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          {/* Game cards */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+            {games.map((game, i) => (
+              <div key={i} className="bg-[#13131a] p-8 md:p-10 hover:bg-[#16161e] transition-colors group flex flex-col justify-between min-h-[320px]" data-testid={`card-game-${i}`}>
+                <div>
+                  <div className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-pink-400/80 inline-block mb-6">
+                    {game.tag}
+                  </div>
+                  <h3 className="text-2xl font-bold mb-4">{game.name}</h3>
+                  <p className="text-white/50 font-light mb-8 line-clamp-4">{game.description}</p>
+                </div>
+                {game.url !== "#" ? (
+                  <a
+                    href={game.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-sm font-mono text-white/30 group-hover:text-pink-400 transition-colors uppercase tracking-widest"
+                    data-testid={`link-game-${i}`}
+                  >
+                    Play Now <ChevronRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <span className="text-sm font-mono text-white/20 uppercase tracking-widest">Coming Soon</span>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Game screenshots */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+            {[
+              { img: cardGameImg, label: "Card Game", caption: "Learn tactics used in fake news" },
+              { img: fakeItDashboardImg, label: "Analytics", caption: "Track how misinformation spreads" },
+              { img: fakeItSimulationImg, label: "Simulation", caption: "See how people react to fake news" },
+            ].map((item, i) => (
+              <div key={i} className="relative overflow-hidden group" data-testid={`screenshot-game-${i}`}>
+                <img
+                  src={item.img}
+                  alt={item.caption}
+                  className="w-full aspect-video object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 right-4">
+                  <span className="inline-block bg-pink-500/80 text-white text-[10px] font-mono tracking-wider uppercase px-3 py-1 rounded-full mb-2">{item.label}</span>
+                  <p className="text-white text-sm font-medium">{item.caption}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 04. VIDEOS */}
+        <section className="mb-0">
+          <div className="relative h-[30vh] md:h-[50vh] overflow-hidden group">
+            <img
+              src="/videos-banner.jpg"
+              alt="Videos"
+              className="w-full h-full object-cover opacity-40 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-50 transition-all duration-1000 ease-out"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
+              <div>
+                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">04</span>
+                <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
+                  Videos <MonitorPlay className="w-8 h-8 md:w-12 md:h-12 text-cyan-400" />
+                </h2>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10">
+            {/* Featured video */}
+            <div className="md:col-span-8 bg-[#13131a] p-8 md:p-12 group cursor-pointer hover:bg-[#16161e] transition-colors relative" data-testid="card-video-featured">
+              <div className="aspect-video bg-black rounded-lg mb-8 relative overflow-hidden flex items-center justify-center border border-white/10">
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-30 grayscale group-hover:scale-105 group-hover:opacity-40 transition-all duration-700"
+                  style={{ backgroundImage: "url('https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80')" }}
+                />
+                <div className="w-20 h-20 rounded-full bg-cyan-500/90 flex items-center justify-center pl-2 backdrop-blur-sm z-10 group-hover:scale-110 transition-transform"
+                  style={{ boxShadow: "0 0 40px rgba(6,182,212,0.3)" }}>
+                  <Play className="w-8 h-8 text-black" fill="currentColor" />
+                </div>
+              </div>
+              <h3 className="text-3xl font-bold mb-4 tracking-tight">{videos[0].title}</h3>
+              <p className="text-white/50 text-lg font-light">{videos[0].description}</p>
+              <span className="inline-block mt-4 bg-white/5 border border-white/10 rounded-full px-4 py-1 text-xs font-mono tracking-wider text-cyan-400/80">
+                {videos[0].topic}
+              </span>
+            </div>
+
+            {/* Video list */}
+            <div className="md:col-span-4 flex flex-col gap-px bg-white/10">
+              {videos.slice(1).map((video, i) => (
+                <div key={i} className="bg-[#13131a] p-6 flex-1 hover:bg-[#16161e] transition-colors group cursor-pointer flex flex-col justify-center" data-testid={`card-video-${i + 1}`}>
+                  <div className="flex items-start gap-4">
+                    <div className="w-12 h-12 shrink-0 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
+                      <Play className="w-5 h-5 ml-1 group-hover:text-cyan-400 transition-colors" />
+                    </div>
+                    <div>
+                      <h4 className="text-base font-bold mb-1 group-hover:text-cyan-100 transition-colors leading-snug">
+                        {video.title}
+                      </h4>
+                      <span className="text-white/30 font-mono text-xs uppercase tracking-wider">{video.topic}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+      <footer className="py-12 text-center text-white/20 font-mono text-sm border-t border-white/5 mt-0">
+        &copy; Creative Media Bootcamp. Navigate the Noise.
+      </footer>
     </div>
   );
 }
