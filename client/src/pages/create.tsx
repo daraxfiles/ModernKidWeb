@@ -2102,7 +2102,7 @@ In summary..."
 
             {/* ── LEFT RAIL (desktop only) ── */}
             <aside className="hidden lg:flex flex-col w-52 xl:w-56 shrink-0 sticky top-24 gap-0.5">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-white/25 mb-3 px-3">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-white/50 mb-3 px-3">
                 Production Stages
               </p>
 
@@ -2139,11 +2139,11 @@ In summary..."
                         {isCompleted ? <CheckCircle className="h-3.5 w-3.5" /> : step.id}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className={`text-xs font-semibold leading-tight truncate ${isCurrent ? 'text-white' : isCompleted ? 'text-white/55' : 'text-white/28'}`}>
+                        <p className={`text-xs font-semibold leading-tight truncate ${isCurrent ? 'text-white' : isCompleted ? 'text-white/55' : 'text-white/55'}`}>
                           {step.title}
                         </p>
                         {isCurrent && (
-                          <p className="text-[10px] text-white/35 mt-0.5 truncate">{step.description}</p>
+                          <p className="text-[10px] text-white/55 mt-0.5 truncate">{step.description}</p>
                         )}
                       </div>
                       {isCurrent && (
@@ -2162,7 +2162,7 @@ In summary..."
                 <button
                   onClick={handleSave}
                   disabled={saveMutation.isPending}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 border border-white/8 hover:border-white/15 text-white/45 hover:text-white/70 text-xs font-medium transition-all"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 border border-white/8 hover:border-white/15 text-white/65 hover:text-white/85 text-xs font-medium transition-all"
                   data-testid="button-save-progress"
                 >
                   {saveMutation.isPending ? (
@@ -2191,7 +2191,7 @@ In summary..."
                         key={step.id}
                         onClick={() => goToStep(step.id)}
                         className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all whitespace-nowrap ring-1 ${
-                          isCurrent ? 'text-white ring-white/20' : isCompleted ? 'bg-emerald-500/10 text-emerald-400 ring-transparent' : 'bg-white/5 text-white/35 ring-transparent'
+                          isCurrent ? 'text-white ring-white/20' : isCompleted ? 'bg-emerald-500/10 text-emerald-400 ring-transparent' : 'bg-white/5 text-white/55 ring-transparent'
                         }`}
                         style={isCurrent ? { background: `linear-gradient(135deg, ${stepColors[currentStep].from}22, ${stepColors[currentStep].to}11)` } : {}}
                         data-testid={`step-mobile-${step.id}`}
@@ -2221,7 +2221,7 @@ In summary..."
                   {String(currentStep).padStart(2, '0')}
                 </motion.span>
                 <div className="pb-3 flex-1 min-w-0">
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-white/25 mb-1">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-white/48 mb-1">
                     Step {currentStep} of {steps.length}
                   </p>
                   <motion.h1
@@ -2238,7 +2238,7 @@ In summary..."
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.16 }}
-                    className="text-sm text-white/38 mt-1"
+                    className="text-sm text-white/60 mt-1"
                   >
                     {steps[currentStep - 1].description}
                   </motion.p>
@@ -2313,8 +2313,8 @@ In summary..."
                         <div className="w-3 h-3 rounded-full bg-[#28c840]/75" />
                       </div>
                       <div className="w-px h-4 bg-white/8" />
-                      {(() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="h-3.5 w-3.5 text-white/28" />; })()}
-                      <span className="text-[11px] font-mono text-white/28 truncate max-w-[220px]">
+                      {(() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="h-3.5 w-3.5 text-white/48" />; })()}
+                      <span className="text-[11px] font-mono text-white/48 truncate max-w-[220px]">
                         {steps[currentStep - 1].example}
                       </span>
                     </div>
@@ -2367,7 +2367,7 @@ In summary..."
                       variant="ghost"
                       onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
                       disabled={currentStep === 1}
-                      className="gap-2 text-white/42 hover:text-white hover:bg-white/8 disabled:opacity-20 border border-white/8 hover:border-white/16"
+                      className="gap-2 text-white/65 hover:text-white hover:bg-white/8 disabled:opacity-20 border border-white/8 hover:border-white/16"
                       data-testid="button-previous"
                     >
                       <ArrowLeft className="h-4 w-4" />
@@ -2394,7 +2394,7 @@ In summary..."
         </div>
       </div>
 
-      <footer className="border-t border-white/5 py-6 text-center text-xs text-white/18 font-mono tracking-wide">
+      <footer className="border-t border-white/5 py-6 text-center text-xs text-white/40 font-mono tracking-wide">
         Creative Media Production Bootcamp · Navigate the Noise.
       </footer>
     </div>
