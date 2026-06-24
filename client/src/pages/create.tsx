@@ -2055,13 +2055,13 @@ In summary..."
   };
 
   const stepColors: Record<number, { from: string; to: string; glow: string }> = {
-    1: { from: '#818cf8', to: '#a78bfa', glow: '#818cf8' },
-    2: { from: '#22d3ee', to: '#67e8f9', glow: '#22d3ee' },
-    3: { from: '#fbbf24', to: '#fde68a', glow: '#fbbf24' },
-    4: { from: '#f472b6', to: '#e879f9', glow: '#f472b6' },
-    5: { from: '#34d399', to: '#6ee7b7', glow: '#34d399' },
-    6: { from: '#a78bfa', to: '#c084fc', glow: '#a78bfa' },
-    7: { from: '#fb923c', to: '#fbbf24', glow: '#fb923c' },
+    1: { from: '#4338ca', to: '#818cf8', glow: '#6366f1' },
+    2: { from: '#0e7490', to: '#22d3ee', glow: '#06b6d4' },
+    3: { from: '#b45309', to: '#fbbf24', glow: '#f59e0b' },
+    4: { from: '#be185d', to: '#f472b6', glow: '#ec4899' },
+    5: { from: '#047857', to: '#10b981', glow: '#34d399' },
+    6: { from: '#6d28d9', to: '#a855f7', glow: '#9333ea' },
+    7: { from: '#c2410c', to: '#f97316', glow: '#fb923c' },
   };
 
   return (
@@ -2073,12 +2073,12 @@ In summary..."
         <motion.div
           className="absolute inset-0"
           animate={{
-            background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${stepColors[currentStep].glow}1a, transparent 65%)`,
+            background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${stepColors[currentStep].glow}40, transparent 65%)`,
           }}
           transition={{ duration: 0.8 }}
         />
         <div
-          className="absolute inset-0 opacity-[0.022]"
+          className="absolute inset-0 opacity-[0.045]"
           style={{
             backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
@@ -2087,7 +2087,7 @@ In summary..."
       </div>
 
       {/* Top progress stripe */}
-      <div className="fixed top-0 left-0 right-0 z-40 h-[2px] bg-white/5">
+      <div className="fixed top-0 left-0 right-0 z-40 h-[3px] bg-white/5">
         <motion.div
           className="h-full"
           style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})` }}
@@ -2133,7 +2133,7 @@ In summary..."
                         }`}
                         style={isCurrent ? {
                           background: `linear-gradient(135deg, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`,
-                          boxShadow: `0 0 16px ${stepColors[currentStep].glow}55`,
+                          boxShadow: `0 0 22px ${stepColors[currentStep].glow}cc`,
                         } : {}}
                       >
                         {isCompleted ? <CheckCircle className="h-3.5 w-3.5" /> : step.id}
@@ -2193,7 +2193,7 @@ In summary..."
                         className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all whitespace-nowrap ring-1 ${
                           isCurrent ? 'text-white ring-white/20' : isCompleted ? 'bg-emerald-500/10 text-emerald-400 ring-transparent' : 'bg-white/5 text-white/55 ring-transparent'
                         }`}
-                        style={isCurrent ? { background: `linear-gradient(135deg, ${stepColors[currentStep].from}22, ${stepColors[currentStep].to}11)` } : {}}
+                        style={isCurrent ? { background: `linear-gradient(135deg, ${stepColors[currentStep].from}55, ${stepColors[currentStep].to}33)` } : {}}
                         data-testid={`step-mobile-${step.id}`}
                       >
                         {isCompleted ? <CheckCircle className="h-3 w-3" /> : <step.icon className="h-3 w-3" />}
@@ -2214,7 +2214,7 @@ In summary..."
                   className="text-[5rem] md:text-[7.5rem] font-black leading-none tabular-nums select-none shrink-0"
                   style={{
                     color: 'transparent',
-                    WebkitTextStroke: '1.5px rgba(255,255,255,0.06)',
+                    WebkitTextStroke: '1.5px rgba(255,255,255,0.16)',
                     textShadow: '0 2px 0 rgba(0,0,0,0.5), 0 5px 0 rgba(0,0,0,0.3), 0 10px 0 rgba(0,0,0,0.18), 0 18px 24px rgba(0,0,0,0.28)',
                   }}
                 >
@@ -2252,7 +2252,7 @@ In summary..."
                 animate={{ scaleX: 1 }}
                 transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
                 className="h-px mb-7 origin-left"
-                style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}50, transparent)` }}
+                style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}cc, transparent)` }}
               />
 
               {/* 3D floating card */}
@@ -2266,7 +2266,7 @@ In summary..."
               >
                 {/* Ambient glow */}
                 <motion.div
-                  animate={{ background: `radial-gradient(ellipse at 50% 20%, ${stepColors[currentStep].glow}28, transparent 65%)` }}
+                  animate={{ background: `radial-gradient(ellipse at 50% 20%, ${stepColors[currentStep].glow}66, transparent 65%)` }}
                   transition={{ duration: 0.8 }}
                   className="absolute -inset-12 blur-3xl rounded-3xl pointer-events-none"
                 />
@@ -2379,7 +2379,7 @@ In summary..."
                       className="gap-2 px-7 font-semibold text-white disabled:opacity-30 border-0"
                       style={{
                         background: `linear-gradient(135deg, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`,
-                        boxShadow: `0 4px 20px ${stepColors[currentStep].glow}45`,
+                        boxShadow: `0 4px 28px ${stepColors[currentStep].glow}99`,
                       }}
                       data-testid="button-next"
                     >
