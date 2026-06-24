@@ -2054,194 +2054,349 @@ In summary..."
     }
   };
 
+  const stepColors: Record<number, { from: string; to: string; glow: string }> = {
+    1: { from: '#818cf8', to: '#a78bfa', glow: '#818cf8' },
+    2: { from: '#22d3ee', to: '#67e8f9', glow: '#22d3ee' },
+    3: { from: '#fbbf24', to: '#fde68a', glow: '#fbbf24' },
+    4: { from: '#f472b6', to: '#e879f9', glow: '#f472b6' },
+    5: { from: '#34d399', to: '#6ee7b7', glow: '#34d399' },
+    6: { from: '#a78bfa', to: '#c084fc', glow: '#a78bfa' },
+    7: { from: '#fb923c', to: '#fbbf24', glow: '#fb923c' },
+  };
+
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-background">
+    <div className="min-h-screen bg-[#09090f] text-white font-sans overflow-x-hidden">
       {showConfetti && <Confetti />}
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto">
-          <motion.div 
-            className="text-center mb-8"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <Badge variant="secondary" className="mb-4 gap-1">
-              <Sparkles className="h-3.5 w-3.5" />
-              Interactive Workspace
-            </Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              Create Your Media Project
-            </h1>
-            <p className="text-lg text-muted-foreground">
-              Follow the steps below to plan, create, and share your project.
-            </p>
-          </motion.div>
 
-          <div className="mb-8">
-            <div className="flex items-center justify-between mb-3">
-              <div className="flex items-center gap-2">
-                <span className="text-sm font-medium">Your Progress</span>
-                <Badge variant="secondary" className="gap-1">
-                  <Zap className="h-3 w-3" />
-                  Step {currentStep} of {steps.length}
-                </Badge>
-              </div>
-              <span className="text-sm font-medium text-primary">
-                {Math.round(progress)}%
-              </span>
-            </div>
-            <div className="relative">
-              <Progress value={progress} className="h-3" />
-              <motion.div 
-                className="absolute top-0 h-3 rounded-full bg-gradient-to-r from-primary via-accent to-chart-3 opacity-50"
-                style={{ width: `${progress}%` }}
-                initial={{ width: 0 }}
-                animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.5 }}
-              />
-            </div>
-          </div>
+      {/* Ambient background */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden">
+        <motion.div
+          className="absolute inset-0"
+          animate={{
+            background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${stepColors[currentStep].glow}1a, transparent 65%)`,
+          }}
+          transition={{ duration: 0.8 }}
+        />
+        <div
+          className="absolute inset-0 opacity-[0.022]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)',
+            backgroundSize: '28px 28px',
+          }}
+        />
+      </div>
 
-          <div className="mb-8 overflow-x-auto pb-2 scrollbar-hide">
-            <div className="flex gap-2 min-w-max">
-              {steps.map((step) => {
+      {/* Top progress stripe */}
+      <div className="fixed top-0 left-0 right-0 z-40 h-[2px] bg-white/5">
+        <motion.div
+          className="h-full"
+          style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})` }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.6, ease: 'easeInOut' }}
+        />
+      </div>
+
+      <div className="min-h-screen pt-20 pb-20">
+        <div className="max-w-7xl mx-auto px-4 md:px-8">
+          <div className="flex gap-10 xl:gap-16 items-start">
+
+            {/* ── LEFT RAIL (desktop only) ── */}
+            <aside className="hidden lg:flex flex-col w-52 xl:w-56 shrink-0 sticky top-24 gap-0.5">
+              <p className="text-[10px] font-mono uppercase tracking-widest text-white/25 mb-3 px-3">
+                Production Stages
+              </p>
+
+              {steps.map((step, i) => {
                 const isCompleted = completedSteps.has(step.id);
                 const isCurrent = currentStep === step.id;
-                const isPast = step.id < currentStep;
-                
+                const distanceFuture = step.id - currentStep;
                 return (
-                  <motion.button
-                    key={step.id}
-                    onClick={() => goToStep(step.id)}
-                    whileHover={{ y: -2 }}
-                    whileTap={{ scale: 0.98 }}
-                    className={`relative flex items-center gap-2 px-4 py-3 rounded-xl transition-all min-w-[140px] ${
-                      isCurrent
-                        ? "bg-primary text-primary-foreground shadow-lg"
-                        : isCompleted || isPast
-                        ? "bg-primary/10 text-primary hover-elevate"
-                        : "bg-secondary/50 text-muted-foreground hover-elevate"
-                    }`}
-                    data-testid={`step-${step.id}`}
-                  >
-                    <div className={`h-8 w-8 rounded-lg flex items-center justify-center shrink-0 ${
-                      isCurrent 
-                        ? "bg-white/20" 
-                        : isCompleted
-                        ? "bg-chart-3/20"
-                        : "bg-muted"
-                    }`}>
-                      {isCompleted ? (
-                        <CheckCircle className="h-4 w-4 text-chart-3" />
-                      ) : (
-                        <step.icon className="h-4 w-4" />
-                      )}
-                    </div>
-                    <div className="text-left">
-                      <p className="text-xs opacity-70">Step {step.id}</p>
-                      <p className="text-sm font-medium leading-tight">{step.title}</p>
-                    </div>
-                    {isCurrent && (
-                      <motion.div
-                        className="absolute -bottom-1 left-1/2 w-2 h-2 rounded-full bg-primary"
-                        layoutId="currentStep"
-                        initial={false}
-                        style={{ x: '-50%' }}
+                  <div key={step.id} className="relative">
+                    {i < steps.length - 1 && (
+                      <div
+                        className={`absolute left-[1.55rem] top-full w-px z-0 ${isCompleted ? 'bg-emerald-500/40' : 'bg-white/6'}`}
+                        style={{ height: '0.5rem' }}
                       />
                     )}
-                  </motion.button>
+                    <motion.button
+                      onClick={() => goToStep(step.id)}
+                      whileHover={!isCurrent ? { x: 4 } : {}}
+                      className={`relative z-10 w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors duration-200 ${
+                        isCurrent ? 'bg-white/7 border border-white/10' : 'hover:bg-white/4 border border-transparent'
+                      }`}
+                      style={{ opacity: distanceFuture > 0 ? Math.max(0.22, 1 - distanceFuture * 0.14) : 1 }}
+                      data-testid={`step-${step.id}`}
+                    >
+                      <div
+                        className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
+                          isCurrent ? 'text-white' : isCompleted ? 'bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30' : 'bg-white/6 text-white/30'
+                        }`}
+                        style={isCurrent ? {
+                          background: `linear-gradient(135deg, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`,
+                          boxShadow: `0 0 16px ${stepColors[currentStep].glow}55`,
+                        } : {}}
+                      >
+                        {isCompleted ? <CheckCircle className="h-3.5 w-3.5" /> : step.id}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-xs font-semibold leading-tight truncate ${isCurrent ? 'text-white' : isCompleted ? 'text-white/55' : 'text-white/28'}`}>
+                          {step.title}
+                        </p>
+                        {isCurrent && (
+                          <p className="text-[10px] text-white/35 mt-0.5 truncate">{step.description}</p>
+                        )}
+                      </div>
+                      {isCurrent && (
+                        <motion.div
+                          layoutId="sideBar"
+                          className="absolute left-0 top-2 bottom-2 w-0.5 rounded-full"
+                          style={{ background: `linear-gradient(to bottom, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})` }}
+                        />
+                      )}
+                    </motion.button>
+                  </div>
                 );
               })}
-            </div>
-          </div>
 
-          <Card className="mb-8">
-            <CardHeader className="border-b bg-secondary/30">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  {(() => {
-                    const StepIcon = steps[currentStep - 1].icon;
-                    return (
-                      <div className="h-10 w-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                        <StepIcon className="h-5 w-5 text-primary" />
-                      </div>
-                    );
-                  })()}
-                  <div>
-                    <CardTitle>{steps[currentStep - 1].title}</CardTitle>
-                    <p className="text-sm text-muted-foreground">
-                      {steps[currentStep - 1].description}
-                    </p>
-                    <p className="text-xs text-primary/70 mt-1">
-                      {steps[currentStep - 1].example}
-                    </p>
-                  </div>
-                </div>
-                <Button 
-                  variant="outline" 
-                  size="sm" 
-                  onClick={handleSave} 
+              <div className="mt-8 pt-5 border-t border-white/8">
+                <button
+                  onClick={handleSave}
                   disabled={saveMutation.isPending}
-                  className="gap-1"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 border border-white/8 hover:border-white/15 text-white/45 hover:text-white/70 text-xs font-medium transition-all"
                   data-testid="button-save-progress"
                 >
                   {saveMutation.isPending ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  ) : isSaved ? (
+                    <CheckCircle className="h-3.5 w-3.5 text-emerald-400" />
                   ) : (
-                    <Save className="h-4 w-4" />
+                    <Save className="h-3.5 w-3.5" />
                   )}
-                  {isSaved ? "Saved" : "Save"}
-                </Button>
+                  {isSaved ? 'Saved' : 'Save progress'}
+                </button>
               </div>
-            </CardHeader>
-            <CardContent className="p-6">
-              <AnimatePresence mode="wait">
-                {renderStep()}
-              </AnimatePresence>
-            </CardContent>
-          </Card>
+            </aside>
 
-          <div className="flex items-center justify-between">
-            <Button
-              variant="outline"
-              onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
-              disabled={currentStep === 1}
-              className="gap-2"
-              data-testid="button-previous"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Previous
-            </Button>
+            {/* ── MAIN STAGE ── */}
+            <div className="flex-1 min-w-0">
 
-            <div className="flex items-center gap-2">
-              {steps.map((step) => (
-                <button
-                  key={step.id}
-                  onClick={() => goToStep(step.id)}
-                  className={`h-2 w-2 rounded-full transition-all ${
-                    step.id === currentStep
-                      ? "bg-primary w-6"
-                      : completedSteps.has(step.id)
-                      ? "bg-chart-3"
-                      : "bg-muted"
-                  }`}
-                  aria-label={`Go to step ${step.id}`}
-                  data-testid={`button-step-dot-${step.id}`}
+              {/* Mobile step scroll */}
+              <div className="lg:hidden mb-6 overflow-x-auto pb-1">
+                <div className="flex gap-2 min-w-max">
+                  {steps.map((step) => {
+                    const isCompleted = completedSteps.has(step.id);
+                    const isCurrent = currentStep === step.id;
+                    return (
+                      <button
+                        key={step.id}
+                        onClick={() => goToStep(step.id)}
+                        className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all whitespace-nowrap ring-1 ${
+                          isCurrent ? 'text-white ring-white/20' : isCompleted ? 'bg-emerald-500/10 text-emerald-400 ring-transparent' : 'bg-white/5 text-white/35 ring-transparent'
+                        }`}
+                        style={isCurrent ? { background: `linear-gradient(135deg, ${stepColors[currentStep].from}22, ${stepColors[currentStep].to}11)` } : {}}
+                        data-testid={`step-mobile-${step.id}`}
+                      >
+                        {isCompleted ? <CheckCircle className="h-3 w-3" /> : <step.icon className="h-3 w-3" />}
+                        {step.title}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Extruded step number + title */}
+              <div className="mb-6 flex items-end gap-3 md:gap-5 overflow-hidden">
+                <motion.span
+                  key={currentStep}
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-[5rem] md:text-[7.5rem] font-black leading-none tabular-nums select-none shrink-0"
+                  style={{
+                    color: 'transparent',
+                    WebkitTextStroke: '1.5px rgba(255,255,255,0.06)',
+                    textShadow: '0 2px 0 rgba(0,0,0,0.5), 0 5px 0 rgba(0,0,0,0.3), 0 10px 0 rgba(0,0,0,0.18), 0 18px 24px rgba(0,0,0,0.28)',
+                  }}
+                >
+                  {String(currentStep).padStart(2, '0')}
+                </motion.span>
+                <div className="pb-3 flex-1 min-w-0">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-white/25 mb-1">
+                    Step {currentStep} of {steps.length}
+                  </p>
+                  <motion.h1
+                    key={`h-${currentStep}`}
+                    initial={{ opacity: 0, x: -14 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.35, delay: 0.06 }}
+                    className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight"
+                  >
+                    {steps[currentStep - 1].title}
+                  </motion.h1>
+                  <motion.p
+                    key={`p-${currentStep}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.16 }}
+                    className="text-sm text-white/38 mt-1"
+                  >
+                    {steps[currentStep - 1].description}
+                  </motion.p>
+                </div>
+              </div>
+
+              {/* Accent rule */}
+              <motion.div
+                key={`rule-${currentStep}`}
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+                className="h-px mb-7 origin-left"
+                style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}50, transparent)` }}
+              />
+
+              {/* 3D floating card */}
+              <motion.div
+                key={`stage-outer-${currentStep}`}
+                initial={{ opacity: 0, y: 36, scale: 0.97 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="relative"
+                style={{ perspective: '1400px' }}
+              >
+                {/* Ambient glow */}
+                <motion.div
+                  animate={{ background: `radial-gradient(ellipse at 50% 20%, ${stepColors[currentStep].glow}28, transparent 65%)` }}
+                  transition={{ duration: 0.8 }}
+                  className="absolute -inset-12 blur-3xl rounded-3xl pointer-events-none"
                 />
-              ))}
-            </div>
 
-            <Button
-              onClick={() => setCurrentStep((prev) => Math.min(steps.length, prev + 1))}
-              disabled={currentStep === steps.length || !canProceed()}
-              className="gap-2"
-              data-testid="button-next"
-            >
-              Next
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+                {/* 3D card wrapper */}
+                <motion.div
+                  initial={{ rotateX: 10 }}
+                  animate={{ rotateX: 2 }}
+                  whileHover={{ rotateX: 0, y: -6 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  style={{
+                    transformStyle: 'preserve-3d',
+                    transformOrigin: 'center top',
+                    boxShadow: [
+                      '0 0 0 1px rgba(255,255,255,0.07)',
+                      '0 1px 0 rgba(255,255,255,0.09) inset',
+                      '0 0 0 1px rgba(0,0,0,0.5) inset',
+                      '0 50px 70px rgba(0,0,0,0.58)',
+                      '0 25px 35px rgba(0,0,0,0.38)',
+                      '0 10px 16px rgba(0,0,0,0.22)',
+                    ].join(', '),
+                  }}
+                  className="relative rounded-2xl overflow-hidden"
+                >
+                  {/* Glassmorphism sheen */}
+                  <div
+                    className="absolute inset-0 pointer-events-none rounded-2xl"
+                    style={{ background: 'linear-gradient(150deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.015) 45%, rgba(0,0,0,0.08) 100%)' }}
+                  />
+
+                  {/* Top color stripe */}
+                  <motion.div
+                    className="h-[2px]"
+                    animate={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}, transparent 75%)` }}
+                    transition={{ duration: 0.6 }}
+                  />
+
+                  {/* Window chrome header */}
+                  <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.06] bg-black/20">
+                    <div className="flex items-center gap-3">
+                      <div className="flex gap-1.5">
+                        <div className="w-3 h-3 rounded-full bg-[#ff5f57]/75" />
+                        <div className="w-3 h-3 rounded-full bg-[#febc2e]/75" />
+                        <div className="w-3 h-3 rounded-full bg-[#28c840]/75" />
+                      </div>
+                      <div className="w-px h-4 bg-white/8" />
+                      {(() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="h-3.5 w-3.5 text-white/28" />; })()}
+                      <span className="text-[11px] font-mono text-white/28 truncate max-w-[220px]">
+                        {steps[currentStep - 1].example}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      {steps.map((s) => (
+                        <button
+                          key={s.id}
+                          onClick={() => goToStep(s.id)}
+                          className="rounded-full transition-all"
+                          style={{
+                            width: s.id === currentStep ? '1.25rem' : '0.5rem',
+                            height: '0.375rem',
+                            background: s.id === currentStep
+                              ? `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`
+                              : completedSteps.has(s.id) ? 'rgba(52,211,153,0.5)' : 'rgba(255,255,255,0.12)',
+                          }}
+                          data-testid={`button-step-dot-${s.id}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Step content — dark scoped CSS vars */}
+                  <div
+                    className="p-5 md:p-8 bg-[#0c0c13]"
+                    style={{
+                      '--background': '240 14% 6%',
+                      '--foreground': '210 18% 90%',
+                      '--card': '240 10% 9%',
+                      '--card-foreground': '210 18% 90%',
+                      '--border': '240 6% 21%',
+                      '--secondary': '240 6% 14%',
+                      '--secondary-foreground': '210 18% 88%',
+                      '--muted': '240 6% 12%',
+                      '--muted-foreground': '215 10% 52%',
+                      '--input': '240 6% 15%',
+                      '--primary': '262 83% 68%',
+                      '--primary-foreground': '0 0% 100%',
+                      '--accent': '173 80% 52%',
+                      '--accent-foreground': '0 0% 100%',
+                      color: 'hsl(210 18% 90%)',
+                    } as React.CSSProperties}
+                  >
+                    <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
+                  </div>
+
+                  {/* Footer nav */}
+                  <div className="flex items-center justify-between px-5 py-4 border-t border-white/[0.06] bg-black/20">
+                    <Button
+                      variant="ghost"
+                      onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
+                      disabled={currentStep === 1}
+                      className="gap-2 text-white/42 hover:text-white hover:bg-white/8 disabled:opacity-20 border border-white/8 hover:border-white/16"
+                      data-testid="button-previous"
+                    >
+                      <ArrowLeft className="h-4 w-4" />
+                      Previous
+                    </Button>
+                    <Button
+                      onClick={() => setCurrentStep((prev) => Math.min(steps.length, prev + 1))}
+                      disabled={currentStep === steps.length || !canProceed()}
+                      className="gap-2 px-7 font-semibold text-white disabled:opacity-30 border-0"
+                      style={{
+                        background: `linear-gradient(135deg, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`,
+                        boxShadow: `0 4px 20px ${stepColors[currentStep].glow}45`,
+                      }}
+                      data-testid="button-next"
+                    >
+                      {currentStep === steps.length ? 'Finish' : 'Next Step'}
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
       </div>
+
+      <footer className="border-t border-white/5 py-6 text-center text-xs text-white/18 font-mono tracking-wide">
+        Creative Media Production Bootcamp · Navigate the Noise.
+      </footer>
     </div>
   );
 }

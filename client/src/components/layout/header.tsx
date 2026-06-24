@@ -17,6 +17,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const isHome = location === "/";
+  const isDarkPage = location === "/create";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -24,7 +25,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const isTransparent = isHome && !scrolled;
+  const isTransparent = (isHome && !scrolled) || isDarkPage;
 
   return (
     <header
