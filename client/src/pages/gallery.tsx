@@ -194,7 +194,7 @@ export default function Gallery() {
     : sampleProjects.filter(p => p.category === selectedCategory);
 
   return (
-    <div className="min-h-screen py-12 md:py-16 bg-background">
+    <div className="min-h-screen pt-24 pb-16 bg-background">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">

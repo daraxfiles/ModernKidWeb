@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Sparkles } from "lucide-react";
+import { Menu, X, Clapperboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { href: "/resources", label: "Tools & Resources" },
-  { href: "/create", label: "Create Your Project" },
   { href: "/gallery", label: "Gallery" },
   { href: "/schedule", label: "Schedule" },
 ];
@@ -15,28 +15,48 @@ const navLinks = [
 export function Header() {
   const [location] = useLocation();
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const isHome = location === "/";
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-chart-3" />
-      <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-        <Link href="/resources" className="flex items-center gap-2 group">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-md group-hover:shadow-lg transition-shadow">
-            <Sparkles className="h-5 w-5 text-white" />
+    <header
+      className={cn(
+        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        isHome && !scrolled
+          ? "bg-transparent"
+          : "bg-[hsl(var(--background)/0.92)] backdrop-blur-md border-b border-[hsl(var(--border))]"
+      )}
+    >
+      <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] group-hover:scale-105 transition-transform shadow-lg">
+            <Clapperboard className="h-4 w-4 text-white" />
           </div>
-          <div className="hidden sm:block">
-            <span className="font-bold text-foreground">Creative Media</span>
-            <span className="ml-1 text-primary font-medium">Bootcamp</span>
-          </div>
+          <span className="font-bold text-sm text-white group-hover:text-[hsl(var(--primary))] transition-colors hidden sm:block">
+            Creative Media <span className="text-[hsl(var(--primary))]">Bootcamp</span>
+          </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1" data-testid="nav-desktop">
+        {/* Center nav */}
+        <nav className="hidden md:flex items-center gap-1" data-testid="nav-desktop">
           {navLinks.map((link) => (
             <Link key={link.href} href={link.href}>
               <Button
-                variant={location === link.href ? "secondary" : "ghost"}
+                variant="ghost"
                 size="sm"
-                className="text-sm"
+                className={cn(
+                  "text-sm transition-colors",
+                  location === link.href
+                    ? "text-[hsl(var(--primary))] bg-[hsl(var(--primary)/0.1)]"
+                    : "text-white/80 hover:text-white hover:bg-white/10"
+                )}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
                 {link.label}
@@ -45,31 +65,60 @@ export function Header() {
           ))}
         </nav>
 
-        <Sheet open={open} onOpenChange={setOpen}>
-          <SheetTrigger asChild className="lg:hidden">
-            <Button variant="ghost" size="icon" data-testid="button-mobile-menu">
-              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        {/* Right CTA */}
+        <div className="flex items-center gap-3 shrink-0">
+          <Link href="/create" className="hidden md:block">
+            <Button
+              size="sm"
+              className="rounded-full px-5 bg-white text-black hover:bg-white/90 font-semibold text-sm"
+              data-testid="button-cta-create"
+            >
+              Create Your Project
             </Button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-72" aria-describedby={undefined}>
-            <VisuallyHidden>
-              <SheetTitle>Navigation Menu</SheetTitle>
-            </VisuallyHidden>
-            <nav className="flex flex-col gap-2 mt-8" data-testid="nav-mobile">
-              {navLinks.map((link) => (
-                <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
-                  <Button
-                    variant={location === link.href ? "secondary" : "ghost"}
-                    className="w-full justify-start"
-                    data-testid={`nav-mobile-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
-                  >
-                    {link.label}
+          </Link>
+
+          {/* Mobile menu */}
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger asChild className="md:hidden">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="text-white hover:bg-white/10"
+                data-testid="button-mobile-menu"
+              >
+                {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="w-72 bg-[hsl(var(--background))] border-[hsl(var(--border))]"
+              aria-describedby={undefined}
+            >
+              <VisuallyHidden>
+                <SheetTitle>Navigation Menu</SheetTitle>
+              </VisuallyHidden>
+              <nav className="flex flex-col gap-2 mt-10" data-testid="nav-mobile">
+                {navLinks.map((link) => (
+                  <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>
+                    <Button
+                      variant={location === link.href ? "secondary" : "ghost"}
+                      className="w-full justify-start"
+                      data-testid={`nav-mobile-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
+                    >
+                      {link.label}
+                    </Button>
+                  </Link>
+                ))}
+                <div className="border-t border-[hsl(var(--border))] my-3" />
+                <Link href="/create" onClick={() => setOpen(false)}>
+                  <Button className="w-full rounded-full" data-testid="button-mobile-create">
+                    Create Your Project
                   </Button>
                 </Link>
-              ))}
-            </nav>
-          </SheetContent>
-        </Sheet>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
