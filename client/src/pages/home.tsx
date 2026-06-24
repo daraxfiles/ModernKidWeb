@@ -124,7 +124,7 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer className="border-t border-[hsl(var(--border))] py-6 px-6 text-center text-xs text-muted-foreground">
-        Creative Media Production Bootcamp · Department of Education and Human Development
+        Creative Media Production Bootcamp
       </footer>
     </div>
   );
