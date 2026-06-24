@@ -2065,32 +2065,13 @@ In summary..."
   };
 
   return (
-    <div className="min-h-screen font-sans overflow-x-hidden" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #6d28d9 100%)' }}>
+    <div className="min-h-screen bg-[#f4f1ea] text-[#0f0f12] font-sans selection:bg-indigo-500/30 overflow-x-hidden">
       {showConfetti && <Confetti />}
 
-      {/* Ambient background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute inset-0"
-          animate={{
-            background: `radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255,255,255,0.12), transparent 65%)`,
-          }}
-          transition={{ duration: 0.8 }}
-        />
-        <div
-          className="absolute inset-0 opacity-[0.06]"
-          style={{
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)',
-            backgroundSize: '28px 28px',
-          }}
-        />
-      </div>
-
       {/* Top progress stripe */}
-      <div className="fixed top-0 left-0 right-0 z-40 h-[3px] bg-white/5">
+      <div className="fixed top-0 left-0 right-0 z-40 h-[3px] bg-black/8">
         <motion.div
-          className="h-full"
-          style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})` }}
+          className="h-full bg-[#0f0f12]"
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.6, ease: 'easeInOut' }}
         />
@@ -2101,68 +2082,55 @@ In summary..."
           <div className="flex gap-10 xl:gap-16 items-start">
 
             {/* ── LEFT RAIL (desktop only) ── */}
-            <aside className="hidden lg:flex flex-col w-52 xl:w-56 shrink-0 sticky top-24 gap-0.5">
-              <p className="text-[10px] font-mono uppercase tracking-widest text-white/50 mb-3 px-3">
-                Production Stages
-              </p>
+            <aside className="hidden lg:flex flex-col w-52 xl:w-56 shrink-0 sticky top-24 gap-px bg-black/10 border border-black/10">
+              <div className="bg-[#edeae2] px-4 py-3">
+                <p className="text-[10px] font-mono uppercase tracking-widest text-[#0f0f12]/35">
+                  Production Stages
+                </p>
+              </div>
 
-              {steps.map((step, i) => {
+              {steps.map((step) => {
                 const isCompleted = completedSteps.has(step.id);
                 const isCurrent = currentStep === step.id;
-                const distanceFuture = step.id - currentStep;
                 return (
-                  <div key={step.id} className="relative">
-                    {i < steps.length - 1 && (
-                      <div
-                        className={`absolute left-[1.55rem] top-full w-px z-0 ${isCompleted ? 'bg-emerald-500/40' : 'bg-white/6'}`}
-                        style={{ height: '0.5rem' }}
+                  <motion.button
+                    key={step.id}
+                    onClick={() => goToStep(step.id)}
+                    whileHover={!isCurrent ? { x: 3 } : {}}
+                    className={`relative w-full flex items-center gap-3 px-4 py-3 text-left transition-colors duration-150 ${
+                      isCurrent ? 'bg-[#0f0f12]' : 'bg-[#edeae2] hover:bg-[#e6e2d8]'
+                    }`}
+                    data-testid={`step-${step.id}`}
+                  >
+                    {isCurrent && (
+                      <motion.div
+                        layoutId="sideBar"
+                        className="absolute left-0 top-0 bottom-0 w-[3px]"
+                        style={{ background: `linear-gradient(to bottom, ${stepColors[step.id].from}, ${stepColors[step.id].to})` }}
                       />
                     )}
-                    <motion.button
-                      onClick={() => goToStep(step.id)}
-                      whileHover={!isCurrent ? { x: 4 } : {}}
-                      className={`relative z-10 w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors duration-200 ${
-                        isCurrent ? 'bg-white/12 border border-white/16' : 'hover:bg-white/6 border border-transparent'
-                      }`}
-                      style={{ opacity: distanceFuture > 0 ? Math.max(0.22, 1 - distanceFuture * 0.14) : 1 }}
-                      data-testid={`step-${step.id}`}
-                    >
-                      <div
-                        className={`h-7 w-7 rounded-full flex items-center justify-center shrink-0 text-xs font-bold transition-all ${
-                          isCurrent ? 'text-white' : isCompleted ? 'bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30' : 'bg-white/6 text-white/30'
-                        }`}
-                        style={isCurrent ? {
-                          background: `linear-gradient(135deg, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`,
-                          boxShadow: `0 0 22px ${stepColors[currentStep].glow}cc`,
-                        } : {}}
-                      >
-                        {isCompleted ? <CheckCircle className="h-3.5 w-3.5" /> : step.id}
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <p className={`text-xs font-semibold leading-tight truncate ${isCurrent ? 'text-white' : isCompleted ? 'text-white/55' : 'text-white/55'}`}>
-                          {step.title}
-                        </p>
-                        {isCurrent && (
-                          <p className="text-[10px] text-white/55 mt-0.5 truncate">{step.description}</p>
-                        )}
-                      </div>
+                    <div className={`h-6 w-6 rounded-full flex items-center justify-center shrink-0 text-[11px] font-bold border transition-all ${
+                      isCurrent ? 'bg-white/10 text-white border-white/20' : isCompleted ? 'bg-emerald-500/10 text-emerald-600 border-emerald-500/20' : 'bg-black/5 text-[#0f0f12]/30 border-black/10'
+                    }`}>
+                      {isCompleted ? <CheckCircle className="h-3 w-3" /> : step.id}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className={`text-xs font-semibold leading-tight truncate ${isCurrent ? 'text-white' : isCompleted ? 'text-emerald-700' : 'text-[#0f0f12]/45'}`}>
+                        {step.title}
+                      </p>
                       {isCurrent && (
-                        <motion.div
-                          layoutId="sideBar"
-                          className="absolute left-0 top-2 bottom-2 w-0.5 rounded-full"
-                          style={{ background: `linear-gradient(to bottom, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})` }}
-                        />
+                        <p className="text-[10px] text-white/45 mt-0.5 truncate">{step.description}</p>
                       )}
-                    </motion.button>
-                  </div>
+                    </div>
+                  </motion.button>
                 );
               })}
 
-              <div className="mt-8 pt-5 border-t border-white/8">
+              <div className="bg-[#edeae2] p-3">
                 <button
                   onClick={handleSave}
                   disabled={saveMutation.isPending}
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/8 border border-white/8 hover:border-white/15 text-white/65 hover:text-white/85 text-xs font-medium transition-all"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#0f0f12] hover:bg-[#1a1a1a] text-white text-xs font-mono uppercase tracking-widest transition-all"
                   data-testid="button-save-progress"
                 >
                   {saveMutation.isPending ? (
@@ -2172,7 +2140,7 @@ In summary..."
                   ) : (
                     <Save className="h-3.5 w-3.5" />
                   )}
-                  {isSaved ? 'Saved' : 'Save progress'}
+                  {isSaved ? 'Saved' : 'Save Progress'}
                 </button>
               </div>
             </aside>
@@ -2181,8 +2149,8 @@ In summary..."
             <div className="flex-1 min-w-0">
 
               {/* Mobile step scroll */}
-              <div className="lg:hidden mb-6 overflow-x-auto pb-1">
-                <div className="flex gap-2 min-w-max">
+              <div className="lg:hidden mb-6 overflow-x-auto pb-1 border-b border-black/10">
+                <div className="flex gap-px bg-black/10 min-w-max">
                   {steps.map((step) => {
                     const isCompleted = completedSteps.has(step.id);
                     const isCurrent = currentStep === step.id;
@@ -2190,10 +2158,9 @@ In summary..."
                       <button
                         key={step.id}
                         onClick={() => goToStep(step.id)}
-                        className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium transition-all whitespace-nowrap ring-1 ${
-                          isCurrent ? 'text-white ring-white/20' : isCompleted ? 'bg-emerald-500/10 text-emerald-400 ring-transparent' : 'bg-white/5 text-white/55 ring-transparent'
+                        className={`flex items-center gap-1.5 px-4 py-3 text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap ${
+                          isCurrent ? 'bg-[#0f0f12] text-white' : isCompleted ? 'bg-[#edeae2] text-emerald-700' : 'bg-[#edeae2] text-[#0f0f12]/40 hover:bg-[#e6e2d8]'
                         }`}
-                        style={isCurrent ? { background: `linear-gradient(135deg, ${stepColors[currentStep].from}55, ${stepColors[currentStep].to}33)` } : {}}
                         data-testid={`step-mobile-${step.id}`}
                       >
                         {isCompleted ? <CheckCircle className="h-3 w-3" /> : <step.icon className="h-3 w-3" />}
@@ -2204,32 +2171,27 @@ In summary..."
                 </div>
               </div>
 
-              {/* Extruded step number + title */}
-              <div className="mb-6 flex items-end gap-3 md:gap-5 overflow-hidden">
+              {/* Editorial step header — ghost number + title */}
+              <div className="mb-6 border-b border-black/10 pb-6 flex items-end gap-2 md:gap-3 overflow-hidden">
                 <motion.span
                   key={currentStep}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="text-[5rem] md:text-[7.5rem] font-black leading-none tabular-nums select-none shrink-0"
-                  style={{
-                    color: 'transparent',
-                    WebkitTextStroke: '1.5px rgba(255,255,255,0.16)',
-                    textShadow: '0 2px 0 rgba(0,0,0,0.5), 0 5px 0 rgba(0,0,0,0.3), 0 10px 0 rgba(0,0,0,0.18), 0 18px 24px rgba(0,0,0,0.28)',
-                  }}
+                  transition={{ duration: 0.35 }}
+                  className="text-[5rem] md:text-[8rem] font-black leading-none tabular-nums select-none shrink-0 text-black/8 tracking-tighter"
                 >
                   {String(currentStep).padStart(2, '0')}
                 </motion.span>
-                <div className="pb-3 flex-1 min-w-0">
-                  <p className="text-[10px] font-mono uppercase tracking-widest text-white/48 mb-1">
+                <div className="pb-2 flex-1 min-w-0 -ml-2">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-[#0f0f12]/30 mb-1">
                     Step {currentStep} of {steps.length}
                   </p>
                   <motion.h1
                     key={`h-${currentStep}`}
-                    initial={{ opacity: 0, x: -14 }}
+                    initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.35, delay: 0.06 }}
-                    className="text-2xl md:text-3xl font-bold text-white tracking-tight leading-tight"
+                    transition={{ duration: 0.3, delay: 0.05 }}
+                    className="text-3xl md:text-4xl font-bold text-[#0f0f12] tracking-tight uppercase leading-tight"
                   >
                     {steps[currentStep - 1].title}
                   </motion.h1>
@@ -2237,84 +2199,35 @@ In summary..."
                     key={`p-${currentStep}`}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ delay: 0.16 }}
-                    className="text-sm text-white/60 mt-1"
+                    transition={{ delay: 0.14 }}
+                    className="text-sm text-[#0f0f12]/45 font-light mt-1"
                   >
                     {steps[currentStep - 1].description}
                   </motion.p>
                 </div>
               </div>
 
-              {/* Accent rule */}
-              <motion.div
-                key={`rule-${currentStep}`}
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-                className="h-px mb-7 origin-left"
-                style={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}cc, transparent)` }}
-              />
-
-              {/* 3D floating card */}
+              {/* Flat editorial card */}
               <motion.div
                 key={`stage-outer-${currentStep}`}
-                initial={{ opacity: 0, y: 36, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="relative"
-                style={{ perspective: '1400px' }}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="relative border border-black/10"
               >
-                {/* Ambient glow */}
-                <motion.div
-                  animate={{ background: `radial-gradient(ellipse at 50% 30%, ${stepColors[currentStep].glow}88, transparent 70%)` }}
-                  transition={{ duration: 0.8 }}
-                  className="absolute -inset-16 blur-3xl rounded-3xl pointer-events-none"
-                />
-
-                {/* 3D card wrapper */}
-                <motion.div
-                  initial={{ rotateX: 10 }}
-                  animate={{ rotateX: 2 }}
-                  whileHover={{ rotateX: 0, y: -6 }}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  style={{
-                    transformStyle: 'preserve-3d',
-                    transformOrigin: 'center top',
-                    boxShadow: [
-                      '0 0 0 1px rgba(255,255,255,0.07)',
-                      '0 1px 0 rgba(255,255,255,0.09) inset',
-                      '0 0 0 1px rgba(0,0,0,0.5) inset',
-                      '0 50px 70px rgba(0,0,0,0.58)',
-                      '0 25px 35px rgba(0,0,0,0.38)',
-                      '0 10px 16px rgba(0,0,0,0.22)',
-                    ].join(', '),
-                  }}
-                  className="relative rounded-2xl overflow-hidden"
-                >
-                  {/* Glassmorphism sheen */}
-                  <div
-                    className="absolute inset-0 pointer-events-none rounded-2xl"
-                    style={{ background: 'linear-gradient(150deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.015) 45%, rgba(0,0,0,0.08) 100%)' }}
-                  />
-
-                  {/* Top color stripe */}
+                <div className="relative overflow-hidden">
+                  {/* Top accent stripe — per-step color */}
                   <motion.div
                     className="h-[3px]"
-                    animate={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}, transparent 75%)` }}
-                    transition={{ duration: 0.6 }}
+                    animate={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}, transparent 80%)` }}
+                    transition={{ duration: 0.5 }}
                   />
 
-                  {/* Window chrome header */}
-                  <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-white/5">
+                  {/* Card header row */}
+                  <div className="flex items-center justify-between px-5 py-3 border-b border-black/8 bg-[#edeae2]">
                     <div className="flex items-center gap-3">
-                      <div className="flex gap-1.5">
-                        <div className="w-3 h-3 rounded-full bg-[#ff5f57]/75" />
-                        <div className="w-3 h-3 rounded-full bg-[#febc2e]/75" />
-                        <div className="w-3 h-3 rounded-full bg-[#28c840]/75" />
-                      </div>
-                      <div className="w-px h-4 bg-white/8" />
-                      {(() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="h-3.5 w-3.5 text-white/48" />; })()}
-                      <span className="text-[11px] font-mono text-white/48 truncate max-w-[220px]">
+                      {(() => { const StepIcon = steps[currentStep - 1].icon; return <StepIcon className="h-3.5 w-3.5 text-[#0f0f12]/35" />; })()}
+                      <span className="text-[11px] font-mono text-[#0f0f12]/35 tracking-wider truncate max-w-[260px]">
                         {steps[currentStep - 1].example}
                       </span>
                     </div>
@@ -2329,7 +2242,7 @@ In summary..."
                             height: '0.375rem',
                             background: s.id === currentStep
                               ? `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`
-                              : completedSteps.has(s.id) ? 'rgba(52,211,153,0.5)' : 'rgba(255,255,255,0.12)',
+                              : completedSteps.has(s.id) ? 'rgba(16,185,129,0.4)' : 'rgba(0,0,0,0.12)',
                           }}
                           data-testid={`button-step-dot-${s.id}`}
                         />
@@ -2337,38 +2250,37 @@ In summary..."
                     </div>
                   </div>
 
-                  {/* Step content — dark scoped CSS vars */}
+                  {/* Step content — cream scoped CSS vars */}
                   <div
-                    className="p-5 md:p-8"
+                    className="p-5 md:p-8 bg-[#f4f1ea]"
                     style={{
-                      background: '#ffffff',
-                      '--background': '0 0% 100%',
-                      '--foreground': '240 10% 10%',
-                      '--card': '240 8% 97%',
-                      '--card-foreground': '240 10% 10%',
-                      '--border': '240 12% 88%',
-                      '--secondary': '240 8% 93%',
-                      '--secondary-foreground': '240 10% 15%',
-                      '--muted': '240 8% 94%',
-                      '--muted-foreground': '240 6% 46%',
-                      '--input': '240 8% 92%',
+                      '--background': '40 33% 93%',
+                      '--foreground': '240 10% 8%',
+                      '--card': '40 20% 91%',
+                      '--card-foreground': '240 10% 8%',
+                      '--border': '40 15% 82%',
+                      '--secondary': '40 18% 89%',
+                      '--secondary-foreground': '240 10% 12%',
+                      '--muted': '40 18% 90%',
+                      '--muted-foreground': '240 6% 42%',
+                      '--input': '40 20% 91%',
                       '--primary': '262 83% 58%',
                       '--primary-foreground': '0 0% 100%',
-                      '--accent': '173 80% 40%',
+                      '--accent': '173 80% 36%',
                       '--accent-foreground': '0 0% 100%',
-                      color: 'hsl(240 10% 10%)',
+                      color: 'hsl(240 10% 8%)',
                     } as React.CSSProperties}
                   >
                     <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
                   </div>
 
                   {/* Footer nav */}
-                  <div className="flex items-center justify-between px-5 py-4 border-t border-white/10 bg-white/5">
+                  <div className="flex items-center justify-between px-5 py-4 border-t border-black/8 bg-[#edeae2]">
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
                       disabled={currentStep === 1}
-                      className="gap-2 text-white/65 hover:text-white hover:bg-white/8 disabled:opacity-20 border border-white/8 hover:border-white/16"
+                      className="gap-2 text-[#0f0f12]/50 hover:text-[#0f0f12] hover:bg-black/5 disabled:opacity-20 border border-black/10 hover:border-black/20"
                       data-testid="button-previous"
                     >
                       <ArrowLeft className="h-4 w-4" />
@@ -2380,7 +2292,7 @@ In summary..."
                       className="gap-2 px-7 font-semibold text-white disabled:opacity-30 border-0"
                       style={{
                         background: `linear-gradient(135deg, ${stepColors[currentStep].from}, ${stepColors[currentStep].to})`,
-                        boxShadow: `0 4px 28px ${stepColors[currentStep].glow}99`,
+                        boxShadow: `0 4px 20px ${stepColors[currentStep].glow}55`,
                       }}
                       data-testid="button-next"
                     >
@@ -2388,14 +2300,14 @@ In summary..."
                       <ArrowRight className="h-4 w-4" />
                     </Button>
                   </div>
-                </motion.div>
+                </div>
               </motion.div>
             </div>
           </div>
         </div>
       </div>
 
-      <footer className="border-t border-white/5 py-6 text-center text-xs text-white/40 font-mono tracking-wide">
+      <footer className="border-t border-black/5 py-6 text-center text-xs text-[#0f0f12]/20 font-mono tracking-wide">
         Creative Media Production Bootcamp · Navigate the Noise.
       </footer>
     </div>
