@@ -1,23 +1,6 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { useQuery } from "@tanstack/react-query";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Video,
   Mic,
@@ -30,9 +13,10 @@ import {
   Play,
   AlertCircle,
   PenTool,
-  Presentation,
   Camera,
   Sparkles,
+  ChevronRight,
+  Filter,
 } from "lucide-react";
 import type { ShowcaseProject } from "@shared/schema";
 
@@ -66,113 +50,38 @@ const projectTypeLabels: Record<string, string> = {
 };
 
 const sampleProjects = [
-  {
-    id: "sample-1",
-    title: "The Waterbottle",
-    type: "video_essay",
-    category: "Videos",
-    creator: "Camp Participant",
-    description: "A creative video exploring everyday objects and their stories.",
-    image: waterbottleImg,
-  },
-  {
-    id: "sample-2",
-    title: "Manga Mansplained",
-    type: "podcast",
-    category: "Podcasts",
-    creator: "Camp Participant",
-    description: "A podcast episode reviewing games and manga with cool alliteration.",
-    image: mangaImg,
-  },
-  {
-    id: "sample-3",
-    title: "Working Young",
-    type: "digital_story",
-    category: "Videos",
-    creator: "Camp Participant",
-    description: "A story about a kid named Da'morie who wants to help his community and make it better for the next generation.",
-    image: workingYoungImg,
-  },
-  {
-    id: "sample-4",
-    title: "The Duck Shoplifters",
-    type: "video_essay",
-    category: "Videos",
-    creator: "Camp Participant",
-    description: "A creative short film with humor - 'Coming to no theater near you!'",
-    image: duckShopliftersImg,
-  },
-  {
-    id: "sample-5",
-    title: "Genshin Impact Informational Slides",
-    type: "infographic",
-    category: "Infographics",
-    creator: "Camp Participant",
-    description: "Everything you need to know about Genshin Impact, presented in an engaging slide format.",
-    image: genshinImg,
-  },
-  {
-    id: "sample-6",
-    title: "Shopping Script",
-    type: "digital_story",
-    category: "Scripts",
-    creator: "Camp Participants",
-    description: "A collaborative script with color-coded dialogue between friends deciding to go shopping.",
-    image: scriptExcerptImg,
-  },
-  {
-    id: "sample-7",
-    title: "Podcast Transcript",
-    type: "podcast",
-    category: "Podcasts",
-    creator: "Camp Participant",
-    description: "A written transcript for a podcast episode reviewing 'Stray' - a game with amazing graphics and fulfilling storyline.",
-    image: podcastTranscriptImg,
-  },
+  { id: "sample-1", title: "The Waterbottle", type: "video_essay", category: "Videos", creator: "Camp Participant", description: "A creative video exploring everyday objects and their stories.", image: waterbottleImg },
+  { id: "sample-2", title: "Manga Mansplained", type: "podcast", category: "Podcasts", creator: "Camp Participant", description: "A podcast episode reviewing games and manga with cool alliteration.", image: mangaImg },
+  { id: "sample-3", title: "Working Young", type: "digital_story", category: "Videos", creator: "Camp Participant", description: "A story about a kid named Da'morie who wants to help his community and make it better for the next generation.", image: workingYoungImg },
+  { id: "sample-4", title: "The Duck Shoplifters", type: "video_essay", category: "Videos", creator: "Camp Participant", description: "A creative short film with humor — 'Coming to no theater near you!'", image: duckShopliftersImg },
+  { id: "sample-5", title: "Genshin Impact Slides", type: "infographic", category: "Infographics", creator: "Camp Participant", description: "Everything you need to know about Genshin Impact, presented in an engaging slide format.", image: genshinImg },
+  { id: "sample-6", title: "Shopping Script", type: "digital_story", category: "Scripts", creator: "Camp Participants", description: "A collaborative script with color-coded dialogue between friends deciding to go shopping.", image: scriptExcerptImg },
+  { id: "sample-7", title: "Podcast Transcript", type: "podcast", category: "Podcasts", creator: "Camp Participant", description: "A transcript for a podcast episode reviewing 'Stray' — a game with amazing graphics.", image: podcastTranscriptImg },
 ];
 
 const planningExamples = [
-  {
-    id: "plan-1",
-    title: "Brainstorming Web",
-    description: "Hand-drawn idea map exploring topics like food, shopping, horses, and creative concepts.",
-    image: storyboardHandImg,
-  },
-  {
-    id: "plan-2",
-    title: "Team Planning Notes",
-    description: "Colorful sticky notes with team ideas and project planning.",
-    image: stickyNotesImg,
-  },
-  {
-    id: "plan-3",
-    title: "Storyboard Sketch",
-    description: "A visual storyboard planning out scenes with drawings and notes.",
-    image: storyboardSketchImg,
-  },
+  { id: "plan-1", title: "Brainstorming Web", description: "Hand-drawn idea map exploring topics like food, shopping, horses, and creative concepts.", image: storyboardHandImg },
+  { id: "plan-2", title: "Team Planning Notes", description: "Colorful sticky notes with team ideas and project planning.", image: stickyNotesImg },
+  { id: "plan-3", title: "Storyboard Sketch", description: "A visual storyboard planning out scenes with drawings and notes.", image: storyboardSketchImg },
 ];
 
-function ProjectSkeleton() {
-  return (
-    <Card className="overflow-hidden">
-      <Skeleton className="aspect-video w-full" />
-      <CardContent className="p-4">
-        <div className="flex gap-2 mb-2">
-          <Skeleton className="h-5 w-20" />
-          <Skeleton className="h-5 w-24" />
-        </div>
-        <Skeleton className="h-5 w-3/4 mb-1" />
-        <Skeleton className="h-4 w-1/2 mb-2" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-2/3 mt-1" />
-      </CardContent>
-    </Card>
-  );
-}
+const categories = ["All", "Videos", "Podcasts", "Infographics", "Scripts"];
+const sections = ["Sample Work", "Planning", "Submitted"];
+
+const accentColors: Record<string, string> = {
+  video_essay: "text-cyan-400",
+  podcast: "text-pink-400",
+  photo_story: "text-emerald-400",
+  digital_story: "text-indigo-400",
+  infographic: "text-amber-400",
+  meme_ad: "text-orange-400",
+};
 
 export default function Gallery() {
-  const [filter, setFilter] = useState<string>("all");
-  const [themeFilter, setThemeFilter] = useState<string>("all");
+  const [activeSection, setActiveSection] = useState("Sample Work");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [typeFilter, setTypeFilter] = useState("all");
+  const [themeFilter, setThemeFilter] = useState("all");
 
   const { data: projects, isLoading, error } = useQuery<ShowcaseProject[]>({
     queryKey: ["/api/showcase"],
@@ -181,300 +90,367 @@ export default function Gallery() {
   const themes = projects ? [...new Set(projects.map((p) => p.issueTheme))] : [];
 
   const filteredProjects = projects?.filter((project) => {
-    const matchesType = filter === "all" || project.projectType === filter;
+    const matchesType = typeFilter === "all" || project.projectType === typeFilter;
     const matchesTheme = themeFilter === "all" || project.issueTheme === themeFilter;
     return matchesType && matchesTheme;
   }) || [];
 
-  const categories = ["All", "Videos", "Podcasts", "Infographics", "Scripts"];
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const filteredSamples = selectedCategory === "All"
+    ? sampleProjects
+    : sampleProjects.filter((p) => p.category === selectedCategory);
 
-  const filteredSamples = selectedCategory === "All" 
-    ? sampleProjects 
-    : sampleProjects.filter(p => p.category === selectedCategory);
+  const featured = filteredSamples[0];
+  const rest = filteredSamples.slice(1);
 
   return (
-    <div className="min-h-screen pt-24 pb-16 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
-            <Badge variant="secondary" className="mb-4 gap-2">
-              <Sparkles className="h-3.5 w-3.5" />
-              Student Showcase
-            </Badge>
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">
-              Project Gallery
+    <div className="min-h-screen bg-[#0b0b0e] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
+
+      {/* Hero Header */}
+      <header className="px-8 py-16 md:py-24 border-b border-white/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-900/15 to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div>
+            <p className="text-pink-400 font-mono tracking-widest uppercase text-sm mb-4 flex items-center gap-2">
+              <Sparkles className="w-3.5 h-3.5" /> Student Showcase
+            </p>
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase mb-6 leading-none">
+              The<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">
+                Work
+              </span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore amazing media projects created by bootcamp participants
+            <p className="text-lg text-white/50 max-w-xl font-light">
+              Real projects made by real students — video essays, podcasts, scripts, and everything in between.
             </p>
           </div>
 
-          <Tabs defaultValue="samples" className="w-full">
-            <TabsList className="grid grid-cols-3 w-full max-w-md mx-auto mb-8">
-              <TabsTrigger value="samples" data-testid="tab-samples">
-                <Star className="h-4 w-4 mr-2" />
-                Sample Work
-              </TabsTrigger>
-              <TabsTrigger value="planning" data-testid="tab-planning">
-                <PenTool className="h-4 w-4 mr-2" />
-                Planning
-              </TabsTrigger>
-              <TabsTrigger value="submitted" data-testid="tab-submitted">
-                <Presentation className="h-4 w-4 mr-2" />
-                Submitted
-              </TabsTrigger>
-            </TabsList>
+          {/* Section nav */}
+          <div className="flex flex-col gap-1 shrink-0">
+            {sections.map((s) => (
+              <button
+                key={s}
+                onClick={() => setActiveSection(s)}
+                data-testid={`nav-section-${s.toLowerCase().replace(" ", "-")}`}
+                className={`text-right px-6 py-3 font-mono text-sm uppercase tracking-widest transition-all border-r-2 ${
+                  activeSection === s
+                    ? "text-white border-pink-400"
+                    : "text-white/30 border-transparent hover:text-white/60"
+                }`}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      </header>
 
-            <TabsContent value="samples">
-              <div className="mb-6">
-                <p className="text-center text-muted-foreground mb-4">
-                  Real projects created by students during previous bootcamps
-                </p>
-                <div className="flex flex-wrap justify-center gap-2">
-                  {categories.map((cat) => (
-                    <Button
-                      key={cat}
-                      variant={selectedCategory === cat ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setSelectedCategory(cat)}
-                      data-testid={`button-filter-${cat.toLowerCase()}`}
-                    >
-                      {cat}
-                    </Button>
-                  ))}
-                </div>
-              </div>
+      <main className="max-w-7xl mx-auto">
 
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredSamples.map((project) => {
-                  const Icon = projectTypeIcons[project.type] || FileText;
-                  return (
-                    <Card
-                      key={project.id}
-                      className="overflow-hidden hover-elevate group"
-                      data-testid={`card-sample-${project.id}`}
-                    >
-                      <div className="aspect-video relative overflow-hidden">
-                        <img 
-                          src={project.image} 
-                          alt={project.title}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                          <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
-                            <Play className="h-6 w-6 text-white" />
-                          </div>
-                        </div>
-                        <div className="absolute top-3 left-3">
-                          <Badge className="gap-1 bg-primary text-primary-foreground border-0">
-                            <Icon className="h-3 w-3" />
-                            {projectTypeLabels[project.type]}
-                          </Badge>
+        {/* ── SAMPLE WORK ── */}
+        {activeSection === "Sample Work" && (
+          <section>
+            {/* Category filter row */}
+            <div className="flex items-center gap-3 px-8 py-6 border-b border-white/10 overflow-x-auto">
+              <Filter className="w-4 h-4 text-white/30 shrink-0" />
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  data-testid={`button-filter-${cat.toLowerCase()}`}
+                  className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${
+                    selectedCategory === cat
+                      ? "bg-white text-black border-white"
+                      : "bg-transparent text-white/40 border-white/15 hover:border-white/40 hover:text-white/70"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+              <span className="ml-auto text-white/20 font-mono text-xs shrink-0">{filteredSamples.length} projects</span>
+            </div>
+
+            {filteredSamples.length === 0 ? (
+              <div className="py-32 text-center text-white/30 font-mono text-sm">No projects in this category.</div>
+            ) : (
+              <>
+                {/* Featured large card */}
+                {featured && (
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10 border-b border-white/10" data-testid={`card-sample-${featured.id}`}>
+                    <div className="md:col-span-8 relative overflow-hidden group min-h-[420px]">
+                      <img
+                        src={featured.image}
+                        alt={featured.title}
+                        className="w-full h-full object-cover absolute inset-0 opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                      {/* Play overlay */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center">
+                          <Play className="w-7 h-7 ml-1" />
                         </div>
                       </div>
-                      <CardContent className="p-4">
-                        <h3 className="font-semibold mb-1 line-clamp-1">{project.title}</h3>
-                        <p className="text-sm text-muted-foreground mb-2">
-                          by {project.creator}
-                        </p>
-                        <p className="text-sm text-muted-foreground line-clamp-2">
-                          {project.description}
-                        </p>
-                      </CardContent>
-                    </Card>
+                      <div className="absolute bottom-0 left-0 p-8 md:p-12">
+                        <div className="flex items-center gap-3 mb-4">
+                          {(() => { const Icon = projectTypeIcons[featured.type] || FileText; return <Icon className={`w-4 h-4 ${accentColors[featured.type] || "text-white/50"}`} />; })()}
+                          <span className={`text-xs font-mono uppercase tracking-widest ${accentColors[featured.type] || "text-white/50"}`}>
+                            {projectTypeLabels[featured.type]}
+                          </span>
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight">{featured.title}</h2>
+                        <p className="text-white/60 font-light mb-2">{featured.description}</p>
+                        <p className="text-white/30 font-mono text-xs uppercase tracking-widest">by {featured.creator}</p>
+                      </div>
+                    </div>
+
+                    {/* Side stack */}
+                    <div className="md:col-span-4 flex flex-col gap-px bg-white/10">
+                      {rest.slice(0, 2).map((project) => {
+                        const Icon = projectTypeIcons[project.type] || FileText;
+                        return (
+                          <div key={project.id} className="bg-[#13131a] relative overflow-hidden group flex-1 min-h-[200px]" data-testid={`card-sample-${project.id}`}>
+                            <img
+                              src={project.image}
+                              alt={project.title}
+                              className="w-full h-full object-cover absolute inset-0 opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+                            <div className="absolute bottom-0 left-0 p-6">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Icon className={`w-3.5 h-3.5 ${accentColors[project.type] || "text-white/50"}`} />
+                                <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.type] || "text-white/50"}`}>{projectTypeLabels[project.type]}</span>
+                              </div>
+                              <h3 className="text-lg font-bold leading-tight">{project.title}</h3>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+
+                {/* Remaining grid */}
+                {rest.length > 2 && (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border-b border-white/10">
+                    {rest.slice(2).map((project) => {
+                      const Icon = projectTypeIcons[project.type] || FileText;
+                      return (
+                        <div key={project.id} className="bg-[#13131a] relative overflow-hidden group min-h-[280px]" data-testid={`card-sample-${project.id}`}>
+                          <img
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover absolute inset-0 opacity-50 group-hover:opacity-75 group-hover:scale-105 transition-all duration-700"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center">
+                              <Play className="w-5 h-5 ml-0.5" />
+                            </div>
+                          </div>
+                          <div className="absolute bottom-0 left-0 p-6">
+                            <div className="flex items-center gap-2 mb-2">
+                              <Icon className={`w-3.5 h-3.5 ${accentColors[project.type] || "text-white/50"}`} />
+                              <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.type] || "text-white/50"}`}>{projectTypeLabels[project.type]}</span>
+                            </div>
+                            <h3 className="text-xl font-bold mb-1">{project.title}</h3>
+                            <p className="text-white/40 text-sm font-light line-clamp-2">{project.description}</p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </>
+            )}
+          </section>
+        )}
+
+        {/* ── PLANNING ── */}
+        {activeSection === "Planning" && (
+          <section>
+            <div className="px-8 py-8 border-b border-white/10">
+              <p className="text-white/40 font-light max-w-2xl">
+                See how students plan their projects — brainstorming, storyboards, and sticky notes before a single frame is captured.
+              </p>
+            </div>
+
+            {/* Full-bleed planning grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border-b border-white/10">
+              {planningExamples.map((example, i) => (
+                <div
+                  key={example.id}
+                  className={`relative overflow-hidden group ${i === 0 ? "md:col-span-2 min-h-[480px]" : "min-h-[320px]"}`}
+                  data-testid={`card-planning-${example.id}`}
+                >
+                  <img
+                    src={example.image}
+                    alt={example.title}
+                    className="w-full h-full object-cover absolute inset-0 opacity-75 group-hover:opacity-95 group-hover:scale-105 transition-all duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
+                  <div className="absolute bottom-0 left-0 p-8">
+                    <div className="flex items-center gap-2 mb-3">
+                      <PenTool className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400">Planning</span>
+                    </div>
+                    <h3 className={`font-bold mb-2 ${i === 0 ? "text-3xl" : "text-xl"}`}>{example.title}</h3>
+                    <p className="text-white/50 font-light text-sm">{example.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Planning tip */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10">
+              <div className="md:col-span-12 bg-[#13131a] p-8 md:p-12 flex items-center gap-8">
+                <div className="text-5xl font-black text-emerald-500/20 shrink-0 hidden md:block">✦</div>
+                <div>
+                  <h3 className="text-2xl font-bold mb-3 tracking-tight">Planning is Key</h3>
+                  <p className="text-white/50 font-light max-w-3xl">
+                    Great media projects start with great planning. Use brainstorming webs, sticky notes, and storyboards to organize your ideas before you start creating. It helps your team stay on the same page and ensures your finished piece lands the way you imagined it.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── SUBMITTED ── */}
+        {activeSection === "Submitted" && (
+          <section>
+            {/* Filters */}
+            <div className="flex flex-wrap items-center gap-3 px-8 py-6 border-b border-white/10">
+              <Filter className="w-4 h-4 text-white/30 shrink-0" />
+              <div className="flex flex-wrap gap-2">
+                {["all", "video_essay", "podcast", "photo_story", "digital_story", "infographic", "meme_ad"].map((t) => (
+                  <button
+                    key={t}
+                    onClick={() => setTypeFilter(t)}
+                    data-testid={`filter-type-${t}`}
+                    className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${
+                      typeFilter === t
+                        ? "bg-white text-black border-white"
+                        : "bg-transparent text-white/40 border-white/15 hover:border-white/40 hover:text-white/70"
+                    }`}
+                  >
+                    {t === "all" ? "All Types" : projectTypeLabels[t]}
+                  </button>
+                ))}
+              </div>
+              {themes.length > 0 && (
+                <div className="flex flex-wrap gap-2 ml-4 pl-4 border-l border-white/10">
+                  <button
+                    onClick={() => setThemeFilter("all")}
+                    className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${themeFilter === "all" ? "bg-white text-black border-white" : "bg-transparent text-white/40 border-white/15 hover:border-white/40"}`}
+                  >
+                    All Themes
+                  </button>
+                  {themes.map((theme) => (
+                    <button
+                      key={theme}
+                      onClick={() => setThemeFilter(theme)}
+                      className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${themeFilter === theme ? "bg-white text-black border-white" : "bg-transparent text-white/40 border-white/15 hover:border-white/40"}`}
+                    >
+                      {theme}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {error ? (
+              <div className="py-32 flex flex-col items-center gap-4 text-center">
+                <AlertCircle className="w-10 h-10 text-red-400/60" />
+                <p className="text-white/40 font-light">Failed to load projects.</p>
+                <button onClick={() => window.location.reload()} className="px-6 py-2 border border-white/20 rounded-full text-sm font-mono text-white/60 hover:border-white/50 transition-all">
+                  Retry
+                </button>
+              </div>
+            ) : isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="bg-[#13131a] min-h-[280px] animate-pulse" />
+                ))}
+              </div>
+            ) : filteredProjects.length === 0 ? (
+              <div className="py-32 flex flex-col items-center gap-6 text-center">
+                <Camera className="w-10 h-10 text-white/20" />
+                <div>
+                  <p className="text-white/50 mb-1">No submitted projects yet.</p>
+                  <p className="text-white/30 text-sm font-light">Be the first to share your creation!</p>
+                </div>
+                <Link href="/create">
+                  <button className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-sm font-mono uppercase tracking-widest hover:bg-white/90 transition-all" data-testid="button-start-first">
+                    Start Creating <ArrowRight className="w-4 h-4" />
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border-b border-white/10">
+                {filteredProjects.map((project) => {
+                  const Icon = projectTypeIcons[project.projectType] || FileText;
+                  return (
+                    <div
+                      key={project.id}
+                      className="bg-[#13131a] p-8 hover:bg-[#16161e] transition-colors group min-h-[280px] flex flex-col justify-between"
+                      data-testid={`card-project-${project.id}`}
+                    >
+                      <div>
+                        <div className="flex items-center justify-between mb-6">
+                          <div className="flex items-center gap-2">
+                            <Icon className={`w-4 h-4 ${accentColors[project.projectType] || "text-white/50"}`} />
+                            <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.projectType] || "text-white/50"}`}>
+                              {projectTypeLabels[project.projectType]}
+                            </span>
+                          </div>
+                          {project.featured && (
+                            <div className="flex items-center gap-1 text-amber-400">
+                              <Star className="w-3.5 h-3.5 fill-current" />
+                              <span className="text-[10px] font-mono uppercase tracking-wider">Featured</span>
+                            </div>
+                          )}
+                        </div>
+                        <h3 className="text-2xl font-bold mb-3 tracking-tight">{project.title}</h3>
+                        <p className="text-white/50 font-light text-sm mb-4 line-clamp-3">{project.description}</p>
+                        {project.issueTheme && (
+                          <span className="inline-block bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-white/40">
+                            {project.issueTheme}
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-white/20 font-mono text-xs uppercase tracking-widest mt-6">by {project.creator}</p>
+                    </div>
                   );
                 })}
               </div>
-            </TabsContent>
+            )}
+          </section>
+        )}
 
-            <TabsContent value="planning">
-              <div className="mb-6">
-                <p className="text-center text-muted-foreground mb-6">
-                  See how students plan their projects with brainstorming, storyboards, and notes
-                </p>
-              </div>
-
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {planningExamples.map((example) => (
-                  <Card
-                    key={example.id}
-                    className="overflow-hidden hover-elevate group"
-                    data-testid={`card-planning-${example.id}`}
-                  >
-                    <div className="aspect-square relative overflow-hidden bg-secondary/20">
-                      <img 
-                        src={example.image} 
-                        alt={example.title}
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <Badge className="gap-1 bg-accent text-accent-foreground border-0">
-                          <PenTool className="h-3 w-3" />
-                          Planning
-                        </Badge>
-                      </div>
-                    </div>
-                    <CardContent className="p-4">
-                      <h3 className="font-semibold mb-2">{example.title}</h3>
-                      <p className="text-sm text-muted-foreground">
-                        {example.description}
-                      </p>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              <Card className="mt-8 bg-accent/5 border-accent/20" data-testid="card-planning-tip">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="h-12 w-12 rounded-lg bg-accent/20 flex items-center justify-center shrink-0">
-                      <PenTool className="h-6 w-6 text-accent" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold mb-1">Planning is Key!</h3>
-                      <p className="text-sm text-muted-foreground">
-                        Great media projects start with great planning. Use brainstorming webs, sticky notes, and storyboards to organize your ideas before you start creating. It helps your team stay on the same page!
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            <TabsContent value="submitted">
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-                <Select value={filter} onValueChange={setFilter}>
-                  <SelectTrigger className="w-full sm:w-48" data-testid="select-type-filter">
-                    <SelectValue placeholder="Filter by type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    <SelectItem value="video_essay">Video Essay</SelectItem>
-                    <SelectItem value="podcast">Podcast</SelectItem>
-                    <SelectItem value="photo_story">Photo Story</SelectItem>
-                    <SelectItem value="digital_story">Digital Story</SelectItem>
-                    <SelectItem value="infographic">Infographic</SelectItem>
-                    <SelectItem value="meme_ad">Advertisement</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select value={themeFilter} onValueChange={setThemeFilter}>
-                  <SelectTrigger className="w-full sm:w-48" data-testid="select-theme-filter">
-                    <SelectValue placeholder="Filter by theme" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Themes</SelectItem>
-                    {themes.map((theme) => (
-                      <SelectItem key={theme} value={theme}>
-                        {theme}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {error ? (
-                <div className="text-center py-16">
-                  <div className="h-16 w-16 rounded-full bg-destructive/10 flex items-center justify-center mx-auto mb-4">
-                    <AlertCircle className="h-8 w-8 text-destructive" />
-                  </div>
-                  <p className="text-muted-foreground mb-4">Failed to load projects. Please try again.</p>
-                  <Button variant="outline" onClick={() => window.location.reload()}>
-                    Retry
-                  </Button>
-                </div>
-              ) : isLoading ? (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <ProjectSkeleton key={i} />
-                  ))}
-                </div>
-              ) : filteredProjects.length === 0 ? (
-                <div className="text-center py-16">
-                  <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                    <Camera className="h-8 w-8 text-primary" />
-                  </div>
-                  <p className="text-muted-foreground mb-2">No submitted projects yet.</p>
-                  <p className="text-sm text-muted-foreground mb-6">Be the first to share your creation!</p>
-                  <Link href="/create">
-                    <Button className="gap-2" data-testid="button-start-first">
-                      Start Creating
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
-                  </Link>
-                </div>
-              ) : (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filteredProjects.map((project) => {
-                    const Icon = projectTypeIcons[project.projectType] || FileText;
-                    return (
-                      <Card
-                        key={project.id}
-                        className="overflow-hidden hover-elevate group"
-                        data-testid={`card-project-${project.id}`}
-                      >
-                        <div className="aspect-video bg-gradient-to-br from-primary/20 via-chart-2/20 to-chart-3/20 dark:from-primary/30 dark:via-chart-2/30 dark:to-chart-3/30 relative flex items-center justify-center">
-                          <div className="h-16 w-16 rounded-full bg-background/80 dark:bg-background/60 backdrop-blur flex items-center justify-center">
-                            <Icon className="h-8 w-8 text-primary" />
-                          </div>
-                          {project.featured && (
-                            <div className="absolute top-3 right-3">
-                              <Badge className="gap-1 bg-chart-3 text-white border-0">
-                                <Star className="h-3 w-3" />
-                                Featured
-                              </Badge>
-                            </div>
-                          )}
-                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                            <div className="h-12 w-12 rounded-full bg-white/20 backdrop-blur flex items-center justify-center">
-                              <Play className="h-6 w-6 text-white" />
-                            </div>
-                          </div>
-                        </div>
-                        <CardContent className="p-4">
-                          <div className="flex items-start justify-between gap-2 mb-2">
-                            <Badge variant="outline" className="shrink-0">
-                              {projectTypeLabels[project.projectType]}
-                            </Badge>
-                            <Badge variant="secondary" className="text-xs shrink-0">
-                              {project.issueTheme}
-                            </Badge>
-                          </div>
-                          <h3 className="font-semibold mb-1 line-clamp-1">{project.title}</h3>
-                          <p className="text-sm text-muted-foreground mb-2">
-                            by {project.creator}
-                          </p>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {project.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    );
-                  })}
-                </div>
-              )}
-            </TabsContent>
-          </Tabs>
-
-          <div className="text-center mt-12">
-            <Card className="inline-block bg-primary/5 dark:bg-primary/10 border-primary/20" data-testid="card-cta">
-              <CardContent className="p-6">
-                <h3 className="font-semibold mb-2">Ready to Create Your Own?</h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  Start your media project and showcase it here!
-                </p>
-                <Link href="/create">
-                  <Button className="gap-2" data-testid="button-create-project">
-                    Start Creating
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+        {/* CTA */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10 border-t border-white/10">
+          <div className="md:col-span-12 bg-[#13131a] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <p className="text-white/30 font-mono text-xs uppercase tracking-widest mb-2">Ready to contribute?</p>
+              <h3 className="text-3xl font-bold tracking-tight">Create Your Own Project</h3>
+              <p className="text-white/40 font-light mt-2">Start your media project and showcase it here.</p>
+            </div>
+            <Link href="/create">
+              <button
+                className="flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-mono text-sm uppercase tracking-widest hover:bg-white/90 transition-all shrink-0 group"
+                data-testid="button-create-project"
+              >
+                Start Creating
+                <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+              </button>
+            </Link>
           </div>
         </div>
-      </div>
+
+      </main>
+
+      <footer className="py-12 text-center text-white/20 font-mono text-sm border-t border-white/5">
+        &copy; Creative Media Bootcamp. Navigate the Noise.
+      </footer>
     </div>
   );
 }
