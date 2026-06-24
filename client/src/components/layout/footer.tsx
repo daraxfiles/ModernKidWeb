@@ -6,7 +6,7 @@ export function Footer() {
     <footer className="border-t bg-card">
       <div className="h-1 w-full bg-gradient-to-r from-primary via-accent to-chart-3" />
       <div className="container mx-auto px-4 py-12">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-md">
@@ -26,13 +26,8 @@ export function Footer() {
             <h4 className="font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-foreground transition-colors">
-                  About the Program
-                </Link>
-              </li>
-              <li>
-                <Link href="/schedule" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Daily Schedule
+                <Link href="/resources" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Tools & Resources
                 </Link>
               </li>
               <li>
@@ -45,44 +40,19 @@ export function Footer() {
                   Student Gallery
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="font-semibold mb-4">Resources</h4>
-            <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/resources" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Tools & Software
-                </Link>
-              </li>
-              <li>
-                <Link href="/modules" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Learning Modules
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
-                  FAQ
+                <Link href="/schedule" className="text-muted-foreground hover:text-foreground transition-colors">
+                  Schedule
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Get Started</h4>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link href="/create" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Start Your Project
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Get Help
-                </Link>
-              </li>
-            </ul>
+            <h4 className="font-semibold mb-4">About</h4>
+            <p className="text-sm text-muted-foreground">
+              A 6-week bootcamp for grades 6–8 exploring media literacy, misinformation detection, and hands-on creative media production.
+            </p>
           </div>
         </div>
 
