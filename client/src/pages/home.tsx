@@ -34,7 +34,7 @@ export default function Home() {
   return (
     <div className="bg-background">
       {/* HERO */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
         <video
           className="absolute inset-0 w-full h-full object-cover"
           src={heroVideo}

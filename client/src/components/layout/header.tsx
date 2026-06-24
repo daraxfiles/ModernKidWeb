@@ -7,9 +7,10 @@ import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { cn } from "@/lib/utils";
 
 const navLinks = [
-  { href: "/resources", label: "Tools & Resources" },
+  { href: "/about", label: "About" },
+  { href: "/modules", label: "Modules" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/schedule", label: "Schedule" },
+  { href: "/resources", label: "Tools & Resources" },
 ];
 
 export function Header() {

@@ -7,9 +7,11 @@ import { Header } from "@/components/layout/header";
 import Home from "@/pages/home";
 import About from "@/pages/about";
 import Schedule from "@/pages/schedule";
+import Modules from "@/pages/modules";
 import Create from "@/pages/create";
 import Resources from "@/pages/resources";
 import Gallery from "@/pages/gallery";
+import FAQ from "@/pages/faq";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -18,9 +20,11 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/schedule" component={Schedule} />
+      <Route path="/modules" component={Modules} />
       <Route path="/create" component={Create} />
       <Route path="/resources" component={Resources} />
       <Route path="/gallery" component={Gallery} />
+      <Route path="/faq" component={FAQ} />
       <Route component={NotFound} />
     </Switch>
   );
