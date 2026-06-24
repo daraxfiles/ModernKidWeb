@@ -2065,7 +2065,7 @@ In summary..."
   };
 
   return (
-    <div className="min-h-screen bg-[#09090f] text-white font-sans overflow-x-hidden">
+    <div className="min-h-screen font-sans overflow-x-hidden" style={{ background: 'linear-gradient(135deg, #4f46e5 0%, #7c3aed 40%, #6d28d9 100%)' }}>
       {showConfetti && <Confetti />}
 
       {/* Ambient background */}
@@ -2073,12 +2073,12 @@ In summary..."
         <motion.div
           className="absolute inset-0"
           animate={{
-            background: `radial-gradient(ellipse 90% 55% at 50% 0%, ${stepColors[currentStep].glow}40, transparent 65%)`,
+            background: `radial-gradient(ellipse 90% 55% at 50% 0%, rgba(255,255,255,0.12), transparent 65%)`,
           }}
           transition={{ duration: 0.8 }}
         />
         <div
-          className="absolute inset-0 opacity-[0.045]"
+          className="absolute inset-0 opacity-[0.06]"
           style={{
             backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)',
             backgroundSize: '28px 28px',
@@ -2122,7 +2122,7 @@ In summary..."
                       onClick={() => goToStep(step.id)}
                       whileHover={!isCurrent ? { x: 4 } : {}}
                       className={`relative z-10 w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors duration-200 ${
-                        isCurrent ? 'bg-white/7 border border-white/10' : 'hover:bg-white/4 border border-transparent'
+                        isCurrent ? 'bg-white/12 border border-white/16' : 'hover:bg-white/6 border border-transparent'
                       }`}
                       style={{ opacity: distanceFuture > 0 ? Math.max(0.22, 1 - distanceFuture * 0.14) : 1 }}
                       data-testid={`step-${step.id}`}
@@ -2266,9 +2266,9 @@ In summary..."
               >
                 {/* Ambient glow */}
                 <motion.div
-                  animate={{ background: `radial-gradient(ellipse at 50% 20%, ${stepColors[currentStep].glow}66, transparent 65%)` }}
+                  animate={{ background: `radial-gradient(ellipse at 50% 30%, ${stepColors[currentStep].glow}88, transparent 70%)` }}
                   transition={{ duration: 0.8 }}
-                  className="absolute -inset-12 blur-3xl rounded-3xl pointer-events-none"
+                  className="absolute -inset-16 blur-3xl rounded-3xl pointer-events-none"
                 />
 
                 {/* 3D card wrapper */}
@@ -2299,13 +2299,13 @@ In summary..."
 
                   {/* Top color stripe */}
                   <motion.div
-                    className="h-[2px]"
+                    className="h-[3px]"
                     animate={{ background: `linear-gradient(to right, ${stepColors[currentStep].from}, ${stepColors[currentStep].to}, transparent 75%)` }}
                     transition={{ duration: 0.6 }}
                   />
 
                   {/* Window chrome header */}
-                  <div className="flex items-center justify-between px-5 py-3 border-b border-white/[0.06] bg-black/20">
+                  <div className="flex items-center justify-between px-5 py-3 border-b border-white/10 bg-white/5">
                     <div className="flex items-center gap-3">
                       <div className="flex gap-1.5">
                         <div className="w-3 h-3 rounded-full bg-[#ff5f57]/75" />
@@ -2339,30 +2339,31 @@ In summary..."
 
                   {/* Step content — dark scoped CSS vars */}
                   <div
-                    className="p-5 md:p-8 bg-[#0c0c13]"
+                    className="p-5 md:p-8"
                     style={{
-                      '--background': '240 14% 6%',
-                      '--foreground': '210 18% 90%',
-                      '--card': '240 10% 9%',
-                      '--card-foreground': '210 18% 90%',
-                      '--border': '240 6% 21%',
-                      '--secondary': '240 6% 14%',
-                      '--secondary-foreground': '210 18% 88%',
-                      '--muted': '240 6% 12%',
-                      '--muted-foreground': '215 10% 52%',
-                      '--input': '240 6% 15%',
-                      '--primary': '262 83% 68%',
+                      background: '#ffffff',
+                      '--background': '0 0% 100%',
+                      '--foreground': '240 10% 10%',
+                      '--card': '240 8% 97%',
+                      '--card-foreground': '240 10% 10%',
+                      '--border': '240 12% 88%',
+                      '--secondary': '240 8% 93%',
+                      '--secondary-foreground': '240 10% 15%',
+                      '--muted': '240 8% 94%',
+                      '--muted-foreground': '240 6% 46%',
+                      '--input': '240 8% 92%',
+                      '--primary': '262 83% 58%',
                       '--primary-foreground': '0 0% 100%',
-                      '--accent': '173 80% 52%',
+                      '--accent': '173 80% 40%',
                       '--accent-foreground': '0 0% 100%',
-                      color: 'hsl(210 18% 90%)',
+                      color: 'hsl(240 10% 10%)',
                     } as React.CSSProperties}
                   >
                     <AnimatePresence mode="wait">{renderStep()}</AnimatePresence>
                   </div>
 
                   {/* Footer nav */}
-                  <div className="flex items-center justify-between px-5 py-4 border-t border-white/[0.06] bg-black/20">
+                  <div className="flex items-center justify-between px-5 py-4 border-t border-white/10 bg-white/5">
                     <Button
                       variant="ghost"
                       onClick={() => setCurrentStep((prev) => Math.max(1, prev - 1))}
