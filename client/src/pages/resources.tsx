@@ -70,22 +70,22 @@ const factCheckSites = [
 
 export default function Resources() {
   return (
-    <div className="min-h-screen bg-[#0b0b0e] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
+    <div className="min-h-screen bg-[#f4f1ea] text-[#0f0f12] font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
 
       {/* Hero Header */}
-      <header className="px-8 py-16 md:py-24 border-b border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/20 to-transparent pointer-events-none" />
+      <header className="px-8 py-16 md:py-24 border-b border-black/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
           <p className="text-indigo-400 font-mono tracking-widest uppercase text-sm mb-4">
             Curated Collection
           </p>
           <h1 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase mb-6 leading-none">
             Creative<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f0f12] to-[#0f0f12]/30">
               Arsenal
             </span>
           </h1>
-          <p className="text-lg text-white/50 max-w-xl font-light">
+          <p className="text-lg text-[#0f0f12]/50 max-w-xl font-light">
             Everything you need to master media creation and navigate the digital landscape with a critical eye.
           </p>
         </div>
@@ -94,36 +94,36 @@ export default function Resources() {
       <main className="max-w-7xl mx-auto">
 
         {/* 01. TOOLS */}
-        <section className="border-b border-white/10">
+        <section className="border-b border-black/10">
           <div className="relative h-[40vh] md:h-[55vh] overflow-hidden group">
             <img
               src="/tools-banner.jpg"
               alt="Tools"
-              className="w-full h-full object-cover opacity-50 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000 ease-out"
+              className="w-full h-full object-cover opacity-50 group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f4f1ea] via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
               <div>
-                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">01</span>
+                <span className="text-6xl md:text-9xl font-black text-black/10 leading-none -ml-2 select-none tracking-tighter">01</span>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
                   Tools <PenTool className="w-8 h-8 md:w-12 md:h-12 text-indigo-400" />
                 </h2>
               </div>
               <div className="hidden md:block text-right">
-                <p className="text-white/40 font-mono text-sm uppercase tracking-widest">Media Software · {mediaTools.length} Categories</p>
+                <p className="text-[#0f0f12]/40 font-mono text-sm uppercase tracking-widest">Media Software · {mediaTools.length} Categories</p>
               </div>
             </div>
           </div>
 
           {/* Tools grid from schema data */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10">
             {/* Featured first category */}
             {mediaTools[0] && (
-              <div className="md:col-span-8 bg-[#13131a] p-8 md:p-12 hover:bg-[#16161e] transition-colors group relative overflow-hidden">
+              <div className="md:col-span-8 bg-[#edeae2] p-8 md:p-12 hover:bg-[#e6e2d8] transition-colors group relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-3xl group-hover:bg-indigo-500/20 transition-all" />
                 <div className="flex flex-col justify-between min-h-[280px]">
                   <div className="flex justify-between items-start mb-8">
-                    <div className="bg-white/5 border border-white/10 rounded-full px-4 py-1 text-xs font-mono tracking-wider text-white/60 uppercase">
+                    <div className="bg-black/5 border border-black/10 rounded-full px-4 py-1 text-xs font-mono tracking-wider text-[#0f0f12]/60 uppercase">
                       {mediaTools[0].category}
                     </div>
                   </div>
@@ -131,12 +131,12 @@ export default function Resources() {
                     <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
                       {mediaTools[0].tools.map(t => t.name).join(" & ")}
                     </h3>
-                    <p className="text-white/50 text-lg leading-relaxed font-light">
+                    <p className="text-[#0f0f12]/50 text-lg leading-relaxed font-light">
                       {mediaTools[0].tools[0].description}
                     </p>
                     <div className="flex gap-2 mt-6 flex-wrap">
                       {mediaTools[0].tools[0].platforms.map((p, i) => (
-                        <span key={i} className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-xs font-mono text-white/50">{p}</span>
+                        <span key={i} className="bg-black/5 border border-black/10 rounded-full px-3 py-1 text-xs font-mono text-[#0f0f12]/50">{p}</span>
                       ))}
                     </div>
                   </div>
@@ -145,16 +145,16 @@ export default function Resources() {
             )}
 
             {/* Remaining categories stacked */}
-            <div className="md:col-span-4 flex flex-col gap-px bg-white/10">
+            <div className="md:col-span-4 flex flex-col gap-px bg-black/10">
               {mediaTools.slice(1).map((category, i) => (
-                <div key={i} className="bg-[#13131a] p-8 hover:bg-[#16161e] transition-colors group flex-1">
-                  <div className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-white/60 inline-block mb-4 uppercase">
+                <div key={i} className="bg-[#edeae2] p-8 hover:bg-[#e6e2d8] transition-colors group flex-1">
+                  <div className="bg-black/5 border border-black/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-[#0f0f12]/60 inline-block mb-4 uppercase">
                     {category.category}
                   </div>
                   <h3 className="text-xl font-bold mb-2">
                     {category.tools.map(t => t.name).join(", ")}
                   </h3>
-                  <p className="text-white/50 font-light text-sm line-clamp-2">
+                  <p className="text-[#0f0f12]/50 font-light text-sm line-clamp-2">
                     {category.tools[0].description}
                   </p>
                 </div>
@@ -164,17 +164,17 @@ export default function Resources() {
         </section>
 
         {/* 02. TRUTH / FACT-CHECK */}
-        <section className="border-b border-white/10">
+        <section className="border-b border-black/10">
           <div className="relative h-[30vh] md:h-[50vh] overflow-hidden group">
             <img
               src="/fact-banner.jpg"
               alt="Fact Check"
-              className="w-full h-full object-cover opacity-40 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-50 transition-all duration-1000 ease-out"
+              className="w-full h-full object-cover opacity-40 group-hover:scale-105 group-hover:opacity-50 transition-all duration-1000 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f4f1ea] via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
               <div>
-                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">02</span>
+                <span className="text-6xl md:text-9xl font-black text-black/10 leading-none -ml-2 select-none tracking-tighter">02</span>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
                   Truth <Search className="w-8 h-8 md:w-12 md:h-12 text-emerald-400" />
                 </h2>
@@ -182,9 +182,9 @@ export default function Resources() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/10">
             {/* SIFT Method */}
-            <div className="bg-[#13131a] p-8 md:p-12">
+            <div className="bg-[#edeae2] p-8 md:p-12">
               <h3 className="text-3xl font-bold mb-8 tracking-tight text-emerald-100">The SIFT Method</h3>
               <div className="space-y-8">
                 {siftSteps.map((item, i) => (
@@ -194,7 +194,7 @@ export default function Resources() {
                     </div>
                     <div>
                       <h4 className="text-xl font-bold mb-1">{item.title}</h4>
-                      <p className="text-white/50 font-light">{item.desc}</p>
+                      <p className="text-[#0f0f12]/50 font-light">{item.desc}</p>
                     </div>
                   </div>
                 ))}
@@ -202,8 +202,8 @@ export default function Resources() {
             </div>
 
             {/* Red Flags */}
-            <div className="bg-[#13131a] p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
-              <div className="absolute -right-20 -bottom-20 text-[20rem] font-black text-white/[0.02] leading-none pointer-events-none tracking-tighter select-none">
+            <div className="bg-[#edeae2] p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
+              <div className="absolute -right-20 -bottom-20 text-[20rem] font-black text-black/[0.05] leading-none pointer-events-none tracking-tighter select-none">
                 FAKE
               </div>
               <h3 className="text-3xl font-bold mb-8 tracking-tight flex items-center gap-3">
@@ -212,9 +212,9 @@ export default function Resources() {
               </h3>
               <ul className="space-y-3">
                 {redFlags.map((flag, i) => (
-                  <li key={i} className="flex items-start gap-4 p-4 border border-white/5 rounded-lg bg-white/[0.02]" data-testid={`red-flag-${i}`}>
+                  <li key={i} className="flex items-start gap-4 p-4 border border-black/5 rounded-lg bg-black/[0.04]" data-testid={`red-flag-${i}`}>
                     <CheckCircle2 className="w-5 h-5 text-amber-500/50 mt-0.5 shrink-0" />
-                    <span className="text-white/70 font-light">{flag}</span>
+                    <span className="text-[#0f0f12]/70 font-light">{flag}</span>
                   </li>
                 ))}
               </ul>
@@ -222,26 +222,26 @@ export default function Resources() {
           </div>
 
           {/* Fact-check sites row */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-black/10">
             {factCheckSites.map((site, i) => (
               <a
                 key={i}
                 href={site.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#13131a] p-6 hover:bg-[#16161e] transition-colors group flex flex-col justify-between min-h-[140px]"
+                className="bg-[#edeae2] p-6 hover:bg-[#e6e2d8] transition-colors group flex flex-col justify-between min-h-[140px]"
                 data-testid={`factcheck-site-${i}`}
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Globe className="w-4 h-4 text-emerald-400/60 group-hover:text-emerald-400 transition-colors" />
-                  <span className="text-xs font-mono text-white/30 uppercase tracking-widest group-hover:text-white/60 transition-colors">External</span>
+                  <span className="text-xs font-mono text-[#0f0f12]/30 uppercase tracking-widest group-hover:text-[#0f0f12]/60 transition-colors">External</span>
                 </div>
                 <div>
                   <h4 className="text-lg font-bold mb-1 flex items-center gap-2">
                     {site.name}
-                    <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors" />
+                    <ExternalLink className="w-3.5 h-3.5 text-[#0f0f12]/20 group-hover:text-[#0f0f12]/60 transition-colors" />
                   </h4>
-                  <p className="text-white/40 text-sm font-light line-clamp-2">{site.desc}</p>
+                  <p className="text-[#0f0f12]/40 text-sm font-light line-clamp-2">{site.desc}</p>
                 </div>
               </a>
             ))}
@@ -249,17 +249,17 @@ export default function Resources() {
         </section>
 
         {/* 03. GAMES */}
-        <section className="border-b border-white/10">
+        <section className="border-b border-black/10">
           <div className="relative h-[30vh] md:h-[50vh] overflow-hidden group">
             <img
               src="/games-banner.jpg"
               alt="Games"
-              className="w-full h-full object-cover opacity-50 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000 ease-out"
+              className="w-full h-full object-cover opacity-50 group-hover:scale-105 group-hover:opacity-60 transition-all duration-1000 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f4f1ea] via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
               <div>
-                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">03</span>
+                <span className="text-6xl md:text-9xl font-black text-black/10 leading-none -ml-2 select-none tracking-tighter">03</span>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
                   Games <Gamepad2 className="w-8 h-8 md:w-12 md:h-12 text-pink-500" />
                 </h2>
@@ -268,35 +268,35 @@ export default function Resources() {
           </div>
 
           {/* Game cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/10">
             {games.map((game, i) => (
-              <div key={i} className="bg-[#13131a] p-8 md:p-10 hover:bg-[#16161e] transition-colors group flex flex-col justify-between min-h-[320px]" data-testid={`card-game-${i}`}>
+              <div key={i} className="bg-[#edeae2] p-8 md:p-10 hover:bg-[#e6e2d8] transition-colors group flex flex-col justify-between min-h-[320px]" data-testid={`card-game-${i}`}>
                 <div>
-                  <div className="bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-pink-400/80 inline-block mb-6">
+                  <div className="bg-black/5 border border-black/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-pink-400/80 inline-block mb-6">
                     {game.tag}
                   </div>
                   <h3 className="text-2xl font-bold mb-4">{game.name}</h3>
-                  <p className="text-white/50 font-light mb-8 line-clamp-4">{game.description}</p>
+                  <p className="text-[#0f0f12]/50 font-light mb-8 line-clamp-4">{game.description}</p>
                 </div>
                 {game.url !== "#" ? (
                   <a
                     href={game.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm font-mono text-white/30 group-hover:text-pink-400 transition-colors uppercase tracking-widest"
+                    className="flex items-center gap-2 text-sm font-mono text-[#0f0f12]/30 group-hover:text-pink-400 transition-colors uppercase tracking-widest"
                     data-testid={`link-game-${i}`}
                   >
                     Play Now <ChevronRight className="w-4 h-4" />
                   </a>
                 ) : (
-                  <span className="text-sm font-mono text-white/20 uppercase tracking-widest">Coming Soon</span>
+                  <span className="text-sm font-mono text-[#0f0f12]/20 uppercase tracking-widest">Coming Soon</span>
                 )}
               </div>
             ))}
           </div>
 
           {/* Game screenshots */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/10">
             {[
               { img: cardGameImg, label: "Card Game", caption: "Learn tactics used in fake news" },
               { img: fakeItDashboardImg, label: "Analytics", caption: "Track how misinformation spreads" },
@@ -324,12 +324,12 @@ export default function Resources() {
             <img
               src="/videos-banner.jpg"
               alt="Videos"
-              className="w-full h-full object-cover opacity-40 mix-blend-luminosity group-hover:scale-105 group-hover:opacity-50 transition-all duration-1000 ease-out"
+              className="w-full h-full object-cover opacity-40 group-hover:scale-105 group-hover:opacity-50 transition-all duration-1000 ease-out"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#0b0b0e] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#f4f1ea] via-transparent to-transparent" />
             <div className="absolute bottom-0 left-0 p-8 md:p-12 w-full flex items-end justify-between">
               <div>
-                <span className="text-6xl md:text-9xl font-black text-white/10 leading-none -ml-2 select-none tracking-tighter">04</span>
+                <span className="text-6xl md:text-9xl font-black text-black/10 leading-none -ml-2 select-none tracking-tighter">04</span>
                 <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -mt-4 md:-mt-8 relative z-10 flex items-center gap-4">
                   Videos <MonitorPlay className="w-8 h-8 md:w-12 md:h-12 text-cyan-400" />
                 </h2>
@@ -337,10 +337,10 @@ export default function Resources() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10">
             {/* Featured video */}
-            <div className="md:col-span-8 bg-[#13131a] p-8 md:p-12 group cursor-pointer hover:bg-[#16161e] transition-colors relative" data-testid="card-video-featured">
-              <div className="aspect-video bg-black rounded-lg mb-8 relative overflow-hidden flex items-center justify-center border border-white/10">
+            <div className="md:col-span-8 bg-[#edeae2] p-8 md:p-12 group cursor-pointer hover:bg-[#e6e2d8] transition-colors relative" data-testid="card-video-featured">
+              <div className="aspect-video bg-black rounded-lg mb-8 relative overflow-hidden flex items-center justify-center border border-black/10">
                 <div
                   className="absolute inset-0 bg-cover bg-center opacity-30 grayscale group-hover:scale-105 group-hover:opacity-40 transition-all duration-700"
                   style={{ backgroundImage: "url('https://images.unsplash.com/photo-1616469829581-73993eb86b02?auto=format&fit=crop&q=80')" }}
@@ -351,25 +351,25 @@ export default function Resources() {
                 </div>
               </div>
               <h3 className="text-3xl font-bold mb-4 tracking-tight">{videos[0].title}</h3>
-              <p className="text-white/50 text-lg font-light">{videos[0].description}</p>
-              <span className="inline-block mt-4 bg-white/5 border border-white/10 rounded-full px-4 py-1 text-xs font-mono tracking-wider text-cyan-400/80">
+              <p className="text-[#0f0f12]/50 text-lg font-light">{videos[0].description}</p>
+              <span className="inline-block mt-4 bg-black/5 border border-black/10 rounded-full px-4 py-1 text-xs font-mono tracking-wider text-cyan-400/80">
                 {videos[0].topic}
               </span>
             </div>
 
             {/* Video list */}
-            <div className="md:col-span-4 flex flex-col gap-px bg-white/10">
+            <div className="md:col-span-4 flex flex-col gap-px bg-black/10">
               {videos.slice(1).map((video, i) => (
-                <div key={i} className="bg-[#13131a] p-6 flex-1 hover:bg-[#16161e] transition-colors group cursor-pointer flex flex-col justify-center" data-testid={`card-video-${i + 1}`}>
+                <div key={i} className="bg-[#edeae2] p-6 flex-1 hover:bg-[#e6e2d8] transition-colors group cursor-pointer flex flex-col justify-center" data-testid={`card-video-${i + 1}`}>
                   <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 shrink-0 bg-white/5 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
+                    <div className="w-12 h-12 shrink-0 bg-black/5 rounded-full flex items-center justify-center group-hover:bg-cyan-500/10 transition-colors">
                       <Play className="w-5 h-5 ml-1 group-hover:text-cyan-400 transition-colors" />
                     </div>
                     <div>
                       <h4 className="text-base font-bold mb-1 group-hover:text-cyan-100 transition-colors leading-snug">
                         {video.title}
                       </h4>
-                      <span className="text-white/30 font-mono text-xs uppercase tracking-wider">{video.topic}</span>
+                      <span className="text-[#0f0f12]/30 font-mono text-xs uppercase tracking-wider">{video.topic}</span>
                     </div>
                   </div>
                 </div>
@@ -380,7 +380,7 @@ export default function Resources() {
 
       </main>
 
-      <footer className="py-12 text-center text-white/20 font-mono text-sm border-t border-white/5 mt-0">
+      <footer className="py-12 text-center text-[#0f0f12]/20 font-mono text-sm border-t border-black/5 mt-0">
         &copy; Creative Media Bootcamp. Navigate the Noise.
       </footer>
     </div>

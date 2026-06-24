@@ -103,11 +103,11 @@ export default function Gallery() {
   const rest = filteredSamples.slice(1);
 
   return (
-    <div className="min-h-screen bg-[#0b0b0e] text-white font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
+    <div className="min-h-screen bg-[#f4f1ea] text-[#0f0f12] font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
 
       {/* Hero Header */}
-      <header className="px-8 py-16 md:py-24 border-b border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-900/15 to-transparent pointer-events-none" />
+      <header className="px-8 py-16 md:py-24 border-b border-black/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/8 to-transparent pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
           <div>
             <p className="text-pink-400 font-mono tracking-widest uppercase text-sm mb-4 flex items-center gap-2">
@@ -115,11 +115,11 @@ export default function Gallery() {
             </p>
             <h1 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase mb-6 leading-none">
               The<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-white/40">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f0f12] to-[#0f0f12]/30">
                 Work
               </span>
             </h1>
-            <p className="text-lg text-white/50 max-w-xl font-light">
+            <p className="text-lg text-[#0f0f12]/50 max-w-xl font-light">
               Real projects made by real students — video essays, podcasts, scripts, and everything in between.
             </p>
           </div>
@@ -134,7 +134,7 @@ export default function Gallery() {
                 className={`text-right px-6 py-3 font-mono text-sm uppercase tracking-widest transition-all border-r-2 ${
                   activeSection === s
                     ? "text-white border-pink-400"
-                    : "text-white/30 border-transparent hover:text-white/60"
+                    : "text-[#0f0f12]/30 border-transparent hover:text-[#0f0f12]/60"
                 }`}
               >
                 {s}
@@ -150,8 +150,8 @@ export default function Gallery() {
         {activeSection === "Sample Work" && (
           <section>
             {/* Category filter row */}
-            <div className="flex items-center gap-3 px-8 py-6 border-b border-white/10 overflow-x-auto">
-              <Filter className="w-4 h-4 text-white/30 shrink-0" />
+            <div className="flex items-center gap-3 px-8 py-6 border-b border-black/10 overflow-x-auto">
+              <Filter className="w-4 h-4 text-[#0f0f12]/30 shrink-0" />
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -159,23 +159,23 @@ export default function Gallery() {
                   data-testid={`button-filter-${cat.toLowerCase()}`}
                   className={`shrink-0 px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${
                     selectedCategory === cat
-                      ? "bg-white text-black border-white"
-                      : "bg-transparent text-white/40 border-white/15 hover:border-white/40 hover:text-white/70"
+                      ? "bg-[#0f0f12] text-white border-[#0f0f12]"
+                      : "bg-transparent text-[#0f0f12]/40 border-black/15 hover:border-black/40 hover:text-[#0f0f12]/70"
                   }`}
                 >
                   {cat}
                 </button>
               ))}
-              <span className="ml-auto text-white/20 font-mono text-xs shrink-0">{filteredSamples.length} projects</span>
+              <span className="ml-auto text-[#0f0f12]/20 font-mono text-xs shrink-0">{filteredSamples.length} projects</span>
             </div>
 
             {filteredSamples.length === 0 ? (
-              <div className="py-32 text-center text-white/30 font-mono text-sm">No projects in this category.</div>
+              <div className="py-32 text-center text-[#0f0f12]/30 font-mono text-sm">No projects in this category.</div>
             ) : (
               <>
                 {/* Featured large card */}
                 {featured && (
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10 border-b border-white/10" data-testid={`card-sample-${featured.id}`}>
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10 border-b border-black/10" data-testid={`card-sample-${featured.id}`}>
                     <div className="md:col-span-8 relative overflow-hidden group min-h-[420px]">
                       <img
                         src={featured.image}
@@ -185,39 +185,39 @@ export default function Gallery() {
                       <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
                       {/* Play overlay */}
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center">
+                        <div className="w-16 h-16 rounded-full bg-black/10 backdrop-blur border border-black/20 flex items-center justify-center">
                           <Play className="w-7 h-7 ml-1" />
                         </div>
                       </div>
-                      <div className="absolute bottom-0 left-0 p-8 md:p-12">
+                      <div className="absolute bottom-0 left-0 p-8 md:p-12 text-white">
                         <div className="flex items-center gap-3 mb-4">
-                          {(() => { const Icon = projectTypeIcons[featured.type] || FileText; return <Icon className={`w-4 h-4 ${accentColors[featured.type] || "text-white/50"}`} />; })()}
-                          <span className={`text-xs font-mono uppercase tracking-widest ${accentColors[featured.type] || "text-white/50"}`}>
+                          {(() => { const Icon = projectTypeIcons[featured.type] || FileText; return <Icon className={`w-4 h-4 ${accentColors[featured.type] || "text-[#0f0f12]/50"}`} />; })()}
+                          <span className={`text-xs font-mono uppercase tracking-widest ${accentColors[featured.type] || "text-[#0f0f12]/50"}`}>
                             {projectTypeLabels[featured.type]}
                           </span>
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold mb-3 tracking-tight">{featured.title}</h2>
                         <p className="text-white/60 font-light mb-2">{featured.description}</p>
-                        <p className="text-white/30 font-mono text-xs uppercase tracking-widest">by {featured.creator}</p>
+                        <p className="text-white/40 font-mono text-xs uppercase tracking-widest">by {featured.creator}</p>
                       </div>
                     </div>
 
                     {/* Side stack */}
-                    <div className="md:col-span-4 flex flex-col gap-px bg-white/10">
+                    <div className="md:col-span-4 flex flex-col gap-px bg-black/10">
                       {rest.slice(0, 2).map((project) => {
                         const Icon = projectTypeIcons[project.type] || FileText;
                         return (
-                          <div key={project.id} className="bg-[#13131a] relative overflow-hidden group flex-1 min-h-[200px]" data-testid={`card-sample-${project.id}`}>
+                          <div key={project.id} className="bg-[#edeae2] relative overflow-hidden group flex-1 min-h-[200px]" data-testid={`card-sample-${project.id}`}>
                             <img
                               src={project.image}
                               alt={project.title}
                               className="w-full h-full object-cover absolute inset-0 opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
-                            <div className="absolute bottom-0 left-0 p-6">
+                            <div className="absolute bottom-0 left-0 p-6 text-white">
                               <div className="flex items-center gap-2 mb-2">
-                                <Icon className={`w-3.5 h-3.5 ${accentColors[project.type] || "text-white/50"}`} />
-                                <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.type] || "text-white/50"}`}>{projectTypeLabels[project.type]}</span>
+                                <Icon className={`w-3.5 h-3.5 ${accentColors[project.type] || "text-[#0f0f12]/50"}`} />
+                                <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.type] || "text-[#0f0f12]/50"}`}>{projectTypeLabels[project.type]}</span>
                               </div>
                               <h3 className="text-lg font-bold leading-tight">{project.title}</h3>
                             </div>
@@ -230,11 +230,11 @@ export default function Gallery() {
 
                 {/* Remaining grid */}
                 {rest.length > 2 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border-b border-white/10">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 border-b border-black/10">
                     {rest.slice(2).map((project) => {
                       const Icon = projectTypeIcons[project.type] || FileText;
                       return (
-                        <div key={project.id} className="bg-[#13131a] relative overflow-hidden group min-h-[280px]" data-testid={`card-sample-${project.id}`}>
+                        <div key={project.id} className="bg-[#edeae2] relative overflow-hidden group min-h-[280px]" data-testid={`card-sample-${project.id}`}>
                           <img
                             src={project.image}
                             alt={project.title}
@@ -242,17 +242,17 @@ export default function Gallery() {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
                           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center">
+                            <div className="w-12 h-12 rounded-full bg-black/10 backdrop-blur border border-black/20 flex items-center justify-center">
                               <Play className="w-5 h-5 ml-0.5" />
                             </div>
                           </div>
-                          <div className="absolute bottom-0 left-0 p-6">
+                          <div className="absolute bottom-0 left-0 p-6 text-white">
                             <div className="flex items-center gap-2 mb-2">
-                              <Icon className={`w-3.5 h-3.5 ${accentColors[project.type] || "text-white/50"}`} />
-                              <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.type] || "text-white/50"}`}>{projectTypeLabels[project.type]}</span>
+                              <Icon className={`w-3.5 h-3.5 ${accentColors[project.type] || "text-[#0f0f12]/50"}`} />
+                              <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.type] || "text-[#0f0f12]/50"}`}>{projectTypeLabels[project.type]}</span>
                             </div>
                             <h3 className="text-xl font-bold mb-1">{project.title}</h3>
-                            <p className="text-white/40 text-sm font-light line-clamp-2">{project.description}</p>
+                            <p className="text-white/50 text-sm font-light line-clamp-2">{project.description}</p>
                           </div>
                         </div>
                       );
@@ -267,14 +267,14 @@ export default function Gallery() {
         {/* ── PLANNING ── */}
         {activeSection === "Planning" && (
           <section>
-            <div className="px-8 py-8 border-b border-white/10">
-              <p className="text-white/40 font-light max-w-2xl">
+            <div className="px-8 py-8 border-b border-black/10">
+              <p className="text-[#0f0f12]/40 font-light max-w-2xl">
                 See how students plan their projects — brainstorming, storyboards, and sticky notes before a single frame is captured.
               </p>
             </div>
 
             {/* Full-bleed planning grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/10 border-b border-white/10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/10 border-b border-black/10">
               {planningExamples.map((example, i) => (
                 <div
                   key={example.id}
@@ -287,25 +287,25 @@ export default function Gallery() {
                     className="w-full h-full object-cover absolute inset-0 opacity-75 group-hover:opacity-95 group-hover:scale-105 transition-all duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-8">
+                  <div className="absolute bottom-0 left-0 p-8 text-white">
                     <div className="flex items-center gap-2 mb-3">
                       <PenTool className="w-3.5 h-3.5 text-emerald-400" />
                       <span className="text-[10px] font-mono uppercase tracking-widest text-emerald-400">Planning</span>
                     </div>
                     <h3 className={`font-bold mb-2 ${i === 0 ? "text-3xl" : "text-xl"}`}>{example.title}</h3>
-                    <p className="text-white/50 font-light text-sm">{example.description}</p>
+                    <p className="text-white/60 font-light text-sm">{example.description}</p>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Planning tip */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10">
-              <div className="md:col-span-12 bg-[#13131a] p-8 md:p-12 flex items-center gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10">
+              <div className="md:col-span-12 bg-[#edeae2] p-8 md:p-12 flex items-center gap-8">
                 <div className="text-5xl font-black text-emerald-500/20 shrink-0 hidden md:block">✦</div>
                 <div>
                   <h3 className="text-2xl font-bold mb-3 tracking-tight">Planning is Key</h3>
-                  <p className="text-white/50 font-light max-w-3xl">
+                  <p className="text-[#0f0f12]/50 font-light max-w-3xl">
                     Great media projects start with great planning. Use brainstorming webs, sticky notes, and storyboards to organize your ideas before you start creating. It helps your team stay on the same page and ensures your finished piece lands the way you imagined it.
                   </p>
                 </div>
@@ -318,8 +318,8 @@ export default function Gallery() {
         {activeSection === "Submitted" && (
           <section>
             {/* Filters */}
-            <div className="flex flex-wrap items-center gap-3 px-8 py-6 border-b border-white/10">
-              <Filter className="w-4 h-4 text-white/30 shrink-0" />
+            <div className="flex flex-wrap items-center gap-3 px-8 py-6 border-b border-black/10">
+              <Filter className="w-4 h-4 text-[#0f0f12]/30 shrink-0" />
               <div className="flex flex-wrap gap-2">
                 {["all", "video_essay", "podcast", "photo_story", "digital_story", "infographic", "meme_ad"].map((t) => (
                   <button
@@ -328,8 +328,8 @@ export default function Gallery() {
                     data-testid={`filter-type-${t}`}
                     className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${
                       typeFilter === t
-                        ? "bg-white text-black border-white"
-                        : "bg-transparent text-white/40 border-white/15 hover:border-white/40 hover:text-white/70"
+                        ? "bg-[#0f0f12] text-white border-[#0f0f12]"
+                        : "bg-transparent text-[#0f0f12]/40 border-black/15 hover:border-black/40 hover:text-[#0f0f12]/70"
                     }`}
                   >
                     {t === "all" ? "All Types" : projectTypeLabels[t]}
@@ -337,10 +337,10 @@ export default function Gallery() {
                 ))}
               </div>
               {themes.length > 0 && (
-                <div className="flex flex-wrap gap-2 ml-4 pl-4 border-l border-white/10">
+                <div className="flex flex-wrap gap-2 ml-4 pl-4 border-l border-black/10">
                   <button
                     onClick={() => setThemeFilter("all")}
-                    className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${themeFilter === "all" ? "bg-white text-black border-white" : "bg-transparent text-white/40 border-white/15 hover:border-white/40"}`}
+                    className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${themeFilter === "all" ? "bg-[#0f0f12] text-white border-[#0f0f12]" : "bg-transparent text-[#0f0f12]/40 border-black/15 hover:border-black/40"}`}
                   >
                     All Themes
                   </button>
@@ -348,7 +348,7 @@ export default function Gallery() {
                     <button
                       key={theme}
                       onClick={() => setThemeFilter(theme)}
-                      className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${themeFilter === theme ? "bg-white text-black border-white" : "bg-transparent text-white/40 border-white/15 hover:border-white/40"}`}
+                      className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${themeFilter === theme ? "bg-[#0f0f12] text-white border-[#0f0f12]" : "bg-transparent text-[#0f0f12]/40 border-black/15 hover:border-black/40"}`}
                     >
                       {theme}
                     </button>
@@ -360,45 +360,45 @@ export default function Gallery() {
             {error ? (
               <div className="py-32 flex flex-col items-center gap-4 text-center">
                 <AlertCircle className="w-10 h-10 text-red-400/60" />
-                <p className="text-white/40 font-light">Failed to load projects.</p>
-                <button onClick={() => window.location.reload()} className="px-6 py-2 border border-white/20 rounded-full text-sm font-mono text-white/60 hover:border-white/50 transition-all">
+                <p className="text-[#0f0f12]/40 font-light">Failed to load projects.</p>
+                <button onClick={() => window.location.reload()} className="px-6 py-2 border border-black/20 rounded-full text-sm font-mono text-[#0f0f12]/60 hover:border-black/50 transition-all">
                   Retry
                 </button>
               </div>
             ) : isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10">
                 {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="bg-[#13131a] min-h-[280px] animate-pulse" />
+                  <div key={i} className="bg-[#edeae2] min-h-[280px] animate-pulse" />
                 ))}
               </div>
             ) : filteredProjects.length === 0 ? (
               <div className="py-32 flex flex-col items-center gap-6 text-center">
-                <Camera className="w-10 h-10 text-white/20" />
+                <Camera className="w-10 h-10 text-[#0f0f12]/20" />
                 <div>
-                  <p className="text-white/50 mb-1">No submitted projects yet.</p>
-                  <p className="text-white/30 text-sm font-light">Be the first to share your creation!</p>
+                  <p className="text-[#0f0f12]/50 mb-1">No submitted projects yet.</p>
+                  <p className="text-[#0f0f12]/30 text-sm font-light">Be the first to share your creation!</p>
                 </div>
                 <Link href="/create">
-                  <button className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full text-sm font-mono uppercase tracking-widest hover:bg-white/90 transition-all" data-testid="button-start-first">
+                  <button className="flex items-center gap-2 px-6 py-3 bg-[#0f0f12] text-white rounded-full text-sm font-mono uppercase tracking-widest hover:bg-[#0f0f12]/90 transition-all" data-testid="button-start-first">
                     Start Creating <ArrowRight className="w-4 h-4" />
                   </button>
                 </Link>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border-b border-white/10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-black/10 border-b border-black/10">
                 {filteredProjects.map((project) => {
                   const Icon = projectTypeIcons[project.projectType] || FileText;
                   return (
                     <div
                       key={project.id}
-                      className="bg-[#13131a] p-8 hover:bg-[#16161e] transition-colors group min-h-[280px] flex flex-col justify-between"
+                      className="bg-[#edeae2] p-8 hover:bg-[#e6e2d8] transition-colors group min-h-[280px] flex flex-col justify-between"
                       data-testid={`card-project-${project.id}`}
                     >
                       <div>
                         <div className="flex items-center justify-between mb-6">
                           <div className="flex items-center gap-2">
-                            <Icon className={`w-4 h-4 ${accentColors[project.projectType] || "text-white/50"}`} />
-                            <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.projectType] || "text-white/50"}`}>
+                            <Icon className={`w-4 h-4 ${accentColors[project.projectType] || "text-[#0f0f12]/50"}`} />
+                            <span className={`text-[10px] font-mono uppercase tracking-widest ${accentColors[project.projectType] || "text-[#0f0f12]/50"}`}>
                               {projectTypeLabels[project.projectType]}
                             </span>
                           </div>
@@ -410,14 +410,14 @@ export default function Gallery() {
                           )}
                         </div>
                         <h3 className="text-2xl font-bold mb-3 tracking-tight">{project.title}</h3>
-                        <p className="text-white/50 font-light text-sm mb-4 line-clamp-3">{project.description}</p>
+                        <p className="text-[#0f0f12]/50 font-light text-sm mb-4 line-clamp-3">{project.description}</p>
                         {project.issueTheme && (
-                          <span className="inline-block bg-white/5 border border-white/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-white/40">
+                          <span className="inline-block bg-black/5 border border-black/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider text-[#0f0f12]/40">
                             {project.issueTheme}
                           </span>
                         )}
                       </div>
-                      <p className="text-white/20 font-mono text-xs uppercase tracking-widest mt-6">by {project.creator}</p>
+                      <p className="text-[#0f0f12]/20 font-mono text-xs uppercase tracking-widest mt-6">by {project.creator}</p>
                     </div>
                   );
                 })}
@@ -427,16 +427,16 @@ export default function Gallery() {
         )}
 
         {/* CTA */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-white/10 border-t border-white/10">
-          <div className="md:col-span-12 bg-[#13131a] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10 border-t border-black/10">
+          <div className="md:col-span-12 bg-[#edeae2] p-8 md:p-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <p className="text-white/30 font-mono text-xs uppercase tracking-widest mb-2">Ready to contribute?</p>
+              <p className="text-[#0f0f12]/30 font-mono text-xs uppercase tracking-widest mb-2">Ready to contribute?</p>
               <h3 className="text-3xl font-bold tracking-tight">Create Your Own Project</h3>
-              <p className="text-white/40 font-light mt-2">Start your media project and showcase it here.</p>
+              <p className="text-[#0f0f12]/40 font-light mt-2">Start your media project and showcase it here.</p>
             </div>
             <Link href="/create">
               <button
-                className="flex items-center gap-3 px-8 py-4 bg-white text-black rounded-full font-mono text-sm uppercase tracking-widest hover:bg-white/90 transition-all shrink-0 group"
+                className="flex items-center gap-3 px-8 py-4 bg-[#0f0f12] text-white rounded-full font-mono text-sm uppercase tracking-widest hover:bg-[#0f0f12]/90 transition-all shrink-0 group"
                 data-testid="button-create-project"
               >
                 Start Creating
@@ -448,7 +448,7 @@ export default function Gallery() {
 
       </main>
 
-      <footer className="py-12 text-center text-white/20 font-mono text-sm border-t border-white/5">
+      <footer className="py-12 text-center text-[#0f0f12]/20 font-mono text-sm border-t border-black/5">
         &copy; Creative Media Bootcamp. Navigate the Noise.
       </footer>
     </div>

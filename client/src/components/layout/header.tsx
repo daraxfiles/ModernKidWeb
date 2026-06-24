@@ -24,11 +24,13 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const isTransparent = isHome && !scrolled;
+
   return (
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isHome && !scrolled
+        isTransparent
           ? "bg-transparent"
           : "bg-[hsl(var(--background)/0.92)] backdrop-blur-md border-b border-[hsl(var(--border))]"
       )}
@@ -39,7 +41,10 @@ export function Header() {
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] group-hover:scale-105 transition-transform shadow-lg">
             <Clapperboard className="h-4 w-4 text-white" />
           </div>
-          <span className="font-bold text-sm text-white group-hover:text-[hsl(var(--primary))] transition-colors hidden sm:block">
+          <span className={cn(
+            "font-bold text-sm group-hover:text-[hsl(var(--primary))] transition-colors hidden sm:block",
+            isTransparent ? "text-white" : "text-[hsl(var(--foreground))]"
+          )}>
             Creative Media <span className="text-[hsl(var(--primary))]">Bootcamp</span>
           </span>
         </Link>
@@ -55,7 +60,9 @@ export function Header() {
                   "text-sm transition-colors",
                   location === link.href
                     ? "text-[hsl(var(--primary))] bg-[hsl(var(--primary)/0.1)]"
-                    : "text-white/80 hover:text-white hover:bg-white/10"
+                    : isTransparent
+                      ? "text-white/80 hover:text-white hover:bg-white/10"
+                      : "text-foreground/70 hover:text-foreground hover:bg-black/5"
                 )}
                 data-testid={`nav-link-${link.label.toLowerCase().replace(/\s+/g, "-")}`}
               >
@@ -70,7 +77,12 @@ export function Header() {
           <Link href="/create" className="hidden md:block">
             <Button
               size="sm"
-              className="rounded-full px-5 bg-white text-black hover:bg-white/90 font-semibold text-sm"
+              className={cn(
+                "rounded-full px-5 font-semibold text-sm transition-all",
+                isTransparent
+                  ? "bg-white text-black hover:bg-white/90"
+                  : "bg-[hsl(var(--foreground))] text-[hsl(var(--background))] hover:bg-[hsl(var(--foreground)/0.88)]"
+              )}
               data-testid="button-cta-create"
             >
               Create Your Project
@@ -83,7 +95,9 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className="text-white hover:bg-white/10"
+                className={cn(
+                  isTransparent ? "text-white hover:bg-white/10" : "text-foreground hover:bg-black/5"
+                )}
                 data-testid="button-mobile-menu"
               >
                 {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
