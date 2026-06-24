@@ -104,7 +104,8 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getShowcaseProjects(): Promise<ShowcaseProject[]> {
-    return await db.select().from(showcaseProjects);
+    const result = await db.select().from(showcaseProjects);
+    return result ?? [];
   }
 
   async initializeSampleShowcaseProjects(): Promise<void> {
