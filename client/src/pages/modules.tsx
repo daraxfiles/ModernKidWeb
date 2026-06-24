@@ -1,303 +1,296 @@
 import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Search,
   Shield,
   Eye,
-  Palette,
   Video,
   ArrowRight,
   CheckCircle,
   Gamepad2,
   BookOpen,
   Target,
+  Zap,
+  ChevronRight,
+  ExternalLink,
 } from "lucide-react";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 const modules = [
   {
-    id: "week1",
-    week: "Week 1",
     num: "01",
+    week: "Week 1",
     title: "Media Use & Technobiography",
-    description: "Explore your relationship with media and technology",
+    desc: "Explore your relationship with media and technology, and understand how it shapes what you believe.",
     icon: Search,
-    accent: "hsl(var(--primary))",
+    accent: "text-indigo-400",
+    accentBg: "bg-indigo-500/80",
     topics: [
-      { title: "Introduction to the Bootcamp", description: "Meet the researchers and fellow participants", activities: ["Icebreaker activities", "Team building exercises"] },
-      { title: "Your Technobiography", description: "Explore your daily media usage and tech tool preferences", activities: ["Self-assessment surveys", "Media diary creation"] },
-      { title: "Media's Role in Society", description: "Understand how media shapes opinions and society", activities: ["Video discussions", "Group brainstorming"] },
-      { title: "Societal Issues Exploration", description: "Identify issues you care about and want to address", activities: ["Group brainstorming", "Issue mapping"] },
+      { title: "Introduction to the Bootcamp", activities: ["Icebreaker activities", "Team building exercises"] },
+      { title: "Your Technobiography", activities: ["Self-assessment surveys", "Media diary creation"] },
+      { title: "Media's Role in Society", activities: ["Video discussions", "Group brainstorming"] },
+      { title: "Societal Issues Exploration", activities: ["Issue mapping", "Personal interest survey"] },
     ],
     games: ["Fake it to Make it"],
     skills: ["Self-reflection", "Media Awareness", "Collaboration"],
   },
   {
-    id: "week2",
-    week: "Week 2",
     num: "02",
+    week: "Week 2",
     title: "Information Credibility & Misinformation",
-    description: "Learn to identify and combat false information",
+    desc: "Learn to identify false information, evaluate sources, and develop skills for the age of viral content.",
     icon: Shield,
-    accent: "hsl(var(--accent))",
+    accent: "text-emerald-400",
+    accentBg: "bg-emerald-500/80",
     topics: [
-      { title: "Types of Misinformation", description: "Learn about different forms of false information", activities: ["Video lessons", "Examples analysis"] },
-      { title: "Investigating Credibility", description: "Develop skills to verify information sources", activities: ["Source evaluation exercises", "Fact-checking practice"] },
-      { title: "Media Credibility Assessment", description: "Learn to evaluate whether media can be trusted", activities: ["Credibility investigation activity", "Discussion"] },
-      { title: "Planning Your Story", description: "Begin planning a story about an issue you care about", activities: ["Story brainstorming", "Initial story planning"] },
+      { title: "Types of Misinformation", activities: ["Video lessons", "Examples analysis"] },
+      { title: "Investigating Credibility", activities: ["Source evaluation exercises", "Fact-checking practice"] },
+      { title: "Media Credibility Assessment", activities: ["Credibility investigation", "Group discussion"] },
+      { title: "Planning Your Story", activities: ["Story brainstorming", "Initial story planning"] },
     ],
     games: ["Lamboozled"],
     skills: ["Critical Thinking", "Research Skills", "Fact-Checking"],
   },
   {
-    id: "week3",
-    week: "Week 3",
     num: "03",
+    week: "Week 3",
     title: "Media Deconstruction & Construction",
-    description: "Analyze and create different types of media",
+    desc: "Break down how media messages are crafted — then flip it around and build your own.",
     icon: Eye,
-    accent: "hsl(var(--chart-3))",
+    accent: "text-pink-400",
+    accentBg: "bg-pink-500/80",
     topics: [
-      { title: "Deconstructing Media", description: "Break down how media messages are crafted", activities: ["Media analysis exercises", "Video deconstruction"] },
-      { title: "Constructing Media", description: "Learn the basics of creating compelling media", activities: ["Advertisement creation", "Media construction techniques"] },
-      { title: "Elaborating Your Story", description: "Add depth to your story with characters, themes, and conflict", activities: ["Story development", "Character creation"] },
-      { title: "Choosing Your Format", description: "Select the best media format for your story", activities: ["Format exploration", "Design planning"] },
+      { title: "Deconstructing Media", activities: ["Media analysis exercises", "Video deconstruction"] },
+      { title: "Constructing Media", activities: ["Advertisement creation", "Media construction"] },
+      { title: "Elaborating Your Story", activities: ["Story development", "Character creation"] },
+      { title: "Choosing Your Format", activities: ["Format exploration", "Design planning"] },
     ],
     games: [],
     skills: ["Media Analysis", "Creative Design", "Storytelling"],
   },
   {
-    id: "week4-5",
-    week: "Weeks 4–5",
     num: "04",
+    week: "Weeks 4–5",
     title: "Media Production & Showcase",
-    description: "Create, refine, and present your media project",
+    desc: "Create, refine, and present your media project. From first draft to final showcase.",
     icon: Video,
-    accent: "hsl(var(--chart-4))",
+    accent: "text-amber-400",
+    accentBg: "bg-amber-500/80",
     topics: [
-      { title: "Media Creation", description: "Start building your media project", activities: ["Production work time", "Peer collaboration"] },
-      { title: "Refinement & Feedback", description: "Improve your project based on feedback", activities: ["Peer review sessions", "Project iteration"] },
-      { title: "Final Presentations", description: "Present your work to the group", activities: ["Presentation practice", "Q&A sessions"] },
-      { title: "Showcase & Celebration", description: "Share your completed project at the final showcase", activities: ["Project showcase", "Portfolio building"] },
+      { title: "Media Creation", activities: ["Production work time", "Peer collaboration"] },
+      { title: "Refinement & Feedback", activities: ["Peer review sessions", "Project iteration"] },
+      { title: "Final Presentations", activities: ["Presentation practice", "Q&A sessions"] },
+      { title: "Showcase & Celebration", activities: ["Project showcase", "Portfolio building"] },
     ],
     games: [],
     skills: ["Production Skills", "Presentation", "Reflection"],
   },
 ];
 
+const games = [
+  { name: "Fake it to Make it", tag: "SIMULATOR", url: "https://www.fakeittomakeitgame.com/", desc: "Create your own fake news website to understand how misinformation spreads. Learn the tactics used to deceive people online.", accent: "text-indigo-400", accentBg: "bg-indigo-500/80" },
+  { name: "Lamboozled", tag: "STRATEGY", url: "#", desc: "A fast-paced game that challenges you to identify fake information quickly. Learn to spot the signs of misleading content.", accent: "text-emerald-400", accentBg: "bg-emerald-500/80" },
+  { name: "Bad News", tag: "EDUCATIONAL", url: "https://www.getbadnews.com/", desc: "Become a fake news tycoon and learn the six tactics of misinformation: impersonation, emotion, polarization, conspiracy, discredit, and trolling.", accent: "text-pink-400", accentBg: "bg-pink-500/80" },
+];
+
 const keyConcepts = [
-  { icon: Search, title: "Technobiography", desc: "Your personal media usage history" },
-  { icon: Shield, title: "Source Verification", desc: "Checking if information is credible" },
-  { icon: Eye, title: "Media Deconstruction", desc: "Breaking down how media is made" },
-  { icon: Palette, title: "Media Construction", desc: "Creating your own media content" },
+  { letter: "T", title: "Technobiography", desc: "Your personal history with technology and media" },
+  { letter: "S", title: "Source Verification", desc: "Checking if information comes from a trustworthy place" },
+  { letter: "D", title: "Deconstruction", desc: "Breaking down how media messages are crafted" },
+  { letter: "C", title: "Construction", desc: "Building your own purposeful media content" },
 ];
 
 export default function Modules() {
-  const [active, setActive] = useState("week1");
-  const current = modules.find((m) => m.id === active)!;
-
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#f4f1ea] text-[#0f0f12] font-sans selection:bg-indigo-500/30 overflow-x-hidden pt-20">
 
-      {/* Hero */}
-      <section className="pt-32 pb-16 px-6 border-b border-border/60">
-        <div className="max-w-5xl mx-auto">
-          <Badge variant="secondary" className="mb-6 font-mono text-xs tracking-widest uppercase">
-            Learning Modules
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight leading-none mb-5">
-            What You'll<br />
-            <span className="gradient-text">Learn</span>
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-            Four weekly modules, each building on the last — from understanding media
-            to producing and sharing your own.
-          </p>
-        </div>
-      </section>
-
-      <div className="max-w-5xl mx-auto px-6 py-14">
-
-        {/* Week selector */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10">
-          {modules.map((mod) => {
-            const Icon = mod.icon;
-            const isActive = active === mod.id;
-            return (
-              <motion.button
-                key={mod.id}
-                onClick={() => setActive(mod.id)}
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                className={`relative flex flex-col items-start gap-2 p-4 rounded-xl border text-left transition-all ${
-                  isActive
-                    ? "border-[hsl(var(--primary)/0.5)] bg-[hsl(var(--primary)/0.06)]"
-                    : "border-border bg-card hover:border-[hsl(var(--primary)/0.25)]"
-                }`}
-                data-testid={`tab-${mod.id}`}
-              >
-                <div className={`flex items-center gap-2 ${isActive ? "text-[hsl(var(--primary))]" : "text-muted-foreground"}`}>
-                  <Icon className="h-4 w-4" />
-                  <span className="text-[10px] font-mono uppercase tracking-widest">{mod.week}</span>
-                </div>
-                <p className={`text-sm font-semibold leading-tight ${isActive ? "text-foreground" : "text-muted-foreground"}`}>
-                  {mod.title}
-                </p>
-                {isActive && (
-                  <motion.div
-                    layoutId="activeTab"
-                    className="absolute bottom-0 left-4 right-4 h-0.5 rounded-full bg-[hsl(var(--primary))]"
-                  />
-                )}
-              </motion.button>
-            );
-          })}
-        </div>
-
-        {/* Active module content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={active}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
-          >
-            {/* Module header */}
-            <div className="flex items-end gap-5 mb-8">
-              <span
-                className="text-[5rem] font-black leading-none tabular-nums select-none shrink-0"
-                style={{ color: current.accent, opacity: 0.15, lineHeight: 1 }}
-              >
-                {current.num}
+      {/* ── HERO ── */}
+      <header className="px-8 py-16 md:py-24 border-b border-black/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/8 to-transparent pointer-events-none" />
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col md:flex-row md:items-end md:justify-between gap-8">
+          <div>
+            <p className="text-indigo-400 font-mono tracking-widest uppercase text-sm mb-4">
+              Learning Modules
+            </p>
+            <h1 className="text-5xl md:text-8xl font-bold tracking-tighter uppercase mb-6 leading-none">
+              What You'll<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0f0f12] to-[#0f0f12]/25">
+                Learn
               </span>
-              <div className="pb-1">
-                <p className="text-[10px] font-mono uppercase tracking-widest text-muted-foreground mb-1">
-                  {current.week}
-                </p>
-                <h2 className="text-2xl md:text-3xl font-bold text-foreground leading-tight">
-                  {current.title}
-                </h2>
-                <p className="text-muted-foreground mt-1">{current.description}</p>
+            </h1>
+            <p className="text-lg text-[#0f0f12]/50 max-w-xl font-light">
+              Four modules over six weeks — each building on the last. From understanding media to producing and sharing your own.
+            </p>
+          </div>
+
+          {/* Key concepts */}
+          <div className="flex flex-col gap-1 shrink-0">
+            {keyConcepts.map((c) => (
+              <div key={c.letter} className="flex items-center gap-4 px-6 py-3 border-r-2 border-transparent text-right">
+                <div className="text-right flex-1">
+                  <p className="font-bold">{c.title}</p>
+                  <p className="text-[#0f0f12]/30 font-mono text-xs">{c.desc}</p>
+                </div>
+                <span className="text-2xl font-black text-indigo-400/30 w-8 text-center">{c.letter}</span>
               </div>
+            ))}
+          </div>
+        </div>
+      </header>
+
+      <main className="max-w-7xl mx-auto">
+
+        {/* ── WEEKLY MODULES ── */}
+        {modules.map((mod, mi) => (
+          <section key={mod.num} className="border-b border-black/10">
+            {/* Section header */}
+            <div className="px-8 md:px-12 py-8 md:py-12 border-b border-black/10">
+              <div className="flex items-end gap-4">
+                <span className="text-6xl md:text-9xl font-black text-black/8 leading-none -ml-1 select-none tracking-tighter">{mod.num}</span>
+                <div className="-ml-2 relative z-10">
+                  <p className="text-[10px] font-mono uppercase tracking-widest text-[#0f0f12]/30 mb-1">{mod.week}</p>
+                  <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight flex items-center gap-4">
+                    {mod.title.split(" ").slice(0, 2).join(" ")} <mod.icon className={`w-7 h-7 md:w-10 md:h-10 ${mod.accent}`} />
+                  </h2>
+                  <h2 className="text-3xl md:text-5xl font-bold uppercase tracking-tight text-[#0f0f12]/25">
+                    {mod.title.split(" ").slice(2).join(" ")}
+                  </h2>
+                </div>
+              </div>
+              <p className="mt-4 text-[#0f0f12]/50 font-light max-w-2xl text-lg">{mod.desc}</p>
             </div>
 
             {/* Topics grid */}
-            <div className="grid sm:grid-cols-2 gap-3 mb-8" data-testid={`card-module-${active}`}>
-              {current.topics.map((topic, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07 }}
-                  className="p-5 rounded-xl border border-border bg-card"
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-black/10" data-testid={`module-${mod.num}`}>
+              {mod.topics.map((topic, ti) => (
+                <div
+                  key={ti}
+                  className="bg-[#edeae2] p-8 hover:bg-[#e6e2d8] transition-colors group min-h-[220px] flex flex-col justify-between"
+                  data-testid={`card-topic-${mi}-${ti}`}
                 >
-                  <h3 className="font-semibold mb-1 text-foreground">{topic.title}</h3>
-                  <p className="text-sm text-muted-foreground mb-3 leading-relaxed">{topic.description}</p>
-                  <div className="space-y-1.5">
-                    {topic.activities.map((act, j) => (
-                      <div key={j} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle className="h-3.5 w-3.5 text-[hsl(var(--accent))] shrink-0" />
-                        {act}
-                      </div>
-                    ))}
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-[#0f0f12]/30 mb-3">Session {ti + 1}</p>
+                    <h3 className="text-lg font-bold mb-4 leading-snug">{topic.title}</h3>
                   </div>
-                </motion.div>
+                  <ul className="space-y-2">
+                    {topic.activities.map((act, ai) => (
+                      <li key={ai} className="flex items-start gap-2.5 text-sm text-[#0f0f12]/50">
+                        <CheckCircle className="w-3.5 h-3.5 shrink-0 mt-0.5 text-[#0f0f12]/20 group-hover:text-[#0f0f12]/40 transition-colors" />
+                        <span className="font-light">{act}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
 
-            {/* Games + Skills row */}
-            <div className="flex flex-col sm:flex-row gap-5">
-              {current.games.length > 0 && (
-                <div className="flex-1 p-5 rounded-xl border border-border bg-card">
-                  <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
-                    <Gamepad2 className="h-4 w-4 text-[hsl(var(--primary))]" />
-                    Interactive Games
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {current.games.map((game, i) => (
-                      <Badge key={i} variant="secondary" className="gap-1.5">
-                        <Gamepad2 className="h-3 w-3" />
-                        {game}
-                      </Badge>
-                    ))}
+            {/* Skills + games footer */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10">
+              {mod.games.length > 0 && (
+                <div className="md:col-span-5 bg-[#edeae2] p-6 md:p-8 flex items-center gap-6">
+                  <Gamepad2 className={`w-8 h-8 shrink-0 ${mod.accent}`} />
+                  <div>
+                    <p className="text-[10px] font-mono uppercase tracking-widest text-[#0f0f12]/35 mb-1">Interactive Game</p>
+                    <p className="font-bold">{mod.games[0]}</p>
                   </div>
                 </div>
               )}
-              <div className="flex-1 p-5 rounded-xl border border-border bg-card">
-                <h4 className="font-semibold mb-3 flex items-center gap-2 text-sm">
-                  <Target className="h-4 w-4 text-[hsl(var(--primary))]" />
-                  Skills Developed
-                </h4>
+              <div className={`${mod.games.length > 0 ? "md:col-span-7" : "md:col-span-12"} bg-[#edeae2] p-6 md:p-8 flex items-center gap-6`}>
+                <Target className="w-6 h-6 shrink-0 text-[#0f0f12]/20" />
                 <div className="flex flex-wrap gap-2">
-                  {current.skills.map((skill, i) => (
-                    <Badge key={i} variant="outline">{skill}</Badge>
+                  {mod.skills.map((skill) => (
+                    <span key={skill} className="bg-black/5 border border-black/10 rounded-full px-4 py-1.5 text-xs font-mono uppercase tracking-wider text-[#0f0f12]/50">
+                      {skill}
+                    </span>
                   ))}
                 </div>
               </div>
             </div>
-          </motion.div>
-        </AnimatePresence>
+          </section>
+        ))}
 
-        {/* Divider */}
-        <div className="h-px bg-border my-14" />
-
-        {/* Bottom two cards */}
-        <div className="grid md:grid-cols-2 gap-5">
-
-          {/* Games */}
-          <div className="p-6 rounded-2xl border border-border bg-card" data-testid="card-games">
-            <div className="flex items-center gap-2 mb-5">
-              <Gamepad2 className="h-5 w-5 text-[hsl(var(--primary))]" />
-              <h3 className="font-bold">Educational Games</h3>
-            </div>
-            <div className="space-y-4">
-              {[
-                { title: "Fake it to Make it", desc: "Create fake news to understand how misinformation spreads. Learn the tactics used to deceive people." },
-                { title: "Lamboozled", desc: "Test your ability to spot fake information and learn strategies for identifying misleading content." },
-              ].map((game) => (
-                <div key={game.title} className="p-4 rounded-xl bg-secondary/50">
-                  <p className="font-semibold text-sm mb-1">{game.title}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{game.desc}</p>
-                </div>
-              ))}
+        {/* ── GAMES SECTION ── */}
+        <section className="border-b border-black/10">
+          <div className="px-8 md:px-12 py-8 md:py-12 border-b border-black/10">
+            <div className="flex items-end gap-4">
+              <span className="text-6xl md:text-9xl font-black text-black/8 leading-none -ml-1 select-none tracking-tighter">05</span>
+              <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -ml-2 relative z-10 flex items-center gap-4">
+                Games <Gamepad2 className="w-8 h-8 md:w-12 md:h-12 text-pink-400" />
+              </h2>
             </div>
           </div>
 
-          {/* Key Concepts */}
-          <div className="p-6 rounded-2xl border border-border bg-card" data-testid="card-key-concepts">
-            <div className="flex items-center gap-2 mb-5">
-              <BookOpen className="h-5 w-5 text-[hsl(var(--primary))]" />
-              <h3 className="font-bold">Key Concepts</h3>
-            </div>
-            <div className="space-y-3">
-              {keyConcepts.map((c, i) => (
-                <div key={i} className="flex items-start gap-3">
-                  <div className="h-8 w-8 rounded-lg bg-[hsl(var(--primary)/0.1)] flex items-center justify-center shrink-0">
-                    <c.icon className="h-4 w-4 text-[hsl(var(--primary))]" />
-                  </div>
-                  <div>
-                    <p className="font-semibold text-sm">{c.title}</p>
-                    <p className="text-xs text-muted-foreground">{c.desc}</p>
-                  </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-black/10">
+            {games.map((game, i) => (
+              <div key={i} className="bg-[#edeae2] p-8 md:p-10 hover:bg-[#e6e2d8] transition-colors group flex flex-col justify-between min-h-[300px]" data-testid={`card-game-${i}`}>
+                <div>
+                  <span className={`inline-block bg-black/5 border border-black/10 rounded-full px-3 py-1 text-[10px] font-mono tracking-wider ${game.accent} mb-6`}>
+                    {game.tag}
+                  </span>
+                  <h3 className="text-2xl font-bold mb-4">{game.name}</h3>
+                  <p className="text-[#0f0f12]/50 font-light text-sm leading-relaxed">{game.desc}</p>
                 </div>
-              ))}
+                {game.url !== "#" ? (
+                  <a href={game.url} target="_blank" rel="noopener noreferrer" className={`flex items-center gap-2 text-sm font-mono text-[#0f0f12]/30 group-hover:${game.accent} transition-colors uppercase tracking-widest mt-8`} data-testid={`link-game-${i}`}>
+                    Play Now <ChevronRight className="w-4 h-4" />
+                  </a>
+                ) : (
+                  <span className="text-sm font-mono text-[#0f0f12]/20 uppercase tracking-widest mt-8">Coming Soon</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── KEY CONCEPTS ── */}
+        <section className="border-b border-black/10">
+          <div className="px-8 md:px-12 py-8 md:py-12 border-b border-black/10 flex items-center justify-between">
+            <div className="flex items-end gap-4">
+              <span className="text-6xl md:text-9xl font-black text-black/8 leading-none -ml-1 select-none tracking-tighter">06</span>
+              <h2 className="text-4xl md:text-6xl font-bold uppercase tracking-tight -ml-2 relative z-10 flex items-center gap-4">
+                Concepts <BookOpen className="w-8 h-8 md:w-12 md:h-12 text-cyan-400" />
+              </h2>
             </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-black/10">
+            {keyConcepts.map((c, i) => (
+              <div key={i} className="bg-[#edeae2] p-8 md:p-12 hover:bg-[#e6e2d8] transition-colors group flex gap-8 items-start" data-testid={`card-concept-${i}`}>
+                <span className="text-6xl font-black text-cyan-500/15 group-hover:text-cyan-500/30 transition-colors shrink-0 leading-none">{c.letter}</span>
+                <div className="pt-2">
+                  <h3 className="text-2xl font-bold mb-2 tracking-tight">{c.title}</h3>
+                  <p className="text-[#0f0f12]/50 font-light">{c.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── CTA ── */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-px bg-black/10 border-t border-black/10">
+          <div className="md:col-span-8 bg-[#edeae2] p-8 md:p-12 flex flex-col justify-between min-h-[220px]">
+            <p className="text-indigo-400 font-mono tracking-widest uppercase text-sm">Apply what you've learned</p>
+            <div>
+              <h3 className="text-3xl md:text-5xl font-bold tracking-tighter mb-2">Start Your Project</h3>
+              <p className="text-[#0f0f12]/40 font-light">Build a real media project from concept to showcase using the 7-step wizard.</p>
+            </div>
+          </div>
+          <div className="md:col-span-4 bg-[#0f0f12] p-8 flex flex-col justify-end hover:bg-[#1a1a1a] transition-colors group">
+            <Link href="/create" data-testid="link-cta-create">
+              <div>
+                <Zap className="w-6 h-6 text-white/30 mb-8" />
+                <div className="flex items-center justify-between">
+                  <span className="text-white text-2xl font-bold">Create Now</span>
+                  <ArrowRight className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform" />
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="mt-12 flex justify-center">
-          <Link href="/create">
-            <Button size="lg" className="gap-2 rounded-full px-8" data-testid="button-start-project">
-              Start Your Project
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </Link>
-        </div>
-      </div>
+      </main>
+
+      <footer className="py-12 text-center text-[#0f0f12]/20 font-mono text-sm border-t border-black/5">
+        &copy; Creative Media Bootcamp. Navigate the Noise.
+      </footer>
     </div>
   );
 }
