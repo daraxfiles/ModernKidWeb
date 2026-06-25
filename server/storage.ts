@@ -28,6 +28,7 @@ export interface IStorage {
 
 export class DatabaseStorage implements IStorage {
   async createProject(insertProject: InsertProject): Promise<Project> {
+    if (!db) throw new Error("Database is not available. Please configure DATABASE_URL.");
     const id = randomUUID();
     const [project] = await db
       .insert(projects)
@@ -54,10 +55,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getProjects(): Promise<Project[]> {
+    if (!db) return [];
     return await db.select().from(projects);
   }
 
   async getProject(id: string): Promise<Project | undefined> {
+    if (!db) return undefined;
     const [project] = await db
       .select()
       .from(projects)
@@ -66,6 +69,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createContact(insertContact: InsertContact): Promise<Contact> {
+    if (!db) throw new Error("Database is not available. Please configure DATABASE_URL.");
     const id = randomUUID();
     const [contact] = await db
       .insert(contacts)
@@ -81,10 +85,12 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getContacts(): Promise<Contact[]> {
+    if (!db) return [];
     return await db.select().from(contacts);
   }
 
   async createShowcaseProject(insertProject: InsertShowcaseProject): Promise<ShowcaseProject> {
+    if (!db) throw new Error("Database is not available. Please configure DATABASE_URL.");
     const id = randomUUID();
     const [project] = await db
       .insert(showcaseProjects)
@@ -104,11 +110,13 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getShowcaseProjects(): Promise<ShowcaseProject[]> {
+    if (!db) return [];
     const result = await db.select().from(showcaseProjects);
     return result ?? [];
   }
 
   async initializeSampleShowcaseProjects(): Promise<void> {
+    if (!db) return;
     const existing = await this.getShowcaseProjects();
     if (existing.length > 0) return;
 
