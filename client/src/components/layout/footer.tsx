@@ -1,5 +1,4 @@
 import { Link } from "wouter";
-import { Sparkles } from "lucide-react";
 
 export function Footer() {
   return (
@@ -8,17 +7,12 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-8 md:grid-cols-3">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-md">
-                <Sparkles className="h-5 w-5 text-white" />
-              </div>
-              <div>
-                <span className="font-bold">Creative Media</span>
-                <span className="ml-1 text-primary font-medium">Bootcamp</span>
-              </div>
+            <div className="flex items-center gap-0 mb-4">
+              <span className="font-black text-base tracking-tight font-mono">CTRL+ALT+</span>
+              <span className="font-black text-base tracking-tight font-mono text-primary">MEDIA</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              A program promoting creative media production and media literacy for middle schoolers.
+              Hit reset on the broken media landscape. Alternative media, AI, and bold truth-telling for the next generation.
             </p>
           </div>
 
@@ -51,13 +45,13 @@ export function Footer() {
           <div>
             <h4 className="font-semibold mb-4">About</h4>
             <p className="text-sm text-muted-foreground">
-              A 6-week bootcamp for grades 6–8 exploring media literacy, misinformation detection, and hands-on creative media production.
+              A 6-week program for grades 6–8. Question everything. Create boldly. Speak truth to power.
             </p>
           </div>
         </div>
 
-        <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground">
-          <p>Creative Media Production Bootcamp</p>
+        <div className="border-t mt-8 pt-8 text-center text-sm text-muted-foreground font-mono">
+          <p>CTRL+ALT+MEDIA · Hit Reset.</p>
         </div>
       </div>
     </footer>

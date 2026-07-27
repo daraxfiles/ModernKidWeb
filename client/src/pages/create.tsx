@@ -2308,7 +2308,7 @@ In summary..."
       </div>
 
       <footer className="border-t border-black/5 py-6 text-center text-xs text-[#0f0f12]/20 font-mono tracking-wide">
-        Creative Media Production Bootcamp · Navigate the Noise.
+        CTRL+ALT+MEDIA · Hit Reset.
       </footer>
     </div>
   );

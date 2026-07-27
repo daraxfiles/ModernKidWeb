@@ -5,7 +5,6 @@ import {
   PenLine,
   ImagePlay,
   CalendarDays,
-  Sparkles,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
@@ -57,19 +56,15 @@ export function Sidebar() {
           collapsed && "justify-center px-0"
         )}
       >
-        <Link href="/resources" className="flex items-center gap-3 group min-w-0">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] glow-primary group-hover:scale-105 transition-transform">
-            <Sparkles className="h-4 w-4 text-white" />
-          </div>
-          {!collapsed && (
+        <Link href="/resources" className="flex items-center gap-0 group min-w-0">
+          {!collapsed ? (
             <div className="min-w-0 overflow-hidden">
-              <p className="text-sm font-bold text-[hsl(var(--sidebar-foreground))] leading-tight truncate">
-                Creative Media
-              </p>
-              <p className="text-xs text-[hsl(var(--primary))] font-medium leading-tight truncate">
-                Bootcamp
+              <p className="text-sm font-black text-[hsl(var(--sidebar-foreground))] leading-tight font-mono tracking-tight">
+                CTRL+ALT+<span className="text-[hsl(var(--primary))]">MEDIA</span>
               </p>
             </div>
+          ) : (
+            <span className="text-[10px] font-black font-mono text-[hsl(var(--primary))] leading-none">C+A</span>
           )}
         </Link>
       </div>

@@ -83,7 +83,7 @@ export default function FAQ() {
             <span className="gradient-text">We've Got Answers.</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
-            Everything you need to know about the Creative Media Bootcamp.
+            Everything you need to know about CTRL+ALT+MEDIA.
             Can't find what you're looking for? Send us a message.
           </p>
         </div>

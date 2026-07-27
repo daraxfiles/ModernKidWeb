@@ -36,35 +36,50 @@ export default function Home() {
       {/* HERO */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
         <video
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover opacity-30"
           src={heroVideo}
           autoPlay
           muted
           loop
           playsInline
         />
-        <div className="absolute inset-0 bg-black/62" />
+        {/* Hard dark overlay — let type dominate */}
+        <div className="absolute inset-0 bg-black/70" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-background to-transparent" />
 
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <p className="text-[hsl(var(--primary))] text-xs font-semibold tracking-widest uppercase mb-6">
-            Grades 6–8 · 6-Week Bootcamp · 12 Sessions
+        <div className="relative z-10 px-6 max-w-5xl mx-auto w-full">
+          {/* Monospace system label */}
+          <p className="text-[hsl(var(--primary))] text-[10px] font-mono font-bold tracking-[0.3em] uppercase mb-8 opacity-90">
+            ⌨ &nbsp;GRADES 6–8 &nbsp;·&nbsp; 6-WEEK PROGRAM &nbsp;·&nbsp; 12 SESSIONS
           </p>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white leading-tight mb-6 tracking-tight">
-            Create.{" "}
-            <span className="inline-block px-3 py-1 rounded bg-[hsl(var(--primary))] text-white">
-              Question.
-            </span>{" "}
-            Inspire.
-          </h1>
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Learn to spot misinformation, build real media projects, and share your story with the world.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+
+          {/* Brand wordmark as hero headline */}
+          <div className="mb-4">
+            <h1 className="font-black leading-[0.88] tracking-tight font-mono">
+              <span className="block text-[clamp(3.5rem,10vw,8rem)] text-white">
+                CTRL+ALT+
+              </span>
+              <span className="block text-[clamp(3.5rem,10vw,8rem)] text-[hsl(var(--primary))]">
+                MEDIA
+              </span>
+            </h1>
+          </div>
+
+          {/* Hard-reset manifesto line */}
+          <div className="border-l-4 border-[hsl(var(--primary))] pl-4 mb-8 max-w-2xl">
+            <p className="text-white/90 text-lg md:text-xl font-semibold leading-snug">
+              Hit the hard-reset on a broken media landscape.
+            </p>
+            <p className="text-white/55 text-sm md:text-base mt-1 leading-relaxed">
+              Question narratives. Build alternative media. Use AI. Speak truth to power — boldly.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
             <Link href="/create">
               <Button
                 size="lg"
-                className="rounded-full px-8 bg-white text-black hover:bg-white/90 font-bold text-base shadow-xl"
+                className="rounded-none px-8 bg-[hsl(var(--primary))] text-white hover:bg-[hsl(var(--primary)/0.85)] font-bold text-base tracking-wide uppercase font-mono shadow-xl shadow-[hsl(var(--primary)/0.3)]"
                 data-testid="button-hero-create"
               >
                 Start Your Project
@@ -75,7 +90,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="ghost"
-                className="rounded-full px-8 text-white border border-white/30 hover:bg-white/10 font-semibold text-base"
+                className="rounded-none px-8 text-white border border-white/30 hover:bg-white/10 hover:border-white/60 font-semibold text-base uppercase font-mono tracking-wide"
                 data-testid="button-hero-resources"
               >
                 Explore Tools
@@ -84,6 +99,7 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Scroll indicator */}
         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 opacity-40">
           <div className="w-px h-12 bg-white animate-pulse mx-auto" />
         </div>
@@ -92,7 +108,7 @@ export default function Home() {
       {/* SECTIONS GRID */}
       <section className="py-24 px-6">
         <div className="container mx-auto max-w-5xl">
-          <p className="text-center text-[hsl(var(--muted-foreground))] text-xs uppercase tracking-widest font-semibold mb-3">
+          <p className="text-center text-[hsl(var(--muted-foreground))] text-[10px] uppercase tracking-[0.25em] font-mono font-semibold mb-3">
             What's inside
           </p>
           <h2 className="text-center text-3xl md:text-4xl font-bold text-foreground mb-14">
@@ -123,8 +139,8 @@ export default function Home() {
       </section>
 
       {/* FOOTER */}
-      <footer className="border-t border-[hsl(var(--border))] py-6 px-6 text-center text-xs text-muted-foreground">
-        Creative Media Production Bootcamp
+      <footer className="border-t border-[hsl(var(--border))] py-6 px-6 text-center text-xs text-muted-foreground font-mono">
+        CTRL+ALT+MEDIA · Hit Reset.
       </footer>
     </div>
   );

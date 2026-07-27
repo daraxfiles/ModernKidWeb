@@ -283,7 +283,7 @@ export default function About() {
       </main>
 
       <footer className="py-12 text-center text-[#0f0f12]/20 font-mono text-sm border-t border-black/5">
-        &copy; Creative Media Bootcamp. Navigate the Noise.
+        &copy; CTRL+ALT+MEDIA · Hit Reset.
       </footer>
     </div>
   );

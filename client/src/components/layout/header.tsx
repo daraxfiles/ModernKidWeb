@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
-import { Menu, X, Clapperboard } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
@@ -39,15 +39,18 @@ export function Header() {
     >
       <div className="container mx-auto flex h-16 items-center justify-between gap-6 px-6">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-[hsl(var(--primary))] to-[hsl(var(--accent))] group-hover:scale-105 transition-transform shadow-lg">
-            <Clapperboard className="h-4 w-4 text-white" />
-          </div>
+        <Link href="/" className="flex items-center gap-0 group shrink-0">
           <span className={cn(
-            "font-bold text-sm group-hover:text-[hsl(var(--primary))] transition-colors hidden sm:block",
+            "font-black text-sm tracking-tight leading-none transition-colors font-mono",
             isTransparent ? "text-white" : "text-[hsl(var(--foreground))]"
           )}>
-            Creative Media <span className="text-[hsl(var(--primary))]">Bootcamp</span>
+            CTRL+ALT+
+          </span>
+          <span className={cn(
+            "font-black text-sm tracking-tight leading-none transition-colors font-mono",
+            isTransparent ? "text-[hsl(var(--primary))]" : "text-[hsl(var(--primary))]"
+          )}>
+            MEDIA
           </span>
         </Link>
 
